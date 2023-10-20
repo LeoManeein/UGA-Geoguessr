@@ -1,3 +1,6 @@
+## To start run `npm install` to install packages then `npm start` to run dev server 
+Rename template.env to .env
+
 Using react three fiber, react drei.
 
 Maybe we could use tailwind to boostrap css.
