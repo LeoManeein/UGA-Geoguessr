@@ -1,10 +1,55 @@
-## To start run `npm install` to install packages then `npm start` to run dev server 
-Rename template.env to .env
+## Setting it up
 
-Using react three fiber, react drei.
+To start run `npm install` to install packages then `npm start` to run dev server
 
-Maybe we could use tailwind to boostrap css.
+Make sure you're in the right directory - UGA-Geoguessr\packages\uga-geoguessr
 
+Copy template.env and rename the copy to `.env`
+
+run `npm start` to run the dev server
+
+## About some of the packages ive installed
+
+### Tailwind
+
+Tailwind is a really easy way to write CSS quickly. Instead of typing out your css in a .module.css or .css file, you can type it directly into the tsx,ts,js,jsx files classname section. This lets you really quickly bootstrap your css. We'll probably have to convert this to normal css later though.
+
+It lets you use shorthand to abbreviate things.
+
+[Tailwind Docs](https://tailwindcss.com/docs/installation)
+
+### ThreeJS Fiber and Drei
+
+For the street view, I'm creating a 3d sphere, and mapping a 2-1 ratio panorama onto the inside that sphere.
+ThreeJS is what lets us create and render 3d objects in the browser using OpenGL.
+
+Normally threejs is something you would use with html and js, but Fiber lets us use it with react components easily.
+
+Drei provides extra functionallity ontop of Fiber and gives us things like the camera controls that we use the drag the camera around in the street view
+
+[Fiber Docs](https://docs.pmnd.rs/react-three-fiber/getting-started/introduction)
+
+[Drei Docs](https://github.com/pmndrs/drei)
+
+### React Router
+
+Ive went ahead and installed the react router so that we can have pages in the react app.
+The root.tsx file is the layout for the app, and all the other routes have to go through that.
+
+[Example docs](https://reactrouter.com/en/main/start/concepts)
+
+### Really helpful example code
+
+Since the react section of this course is literally tought from a udemy course heres all the example code from that course
+[Uduemy course code that the professor uses](https://github.com/academind/react-complete-guide-code/tree/master)
+
+### Other recommendations
+
+I recommend installing the prettier vscode extension. I already have a config file for it set up so that they should be consistent.
+
+Tailwind CSS intellisense vs code extension 
+
+#Default readme code below
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
