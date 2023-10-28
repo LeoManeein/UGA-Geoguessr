@@ -1,19 +1,20 @@
-import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import StreetView from "./components/StreetView/StreetView";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./pages/Home";
+import ExampleGame from "./pages/ExampleGame";
+import RootLayout from "./pages/Root";
 function App() {
-  const examppleImage =
-    "https://cdn.discordapp.com/attachments/1054239396024549486/1164765489390682112/timothy-oldfield-luufnHoChRU-unsplash.jpg?ex=65446764&is=6531f264&hm=8c226b2d915319c6bf408d77d6813dfde8b5d0c0feadec863bf68e01ec314a1f&";
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Random 360 image i got off google.</p>
-        <StreetView image={examppleImage}></StreetView>
-      </header>
-    </div>
-  );
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <RootLayout />,
+      children: [
+        { path: "/", element: <Home /> },
+        { path: "/ExampleGame", element: <ExampleGame /> },
+      ],
+    },
+  ]);
+  return <RouterProvider router={router}></RouterProvider>;
 }
 
 export default App;
