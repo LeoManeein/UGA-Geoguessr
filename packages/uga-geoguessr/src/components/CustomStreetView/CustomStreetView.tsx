@@ -3,7 +3,7 @@ import { OrbitControls } from "@react-three/drei";
 import { Suspense } from "react";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { BackSide } from "three";
-import StreetViewCSS from "./StreetView.module.css";
+import StreetViewCSS from "./CustomStreetView.module.css";
 
 interface StreetViewProps {
 	image: string;
@@ -23,6 +23,8 @@ const Scene: React.FC<StreetViewProps> = ({ image }) => {
 		</>
 	);
 };
+
+// TODO - Look into getting the a png from google street view api or allowing up to upload our own images to google street view
 
 /**
  * StreetView is a React component for displaying street view images.
