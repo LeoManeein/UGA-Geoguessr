@@ -1,26 +1,20 @@
-import { useEffect, useState } from "react";
-import GoogleMapWindow from "../components/GoogleMaps/GoogleMapWindow";
-import { useLoadScript } from "@react-google-maps/api";
-import GoogleStreetViewMap from "../components/GoogleStreetView/GoogleStreetViewMap";
-import StreetView from "../components/CustomStreetView/CustomStreetView";
+import React, { useState, useEffect } from "react";
+import ExampleGameThing from "../components/ExampleGame/ExampleGameThing";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 
 // TODO - Currently every thing here is on the client. We need to move a lot of this over to the backend. Theoretically we dont want the client to ever interact with the correct locations coordinates.
 
 function ExampleGame() {
-	// Coordinates of the four points
+	const [correctAnswerLocation, setCorrectAnswerLocation] = useState<LatLngLiteral | null>(null);
 
-	// Loads the google maps
-	const { isLoaded, loadError } = useLoadScript({
-		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
-	});
+	// We have an array of coordinates. We choose one at random, and then choose a random point within a radius of that point. Then we talk to the google maps api to get the closest coordinate with a google street view.
+	const possibleCoordinatesForRandomLocationInRadius = [
+		{ lat: 33.951752641469085, lng: -83.37435458710178 }, // center of UGA
+		{ lat: 33.90579530605762, lng: -83.38012569492567 }, // Botanical garden
+	];
 
-	// Toggle for the custom location or google street view.
-	const [customLocation, setCustomLocation] = useState(false);
-	// The default position that the google maps starts at
-	const defaultMapCoordinate = { lat: 33.951752641469085, lng: -83.37435458710178 } as LatLngLiteral;
-
+	// Given a lat and lng, it will choose a random point in a circle of those coordinsates
 	function randomPointinRadius(lat: number, lng: number, radius: number) {
 		const angle = Math.random() * 2 * Math.PI;
 		const distance = Math.random() * radius;
@@ -28,109 +22,38 @@ function ExampleGame() {
 		const y = lng + distance * Math.sin(angle);
 		return { lat: x, lng: y } as LatLngLiteral;
 	}
-	const randomPoint = randomPointinRadius(defaultMapCoordinate.lat, defaultMapCoordinate.lng, 0.005);
-	// Temporary constant for the answers locations
-	const [locationCoordinate, setLocationCoordinate] = useState<LatLngLiteral>(randomPoint);
 
-	// The location that is selected on the map
-	const [selectedCoordinate, setSelectedCoordinate] = useState<LatLngLiteral | null>(null);
+	// Helper function to choose a random starting location from the possible options (before picking a point in the radius)
+	const getRandomElement = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
+	// Choosing a random location for a starting point
+	const randomCoordinateForRadius = getRandomElement(possibleCoordinatesForRandomLocationInRadius);
+	// Picking a random point from the radius of the random coordinate we just picked
+	const randomPoint = randomPointinRadius(randomCoordinateForRadius.lat, randomCoordinateForRadius.lng, 0.005);
 
-	// Random example image from google
-	const image =
-		'https://cdn.discordapp.com/attachments/1054239396024549486/1164765489390682112/timothy-oldfield-luufnHoChRU-unsplash.jpg?ex=65446764&is=6531f264&hm=8c226b2d915319c6bf408d77d6813dfde8b5d0c0feadec863bf68e01ec314a1f&"';
-
-	// Distance between the answer's location and the selected location on the map
-	const [distance, setDistance] = useState<Number>(0);
-
-	// helper function to find the straight distance between 2 lat and long points
-	function getDistanceFromLatLonInKm(lat1: number | undefined, lon1: number | undefined, lat2: number, lon2: number) {
-		if (!lat1 || !lon1) return 0;
-
-		var R = 6371; // Radius of the earth in km
-		var dLat = deg2rad(lat2 - lat1); // deg2rad below
-		var dLon = deg2rad(lon2 - lon1);
-		var a =
-			Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-			Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-		var d = R * c; // Distance in km
-		return d;
-	}
-	function deg2rad(deg: number) {
-		return deg * (Math.PI / 180);
-	}
-
-	// Uhh this mightttt be right??
-	function coordsToFeet(distance: number) {
-		return distance * 4800;
-	}
-
-	// Checking our distance whenever we select a new location. Ideally all of this will be done on the backend though so the front end cant check the position
+	// Temp/jank way to get the closest street view location
 	useEffect(() => {
-		setDistance(
-			getDistanceFromLatLonInKm(
-				selectedCoordinate?.lat,
-				selectedCoordinate?.lng,
-				locationCoordinate.lat,
-				locationCoordinate.lng,
-			),
-		);
-	}, [selectedCoordinate]);
+		const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY!;
+		const location = `${randomPoint.lat},${randomPoint.lng}`;
+		const size = "600x300";
+		const radius = "1234";
 
-	function reloadPage() {
-		window.location.reload();
+		fetch(
+			`https://maps.googleapis.com/maps/api/streetview/metadata?size=${size}&location=${location}&radius=${radius}&key=${apiKey}`,
+		)
+			.then((response) => response.json())
+			.then((data: any) => {
+				setCorrectAnswerLocation(data.location);
+			})
+			.catch((error) => {
+				console.error("Error fetching data:", error);
+			});
+	}, []);
+
+	if (!correctAnswerLocation) {
+		return <div>Loading... or error lol</div>;
 	}
 
-	if (!isLoaded) return <div>...</div>;
-	if (loadError) return <div>Error</div>;
-
-	return (
-		<>
-			<div className="flex">
-				<div className="flex w-min ">
-					<button
-						onClick={() => {
-							setCustomLocation(true);
-						}}
-						className={customLocation ? "bg-green-200" : "bg-red-200"}
-					>
-						Custom location (for testing custom panoramas)
-					</button>
-					<button
-						onClick={() => {
-							setCustomLocation(false);
-						}}
-						className={customLocation ? "bg-red-200" : "bg-green-200"}
-					>
-						Street view location (using google maps)
-					</button>
-				</div>
-				<div className="m-2 text-xl text-white-500 bg-blue-300 w-min" onClick={reloadPage}>
-					PLAY AGAIN
-				</div>
-				<div>
-					<div>{`Selected lat: ${selectedCoordinate ? selectedCoordinate.lat : 0}`}</div>
-					<div>{`Selected lng: ${selectedCoordinate ? selectedCoordinate.lng : 0}`}</div>
-					<div>{`Distance: ${distance}`}</div>
-					<div>{`Feet: ${coordsToFeet(distance as number)}`}</div>
-				</div>
-			</div>
-
-			<div className="flex ">
-				{customLocation ? (
-					<StreetView image={image}></StreetView>
-				) : (
-					<GoogleStreetViewMap coordinate={locationCoordinate}></GoogleStreetViewMap>
-				)}
-				<GoogleMapWindow
-					coordinate={defaultMapCoordinate}
-					selectedCoordinate={selectedCoordinate}
-					setCoordinate={setSelectedCoordinate}
-					locationCoordinate={locationCoordinate}
-				></GoogleMapWindow>
-			</div>
-		</>
-	);
+	return <ExampleGameThing answerLocation={correctAnswerLocation}></ExampleGameThing>;
 }
 
 export default ExampleGame;

@@ -3,13 +3,13 @@ import { useLoadScript } from "@react-google-maps/api";
 import Map from "./Map";
 type LatLngLiteral = google.maps.LatLngLiteral;
 interface Props {
-	setCoordinate: Function;
-	coordinate: LatLngLiteral;
+	setSelectedCoordinate: Function;
+	defaultMapCoordinate: LatLngLiteral;
 	selectedCoordinate: LatLngLiteral | null;
 	locationCoordinate: LatLngLiteral;
 }
 
-const GoogleMapWindow: React.FC<Props> = ({ setCoordinate, coordinate, selectedCoordinate, locationCoordinate }) => {
+const GoogleMapWindow: React.FC<Props> = ({ setSelectedCoordinate, defaultMapCoordinate, selectedCoordinate, locationCoordinate }) => {
 	const { isLoaded, loadError } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
 		// libraries: ["drawing", "geometry", "places", "visualization"],
@@ -20,9 +20,9 @@ const GoogleMapWindow: React.FC<Props> = ({ setCoordinate, coordinate, selectedC
 	if (loadError) return <div>Error</div>;
 	return (
 		<Map
-			coordinate={coordinate}
+		defaultMapCoordinate={defaultMapCoordinate}
 			selectedCoordinate={selectedCoordinate}
-			setCoordinate={setCoordinate}
+			setSelectedCoordinate={setSelectedCoordinate}
 			locationCoordinate={locationCoordinate}
 		></Map>
 	);

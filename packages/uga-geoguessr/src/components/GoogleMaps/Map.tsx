@@ -1,18 +1,23 @@
-import { useMemo, useCallback, useRef, useState } from "react";
-import { GoogleMap, MarkerF } from "@react-google-maps/api";
+import { useMemo, useCallback, useRef, useState, useEffect } from "react";
+import { GoogleMap, MarkerF, PolylineF } from "@react-google-maps/api";
 type LatLngLiteral = google.maps.LatLngLiteral;
 type MapOptions = google.maps.MapOptions;
 interface Props {
-	setCoordinate: Function;
-	coordinate: LatLngLiteral;
+	setSelectedCoordinate: Function;
+	defaultMapCoordinate: LatLngLiteral;
 	selectedCoordinate: LatLngLiteral | null;
 	locationCoordinate: LatLngLiteral;
 }
 
-const Map: React.FC<Props> = ({ setCoordinate, coordinate, selectedCoordinate, locationCoordinate }) => {
+const Map: React.FC<Props> = ({
+	setSelectedCoordinate,
+	defaultMapCoordinate,
+	selectedCoordinate,
+	locationCoordinate,
+}) => {
 	const mapRef = useRef<GoogleMap>();
 	//Tate Center at 33.951752641469085, -83.37435458710178
-	const center = useMemo<LatLngLiteral>(() => ({ lat: coordinate.lat, lng: coordinate.lng }), []);
+	const center = useMemo<LatLngLiteral>(() => ({ lat: defaultMapCoordinate.lat, lng: defaultMapCoordinate.lng }), []);
 	const onLoadF = (marker: any) => {
 		console.log("marker: ", marker);
 	};
@@ -28,6 +33,8 @@ const Map: React.FC<Props> = ({ setCoordinate, coordinate, selectedCoordinate, l
 		[],
 	);
 
+	const [pathCoordinates, setPathCoordinates] = useState<LatLngLiteral[] | null>(null);
+
 	const onLoad = useCallback((map: any) => (mapRef.current = map), []);
 	if (!window.google) return <div></div>;
 
@@ -42,16 +49,27 @@ const Map: React.FC<Props> = ({ setCoordinate, coordinate, selectedCoordinate, l
 					onLoad={onLoad}
 					onClick={(event) => {
 						setClicked(true);
-						console.log(event);
-						const coordinate = {
+						// console.log(event);
+						const newcoordinate = {
 							lat: event.latLng?.lat(),
 							lng: event.latLng?.lng(),
 						} as LatLngLiteral;
-						setCoordinate(coordinate);
+						setSelectedCoordinate(newcoordinate);
+						setPathCoordinates([locationCoordinate, newcoordinate]);
 					}}
 				>
 					{selectedCoordinate && <MarkerF onLoad={onLoadF} position={selectedCoordinate} />}
 					{locationCoordinate && clicked && <MarkerF onLoad={onLoadF} position={locationCoordinate} />}
+					{pathCoordinates && (
+						<PolylineF
+							path={pathCoordinates}
+							options={{
+								strokeColor: "#ff2527",
+								strokeOpacity: 0.75,
+								strokeWeight: 2,
+							}}
+						/>
+					)}
 				</GoogleMap>
 			</div>
 		</div>
