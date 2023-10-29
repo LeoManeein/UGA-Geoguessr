@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react";
 import GoogleMapWindow from "../components/GoogleMaps/GoogleMapWindow";
 import { useLoadScript } from "@react-google-maps/api";
-import GoogleStreetViewMap from "../components/GoogleStreetView/SVMap";
+import GoogleStreetViewMap from "../components/GoogleStreetView/GoogleStreetViewMap";
 import StreetView from "../components/CustomStreetView/CustomStreetView";
 
-export type Coordinate = {
-	x: number;
-	y: number;
-};
-
+type LatLngLiteral = google.maps.LatLngLiteral;
 function ExampleGame() {
 	// Loads the google maps
 	const { isLoaded, loadError } = useLoadScript({
@@ -18,16 +14,16 @@ function ExampleGame() {
 	// Toggle for the custom location or google street view.
 	const [customLocation, setCustomLocation] = useState(false);
 	// The default position that the google maps starts at
-	const defaultMapCoordinate = { x: 33.951752641469085, y: -83.37435458710178 } as Coordinate;
+	const defaultMapCoordinate = { lat: 33.951752641469085, lng: -83.37435458710178 } as LatLngLiteral;
 
 	// Temporary constant for the answers locations
-	const [locationCoordinate, setLocationCoordinate] = useState<Coordinate>({
-		x: 33.95385047418578,
-		y: -83.37426165192667,
+	const [locationCoordinate, setLocationCoordinate] = useState<LatLngLiteral>({
+		lat: 33.95385047418578,
+		lng: -83.37426165192667,
 	});
 
 	// The location that is selected on the map
-	const [selectedCoordinate, setSelectedCoordinate] = useState<Coordinate | null>(null);
+	const [selectedCoordinate, setSelectedCoordinate] = useState<LatLngLiteral | null>(null);
 
 	// Random example image from google
 	const image =
@@ -58,10 +54,10 @@ function ExampleGame() {
 	useEffect(() => {
 		setDistance(
 			getDistanceFromLatLonInKm(
-				selectedCoordinate?.x,
-				selectedCoordinate?.y,
-				locationCoordinate.x,
-				locationCoordinate.y,
+				selectedCoordinate?.lat,
+				selectedCoordinate?.lng,
+				locationCoordinate.lat,
+				locationCoordinate.lng,
 			),
 		);
 	}, [selectedCoordinate]);
@@ -89,8 +85,8 @@ function ExampleGame() {
 					Street view location
 				</button>
 			</div>
-			<div>{`Selected X: ${selectedCoordinate ? selectedCoordinate.x : 0}`}</div>
-			<div>{`Selected Y: ${selectedCoordinate ? selectedCoordinate.y : 0}`}</div>
+			<div>{`Selected X: ${selectedCoordinate ? selectedCoordinate.lat : 0}`}</div>
+			<div>{`Selected Y: ${selectedCoordinate ? selectedCoordinate.lng : 0}`}</div>
 			<div>{`Distance: ${distance}`}</div>
 			<div className="flex ">
 				{customLocation ? (
@@ -100,7 +96,9 @@ function ExampleGame() {
 				)}
 				<GoogleMapWindow
 					coordinate={defaultMapCoordinate}
+					selectedCoordinate={selectedCoordinate}
 					setCoordinate={setSelectedCoordinate}
+					locationCoordinate={locationCoordinate}
 				></GoogleMapWindow>
 			</div>
 		</>

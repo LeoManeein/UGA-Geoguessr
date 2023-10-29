@@ -1,17 +1,21 @@
 import { useMemo, useCallback, useRef } from "react";
-import { GoogleMap } from "@react-google-maps/api";
-import { Coordinate } from "../../pages/ExampleGame";
+import { GoogleMap, MarkerF } from "@react-google-maps/api";
 type LatLngLiteral = google.maps.LatLngLiteral;
 type MapOptions = google.maps.MapOptions;
 interface Props {
 	setCoordinate: Function;
-	coordinate: Coordinate;
+	coordinate: LatLngLiteral;
+	selectedCoordinate: LatLngLiteral | null;
+	locationCoordinate: LatLngLiteral;
 }
 
-const Map: React.FC<Props> = ({ setCoordinate, coordinate }) => {
+const Map: React.FC<Props> = ({ setCoordinate, coordinate, selectedCoordinate, locationCoordinate }) => {
 	const mapRef = useRef<GoogleMap>();
 	//Tate Center at 33.951752641469085, -83.37435458710178
-	const center = useMemo<LatLngLiteral>(() => ({ lat: coordinate.x, lng: coordinate.y }), []);
+	const center = useMemo<LatLngLiteral>(() => ({ lat: coordinate.lat, lng: coordinate.lng }), []);
+	const onLoadF = (marker: any) => {
+		console.log("marker: ", marker);
+	};
 
 	const options = useMemo<MapOptions>(
 		() => ({
@@ -21,7 +25,9 @@ const Map: React.FC<Props> = ({ setCoordinate, coordinate }) => {
 		}),
 		[],
 	);
+
 	const onLoad = useCallback((map: any) => (mapRef.current = map), []);
+	if (!window.google) return <div></div>;
 
 	return (
 		<div className="w-[50%]">
@@ -35,12 +41,15 @@ const Map: React.FC<Props> = ({ setCoordinate, coordinate }) => {
 					onClick={(event) => {
 						console.log(event);
 						const coordinate = {
-							x: event.latLng?.lat(),
-							y: event.latLng?.lng(),
-						} as Coordinate;
+							lat: event.latLng?.lat(),
+							lng: event.latLng?.lng(),
+						} as LatLngLiteral;
 						setCoordinate(coordinate);
 					}}
-				></GoogleMap>
+				>
+					{selectedCoordinate && <MarkerF onLoad={onLoadF} position={selectedCoordinate} />}
+					{locationCoordinate && <MarkerF onLoad={onLoadF} position={locationCoordinate} />}
+				</GoogleMap>
 			</div>
 		</div>
 	);

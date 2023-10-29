@@ -1,15 +1,15 @@
 // @ts-ignore
 import Streetview from "react-google-streetview";
 import React from "react";
-import { Coordinate } from "../../pages/ExampleGame";
+type LatLngLiteral = google.maps.LatLngLiteral;
 interface Props {
-	coordinate: Coordinate;
+	coordinate: LatLngLiteral;
 }
 
 const GoogleStreetViewMap: React.FC<Props> = ({ coordinate }) => {
 	const center = {
-		lat: coordinate.x,
-		lng: coordinate.y,
+		lat: coordinate.lat,
+		lng: coordinate.lng,
 	};
 	const streetViewPanoramaOptions = {
 		position: center,
@@ -21,7 +21,7 @@ const GoogleStreetViewMap: React.FC<Props> = ({ coordinate }) => {
 	};
 
 	return (
-		<div className="w-[400px] w-[800px]">
+		<div className="w-1/2 ">
 			{/* @ts-ignore */}
 			{/* <GoogleMap mapContainerStyle={containerStyle} visible={false} center={center} zoom={10}> */}
 			{/* <StreetViewPanorama options={options} id="street-view" position={center} visible={true} /> */}
