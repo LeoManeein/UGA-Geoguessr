@@ -1,4 +1,4 @@
-import { useMemo, useCallback, useRef } from "react";
+import { useMemo, useCallback, useRef, useState } from "react";
 import { GoogleMap, MarkerF } from "@react-google-maps/api";
 type LatLngLiteral = google.maps.LatLngLiteral;
 type MapOptions = google.maps.MapOptions;
@@ -16,6 +16,8 @@ const Map: React.FC<Props> = ({ setCoordinate, coordinate, selectedCoordinate, l
 	const onLoadF = (marker: any) => {
 		console.log("marker: ", marker);
 	};
+
+	const [clicked, setClicked] = useState(false);
 
 	const options = useMemo<MapOptions>(
 		() => ({
@@ -39,6 +41,7 @@ const Map: React.FC<Props> = ({ setCoordinate, coordinate, selectedCoordinate, l
 					options={options}
 					onLoad={onLoad}
 					onClick={(event) => {
+						setClicked(true);
 						console.log(event);
 						const coordinate = {
 							lat: event.latLng?.lat(),
@@ -48,7 +51,7 @@ const Map: React.FC<Props> = ({ setCoordinate, coordinate, selectedCoordinate, l
 					}}
 				>
 					{selectedCoordinate && <MarkerF onLoad={onLoadF} position={selectedCoordinate} />}
-					{locationCoordinate && <MarkerF onLoad={onLoadF} position={locationCoordinate} />}
+					{locationCoordinate && clicked && <MarkerF onLoad={onLoadF} position={locationCoordinate} />}
 				</GoogleMap>
 			</div>
 		</div>

@@ -5,7 +5,12 @@ import GoogleStreetViewMap from "../components/GoogleStreetView/GoogleStreetView
 import StreetView from "../components/CustomStreetView/CustomStreetView";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
+
+// TODO - Currently every thing here is on the client. We need to move a lot of this over to the backend. Theoretically we dont want the client to ever interact with the correct locations coordinates.
+
 function ExampleGame() {
+	// Coordinates of the four points
+
 	// Loads the google maps
 	const { isLoaded, loadError } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
@@ -16,11 +21,16 @@ function ExampleGame() {
 	// The default position that the google maps starts at
 	const defaultMapCoordinate = { lat: 33.951752641469085, lng: -83.37435458710178 } as LatLngLiteral;
 
+	function randomPointinRadius(lat: number, lng: number, radius: number) {
+		const angle = Math.random() * 2 * Math.PI;
+		const distance = Math.random() * radius;
+		const x = lat + distance * Math.cos(angle);
+		const y = lng + distance * Math.sin(angle);
+		return { lat: x, lng: y } as LatLngLiteral;
+	}
+	const randomPoint = randomPointinRadius(defaultMapCoordinate.lat, defaultMapCoordinate.lng, 0.005);
 	// Temporary constant for the answers locations
-	const [locationCoordinate, setLocationCoordinate] = useState<LatLngLiteral>({
-		lat: 33.95385047418578,
-		lng: -83.37426165192667,
-	});
+	const [locationCoordinate, setLocationCoordinate] = useState<LatLngLiteral>(randomPoint);
 
 	// The location that is selected on the map
 	const [selectedCoordinate, setSelectedCoordinate] = useState<LatLngLiteral | null>(null);
@@ -50,6 +60,11 @@ function ExampleGame() {
 		return deg * (Math.PI / 180);
 	}
 
+	// Uhh this mightttt be right??
+	function coordsToFeet(distance: number) {
+		return distance * 4800;
+	}
+
 	// Checking our distance whenever we select a new location. Ideally all of this will be done on the backend though so the front end cant check the position
 	useEffect(() => {
 		setDistance(
@@ -62,32 +77,45 @@ function ExampleGame() {
 		);
 	}, [selectedCoordinate]);
 
+	function reloadPage() {
+		window.location.reload();
+	}
+
 	if (!isLoaded) return <div>...</div>;
 	if (loadError) return <div>Error</div>;
 
 	return (
 		<>
-			<div className="flex w-min ">
-				<button
-					onClick={() => {
-						setCustomLocation(true);
-					}}
-					className={customLocation ? "bg-green-200" : "bg-red-200"}
-				>
-					Custom location
-				</button>
-				<button
-					onClick={() => {
-						setCustomLocation(false);
-					}}
-					className={customLocation ? "bg-red-200" : "bg-green-200"}
-				>
-					Street view location
-				</button>
+			<div className="flex">
+				<div className="flex w-min ">
+					<button
+						onClick={() => {
+							setCustomLocation(true);
+						}}
+						className={customLocation ? "bg-green-200" : "bg-red-200"}
+					>
+						Custom location (for testing custom panoramas)
+					</button>
+					<button
+						onClick={() => {
+							setCustomLocation(false);
+						}}
+						className={customLocation ? "bg-red-200" : "bg-green-200"}
+					>
+						Street view location (using google maps)
+					</button>
+				</div>
+				<div className="m-2 text-xl text-white-500 bg-blue-300 w-min" onClick={reloadPage}>
+					PLAY AGAIN
+				</div>
+				<div>
+					<div>{`Selected lat: ${selectedCoordinate ? selectedCoordinate.lat : 0}`}</div>
+					<div>{`Selected lng: ${selectedCoordinate ? selectedCoordinate.lng : 0}`}</div>
+					<div>{`Distance: ${distance}`}</div>
+					<div>{`Feet: ${coordsToFeet(distance as number)}`}</div>
+				</div>
 			</div>
-			<div>{`Selected X: ${selectedCoordinate ? selectedCoordinate.lat : 0}`}</div>
-			<div>{`Selected Y: ${selectedCoordinate ? selectedCoordinate.lng : 0}`}</div>
-			<div>{`Distance: ${distance}`}</div>
+
 			<div className="flex ">
 				{customLocation ? (
 					<StreetView image={image}></StreetView>
