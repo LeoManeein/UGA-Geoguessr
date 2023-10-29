@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import ExampleGame from "./pages/ExampleGame";
 import RootLayout from "./pages/Root";
 function App() {
+	
 	const router = createBrowserRouter([
 		{
 			path: "/",

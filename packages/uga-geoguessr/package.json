@@ -1,51 +1,55 @@
 {
-  "name": "uga-geoguessr",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@react-three/drei": "^9.88.4",
-    "@react-three/fiber": "^8.14.6",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.59",
-    "@types/react": "^18.2.30",
-    "@types/react-dom": "^18.2.14",
-    "@types/three": "^0.157.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "three": "^0.157.0",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "react-router-dom": "^6.17.0",
-    "tailwindcss": "^3.3.5"
-  }
+	"name": "uga-geoguessr",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"@react-google-maps/api": "^2.19.2",
+		"@react-three/drei": "^9.88.4",
+		"@react-three/fiber": "^8.14.6",
+		"@testing-library/jest-dom": "^5.17.0",
+		"@testing-library/react": "^13.4.0",
+		"@testing-library/user-event": "^13.5.0",
+		"@types/google-maps-react": "^2.0.5",
+		"@types/google.maps": "^3.54.5",
+		"@types/jest": "^27.5.2",
+		"@types/node": "^16.18.59",
+		"@types/react": "^18.2.30",
+		"@types/react-dom": "^18.2.14",
+		"@types/three": "^0.157.2",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-scripts": "5.0.1",
+		"three": "^0.157.0",
+		"typescript": "^4.9.5",
+		"use-places-autocomplete": "^4.0.1",
+		"web-vitals": "^2.1.4"
+	},
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject"
+	},
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"devDependencies": {
+		"react-router-dom": "^6.17.0",
+		"tailwindcss": "^3.3.5"
+	}
 }

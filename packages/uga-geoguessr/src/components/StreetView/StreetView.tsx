@@ -1,5 +1,5 @@
 import { Canvas, useLoader } from "@react-three/fiber";
-import { CameraControls } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import { Suspense } from "react";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { BackSide } from "three";
@@ -13,9 +13,9 @@ const Scene: React.FC<StreetViewProps> = ({ image }) => {
 	const colormap = useLoader(TextureLoader, image);
 	return (
 		<>
-			<CameraControls maxDistance={0} />
+			<OrbitControls enableZoom={false} />
 
-			<mesh scale={[-1, 1, 1]}>
+			<mesh rotation={[0, 0, 0]} scale={[-1, 1, 1]}>
 				<sphereGeometry args={[500, 60, 40]}></sphereGeometry>
 
 				<meshBasicMaterial map={colormap} side={BackSide}></meshBasicMaterial>
