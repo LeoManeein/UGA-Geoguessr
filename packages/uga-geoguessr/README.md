@@ -46,7 +46,7 @@ Also using [react-google-streetview](https://www.npmjs.com/package/react-google-
 
 ### Really helpful example code
 
-Since the react section of this course is literally tought from a udemy course heres all the example code from that course
+Since the react section of this course is literally taught from a udemy course heres all the example code from that course
 [Uduemy course code that the professor uses](https://github.com/academind/react-complete-guide-code/tree/master)
 
 ### Other recommendations

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import GoogleMapWindow from "../GoogleMaps/GoogleMapWindow";
+import GoogleMapWindow from "./GoogleMaps/GoogleMapWindow";
 import { useLoadScript } from "@react-google-maps/api";
-import GoogleStreetViewMap from "../GoogleStreetView/GoogleStreetViewMap";
-import StreetView from "../CustomStreetView/CustomStreetView";
+import GoogleStreetViewMap from "./GoogleStreetView/GoogleStreetViewMap";
+import StreetView from "./CustomStreetView/CustomStreetView";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 

@@ -17,19 +17,22 @@ const GoogleStreetViewMap: React.FC<Props> = ({ coordinate }) => {
 		zoom: 1,
 		addressControl: false,
 		showRoadLabels: false,
-		zoomControl: false,
+		zoomControl: true,
+		// linkControl: false,
+		// scrollwheel: false,
+		// disableDoubleCLickZoom: true,
+		// panControl: false,
+		// linksControl: false,
+		// enableCloseButton: false,
+		// clickToGo: false,
 	};
 
 	return (
 		<div className="w-1/2 ">
-			{/* @ts-ignore */}
-			{/* <GoogleMap mapContainerStyle={containerStyle} visible={false} center={center} zoom={10}> */}
-			{/* <StreetViewPanorama options={options} id="street-view" position={center} visible={true} /> */}
 			<Streetview
 				apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
 				streetViewPanoramaOptions={streetViewPanoramaOptions}
 			></Streetview>
-			{/* </GoogleMap> */}
 		</div>
 	);
 };
