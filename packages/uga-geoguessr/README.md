@@ -1,12 +1,10 @@
 ## Setting it up
 
-To start run `npm install` to install packages then `npm start` to run dev server
+To start run `npm install` to install packages then `npm start`
 
 Make sure you're in the right directory - UGA-Geoguessr\packages\uga-geoguessr
 
 Copy template.env and rename the copy to `.env`
-
-run `npm start` to run the dev server
 
 ## About some of the packages ive installed
 
@@ -20,7 +18,7 @@ It lets you use shorthand to abbreviate things.
 
 ### ThreeJS Fiber and Drei
 
-For the street view, I'm creating a 3d sphere, and mapping a 2-1 ratio panorama onto the inside that sphere.
+In case we want to upload our own locations, we can display our own panorama images using this.
 ThreeJS is what lets us create and render 3d objects in the browser using OpenGL.
 
 Normally threejs is something you would use with html and js, but Fiber lets us use it with react components easily.
@@ -38,6 +36,14 @@ The root.tsx file is the layout for the app, and all the other routes have to go
 
 [Example docs](https://reactrouter.com/en/main/start/concepts)
 
+### @react-google-maps/api
+
+For displaying the map
+
+[npm page](https://www.npmjs.com/package/@react-google-maps/api)
+
+Also using [react-google-streetview](https://www.npmjs.com/package/react-google-streetview) for google maps street view
+
 ### Really helpful example code
 
 Since the react section of this course is literally tought from a udemy course heres all the example code from that course
@@ -45,11 +51,10 @@ Since the react section of this course is literally tought from a udemy course h
 
 ### Other recommendations
 
-I recommend installing the prettier vscode extension. I already have a config file for it set up so that they should be consistent.
+prettier vscode extension. theres a config file for it set up so that they should be consistent.
 
-Tailwind CSS intellisense vs code extension 
+Tailwind CSS intellisense VSCode extension
 
-#Default readme code below
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

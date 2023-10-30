@@ -102,9 +102,11 @@ const ExampleGameThing: React.FC<Props> = ({ answerLocation }) => {
 					PLAY AGAIN
 				</div>
 				<div>
-					<div>{`Selected lat: ${selectedCoordinate ? selectedCoordinate.lat : 0}`}</div>
-					<div>{`Selected lng: ${selectedCoordinate ? selectedCoordinate.lng : 0}`}</div>
-					<div>{`Distance: ${distance}`}</div>
+					<div>{`Selected lat: ${selectedCoordinate ? selectedCoordinate.lat : "n/a"}`}</div>
+					<div>{`Selected lng: ${selectedCoordinate ? selectedCoordinate.lng : "n/a"}`}</div>
+					<div>{`Answer lat: ${locationCoordinate.lat}`}</div>
+					<div>{`Answer lng: ${locationCoordinate.lng}`}</div>
+					<div>{`Distance km: ${distance}`}</div>
 					<div>{`Feet: ${coordsToFeet(distance as number)}`}</div>
 				</div>
 			</div>
