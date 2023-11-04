@@ -6,7 +6,7 @@ interface Props {
 	coordinate: LatLngLiteral;
 }
 
-const GoogleStreetViewMap: React.FC<Props> = ({ coordinate }) => {
+const GoogleStreetView: React.FC<Props> = ({ coordinate }) => {
 	const center = {
 		lat: coordinate.lat,
 		lng: coordinate.lng,
@@ -37,4 +37,4 @@ const GoogleStreetViewMap: React.FC<Props> = ({ coordinate }) => {
 	);
 };
 
-export default GoogleStreetViewMap;
+export default GoogleStreetView;

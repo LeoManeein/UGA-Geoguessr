@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import GoogleMapWindow from "./GoogleMaps/GoogleMapWindow";
 import { useLoadScript } from "@react-google-maps/api";
-import GoogleStreetViewMap from "./GoogleStreetView/GoogleStreetViewMap";
+import GoogleStreetView from "./GoogleMaps/GoogleStreetView";
 import StreetView from "./CustomStreetView/CustomStreetView";
+import GoogleMapWindow from "./GoogleMaps/GoogleMapWindow";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 
@@ -115,7 +115,7 @@ const ExampleGameThing: React.FC<Props> = ({ answerLocation }) => {
 				{customLocation ? (
 					<StreetView image={image}></StreetView>
 				) : (
-					<GoogleStreetViewMap coordinate={locationCoordinate}></GoogleStreetViewMap>
+					<GoogleStreetView coordinate={locationCoordinate}></GoogleStreetView>
 				)}
 				<GoogleMapWindow
 					defaultMapCoordinate={defaultMapCoordinate}
