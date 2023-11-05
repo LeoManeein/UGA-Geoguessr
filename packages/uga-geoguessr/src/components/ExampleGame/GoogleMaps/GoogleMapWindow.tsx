@@ -1,4 +1,4 @@
-import { useMemo, useCallback, useRef, useState, useEffect } from "react";
+import { useMemo, useCallback, useRef, useState } from "react";
 import { GoogleMap, MarkerF, PolylineF } from "@react-google-maps/api";
 type LatLngLiteral = google.maps.LatLngLiteral;
 type MapOptions = google.maps.MapOptions;
@@ -39,10 +39,10 @@ const GoogleMapWindow: React.FC<Props> = ({
 	if (!window.google) return <div></div>;
 
 	return (
-		<div className="w-[50%]">
-			<div className="w-full flex flex-col h-screen bg-grey-500">
+		<div className="w-full h-full">
+			<div className="w-full flex flex-col h-full bg-grey-500">
 				<GoogleMap
-					zoom={16}
+					zoom={14}
 					center={center}
 					mapContainerClassName=" w-full h-full"
 					options={options}

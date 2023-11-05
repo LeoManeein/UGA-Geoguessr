@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLoadScript } from "@react-google-maps/api";
 import GoogleStreetView from "./GoogleMaps/GoogleStreetView";
-import StreetView from "./CustomStreetView/CustomStreetView";
 import GoogleMapWindow from "./GoogleMaps/GoogleMapWindow";
+import Header from "../Header/Header";
+import LoadingSpinner from "./LoadingSpinner";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 
@@ -74,57 +75,28 @@ const ExampleGameThing: React.FC<Props> = ({ answerLocation }) => {
 		window.location.reload();
 	}
 
-	if (!isLoaded) return <div>...</div>;
+	if (!isLoaded) return <LoadingSpinner></LoadingSpinner>;
 	if (loadError) return <div>Error</div>;
 
 	return (
-		<>
-			<div className="flex">
-				<div className="flex w-min ">
-					<button
-						onClick={() => {
-							setCustomLocation(true);
-						}}
-						className={customLocation ? "bg-green-200" : "bg-red-200"}
-					>
-						Custom location (for testing custom panoramas)
-					</button>
-					<button
-						onClick={() => {
-							setCustomLocation(false);
-						}}
-						className={customLocation ? "bg-red-200" : "bg-green-200"}
-					>
-						Street view location (using google maps)
-					</button>
-				</div>
-				<div className="m-2 text-xl text-white-500 bg-blue-300 w-min" onClick={reloadPage}>
-					PLAY AGAIN
-				</div>
-				<div>
-					<div>{`Selected lat: ${selectedCoordinate ? selectedCoordinate.lat : "n/a"}`}</div>
-					<div>{`Selected lng: ${selectedCoordinate ? selectedCoordinate.lng : "n/a"}`}</div>
-					<div>{`Answer lat: ${locationCoordinate.lat}`}</div>
-					<div>{`Answer lng: ${locationCoordinate.lng}`}</div>
-					<div>{`Distance km: ${distance}`}</div>
-					<div>{`Feet: ${coordsToFeet(distance as number)}`}</div>
-				</div>
+		<div className="h-screen relative">
+			<div className="absolute top-0 z-20 w-screen">
+				<Header></Header>
 			</div>
 
-			<div className="flex ">
-				{customLocation ? (
-					<StreetView image={image}></StreetView>
-				) : (
-					<GoogleStreetView coordinate={locationCoordinate}></GoogleStreetView>
-				)}
-				<GoogleMapWindow
-					defaultMapCoordinate={defaultMapCoordinate}
-					selectedCoordinate={selectedCoordinate}
-					setSelectedCoordinate={setSelectedCoordinate}
-					locationCoordinate={locationCoordinate}
-				></GoogleMapWindow>
+			<div className="flex w-full h-screen relative">
+				<GoogleStreetView coordinate={locationCoordinate}></GoogleStreetView>
+
+				<div className="absolute bottom-6 right-16 bg-red-200 w-[300px] hover:w-[800px] hover:h-[500px] h-[250px] z-10 ">
+					<GoogleMapWindow
+						defaultMapCoordinate={defaultMapCoordinate}
+						selectedCoordinate={selectedCoordinate}
+						setSelectedCoordinate={setSelectedCoordinate}
+						locationCoordinate={locationCoordinate}
+					></GoogleMapWindow>
+				</div>
 			</div>
-		</>
+		</div>
 	);
 };
 

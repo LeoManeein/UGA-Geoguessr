@@ -1,0 +1,49 @@
+.background {
+	background-image: url(https://grainy-gradients.vercel.app/noise.svg),
+		radial-gradient(circle at 47.26% 50.2%, #392d91, transparent 87%),
+		radial-gradient(circle at 0.95% 1.09%, #370f60, transparent 80%),
+		radial-gradient(circle at 28.55% 23.61%, #47258b, transparent 53%),
+		radial-gradient(circle at 4.2% 96.09%, #2a154f, transparent 70%),
+		radial-gradient(circle at 97.62% 97.5%, #271248, transparent 100%),
+		radial-gradient(circle at 94.45% 5.32%, #42269a, transparent 100%),
+		radial-gradient(circle at 50% 50%, #312f73, #312f73 100%);
+	background-size: auto, cover, cover, cover, cover, cover, cover, cover;
+	background-blend-mode: overlay, normal, normal, normal, normal, normal, normal, normal;
+}
+
+.light_background {
+	background: hsla(0, 0%, 100%, 0.1);
+}
+
+.flip_card {
+	perspective: 1000px;
+	width: full;
+	height: 300px;
+	position: relative;
+}
+
+.card {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	backface-visibility: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.front {
+	background-color: #ffffff;
+	transform: rotateY(0deg);
+	left: 10px; /* Adjust the position as needed */
+	top: 10px; /* Adjust the position as needed */
+}
+
+.back {
+	background-color: #f2f2f2;
+	left: 20px; /* Adjust the position as needed */
+	top: 20px; /* Adjust the position as needed */
+}

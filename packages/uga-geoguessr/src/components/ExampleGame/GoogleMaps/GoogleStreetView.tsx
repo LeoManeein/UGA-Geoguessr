@@ -14,12 +14,13 @@ const GoogleStreetView: React.FC<Props> = ({ coordinate }) => {
 	const streetViewPanoramaOptions = {
 		position: center,
 		pov: { heading: 100, pitch: 0 },
-		zoom: 1,
+		zoom: 0.5,
 		addressControl: false,
 		showRoadLabels: false,
-		zoomControl: true,
+		zoomControl: false,
 		// linkControl: false,
-		// scrollwheel: false,
+		scrollwheel: true,
+		fullscreenControl: false,
 		// disableDoubleCLickZoom: true,
 		// panControl: false,
 		// linksControl: false,
@@ -28,7 +29,7 @@ const GoogleStreetView: React.FC<Props> = ({ coordinate }) => {
 	};
 
 	return (
-		<div className="w-1/2 ">
+		<div className="w-screen ">
 			<Streetview
 				apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
 				streetViewPanoramaOptions={streetViewPanoramaOptions}
