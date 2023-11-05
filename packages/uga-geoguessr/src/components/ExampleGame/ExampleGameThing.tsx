@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLoadScript } from "@react-google-maps/api";
-import GoogleStreetView from "./GoogleMaps/GoogleStreetView";
+import GoogleStreetViewWindow from "./GoogleMaps/GoogleStreetViewWindow";
 import GoogleMapWindow from "./GoogleMaps/GoogleMapWindow";
 import Header from "../Header/Header";
-import LoadingSpinner from "./LoadingSpinner";
-
+import LoadingSpinner from "../LoadingSpinner";
+import Compass from "./GoogleMaps/Compass";
 type LatLngLiteral = google.maps.LatLngLiteral;
 
 interface Props {
@@ -75,25 +75,31 @@ const ExampleGameThing: React.FC<Props> = ({ answerLocation }) => {
 		window.location.reload();
 	}
 
+	const [heading, setHeading] = useState(0);
+
 	if (!isLoaded) return <LoadingSpinner></LoadingSpinner>;
 	if (loadError) return <div>Error</div>;
 
 	return (
-		<div className="h-screen relative">
+		<div className="h-screen relative overflow-x-hidden overflow-y-hidden">
 			<div className="absolute top-0 z-20 w-screen">
 				<Header></Header>
 			</div>
 
 			<div className="flex w-full h-screen relative">
-				<GoogleStreetView coordinate={locationCoordinate}></GoogleStreetView>
-
-				<div className="absolute bottom-6 right-16 bg-red-200 w-[300px] hover:w-[800px] hover:h-[500px] h-[250px] z-10 ">
+				<GoogleStreetViewWindow setHeading={setHeading} coordinate={locationCoordinate}></GoogleStreetViewWindow>
+				<div
+					className={`absolute bottom-6 right-4 bg-red-200 w-[300px]  h-[250px] z-10  transition-transform hover:w-[700px] hover:h-[400px] `}
+				>
 					<GoogleMapWindow
 						defaultMapCoordinate={defaultMapCoordinate}
 						selectedCoordinate={selectedCoordinate}
 						setSelectedCoordinate={setSelectedCoordinate}
 						locationCoordinate={locationCoordinate}
 					></GoogleMapWindow>
+				</div>
+				<div className={`absolute -top-10 left-1/2 transform -translate-x-1/2 p-4 z-30`}>
+					<Compass heading={heading}></Compass>
 				</div>
 			</div>
 		</div>

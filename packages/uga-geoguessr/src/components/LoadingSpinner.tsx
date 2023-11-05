@@ -1,5 +1,5 @@
 import MoonLoader from "react-spinners/MoonLoader";
-import RootLayout from "../../pages/Root";
+import RootLayout from "../pages/Root";
 
 const LoadingSpinner: React.FC = () => {
 	return (

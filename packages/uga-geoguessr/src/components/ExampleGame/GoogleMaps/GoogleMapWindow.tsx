@@ -1,5 +1,5 @@
 import { useMemo, useCallback, useRef, useState } from "react";
-import { GoogleMap, MarkerF, PolylineF } from "@react-google-maps/api";
+import { GoogleMap, MarkerF, PolylineF, StreetViewPanorama } from "@react-google-maps/api";
 type LatLngLiteral = google.maps.LatLngLiteral;
 type MapOptions = google.maps.MapOptions;
 interface Props {
