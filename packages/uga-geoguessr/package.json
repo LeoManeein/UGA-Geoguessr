@@ -28,6 +28,7 @@
 		"react-spinners": "^0.13.8",
 		"three": "^0.157.0",
 		"typescript": "^4.9.5",
+		"uga-geoguessr": "file:../..",
 		"use-places-autocomplete": "^4.0.1",
 		"web-vitals": "^2.1.4"
 	},

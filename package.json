@@ -6,7 +6,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"nodemon packages/backend/src/server.js\"  \"npm --prefix packages/uga-geoguessr start\"",
     "update-backend": "npm --prefix packages/backend install",
-    "update-frontend": "npm --prefix packages/uga-geoguessr install"
+    "update-frontend": "npm --prefix packages/uga-geoguessr install",
+    "dev-frontend": "npm --prefix packages/uga-geoguessr start",
+    "dev-backend": "nodemon packages/backend/src/server.js"
   },
   "repository": {
     "type": "git",

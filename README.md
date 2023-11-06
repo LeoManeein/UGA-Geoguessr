@@ -31,6 +31,14 @@ The backend has the nodemon package installed to enable hot refresh when develop
 
 To run the backend on its own, cd into it and then run `npm install` if theres been any changes and then `node src/server.js` or `nodemon src/server.js` for hot reload
 
+OR
+
+from top level directoy you ran use `npm run dev-backend`
+
 ### Frontend
 
 Follow the instructions in the other readme
+
+OR
+
+from top level directoy you ran use `npm run dev-frontend`
