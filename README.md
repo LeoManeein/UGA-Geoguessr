@@ -33,7 +33,7 @@ To run the backend on its own, cd into it and then run `npm install` if theres b
 
 OR
 
-from top level directoy you ran use `npm run dev-backend`
+from top level directory you ran use `npm run dev-backend`
 
 ### Frontend
 
@@ -41,4 +41,4 @@ Follow the instructions in the other readme
 
 OR
 
-from top level directoy you ran use `npm run dev-frontend`
+from top level directory you ran use `npm run dev-frontend`
