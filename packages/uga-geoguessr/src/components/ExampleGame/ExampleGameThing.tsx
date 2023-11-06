@@ -87,9 +87,12 @@ const ExampleGameThing: React.FC<Props> = ({ answerLocation }) => {
 			</div>
 
 			<div className="flex w-full h-screen relative">
-				<GoogleStreetViewWindow setHeading={setHeading} coordinate={locationCoordinate}></GoogleStreetViewWindow>
+				<GoogleStreetViewWindow
+					setHeading={setHeading}
+					coordinate={locationCoordinate}
+				></GoogleStreetViewWindow>
 				<div
-					className={`absolute bottom-6 right-4 bg-red-200 w-[300px]  h-[250px] z-10  transition-transform hover:w-[700px] hover:h-[400px] `}
+					className={`absolute bottom-6 right-16 bg-red-200 w-[300px]  h-[250px] z-10  transition-transform hover:w-[700px] hover:h-[400px] `}
 				>
 					<GoogleMapWindow
 						defaultMapCoordinate={defaultMapCoordinate}

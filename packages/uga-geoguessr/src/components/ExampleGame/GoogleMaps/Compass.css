@@ -1,6 +1,6 @@
 /* "Finessed" from another geoguessr site */
 
-.styles_compass-and-time-container__zP9rF {
+.compass_container {
 	top: 87px;
 	left: 50%;
 	transform: translateX(-50%);
@@ -9,11 +9,11 @@
 	align-items: center;
 }
 
-.styles_compass__fcGmP {
+.compass_piece {
 	width: 250px;
 	height: 50px;
 }
-.styles_compass__fcGmP > div {
+.compass_piece > div {
 	display: flex;
 	align-items: center;
 	will-change: transform;
@@ -22,14 +22,14 @@
 	height: 16px;
 	margin-right: 8px;
 }
-.styles_divider__2906K {
+.divider {
 	width: 1px;
 	height: 10px;
 	background: hsla(0, 0%, 100%, 0.4);
 	margin-right: 4px;
 	flex-shrink: 0;
 }
-.styles_compass-and-time-container__zP9rF {
+.compass_container {
 	top: 87px;
 	left: 50%;
 	transform: translateX(-50%);
@@ -37,7 +37,7 @@
 	flex-direction: column;
 	align-items: center;
 }
-.styles_compass-and-time-container__zP9rF {
+.compass_container {
 	position: absolute;
 	top: 114px;
 	left: 12px;
@@ -47,7 +47,7 @@
 ::before {
 	box-sizing: border-box;
 }
-.styles_compass__fcGmP {
+.compass_piece {
 	display: flex;
 	align-items: center;
 	width: 205.275px;
@@ -66,8 +66,45 @@
 ::before {
 	box-sizing: border-box;
 }
-.styles_compass__fcGmP > div {
+.compass_piece > div {
 	display: flex;
 	align-items: center;
 	will-change: transform;
+}
+.compass_text {
+	font-size: 28px;
+	width: 27px;
+	margin-right: 8px;
+}
+
+h1,
+h2,
+h3,
+p {
+	margin: 0;
+	margin-right: 0px;
+}
+*,
+::after,
+::before {
+	box-sizing: border-box;
+}
+.compass_text {
+	font-family: Gilroy;
+	font-weight: 800;
+	font-size: 16px;
+	color: #fff;
+	width: 16px;
+	margin-right: 4px;
+	text-align: center;
+	flex-shrink: 0;
+}
+.compass_text {
+	font-size: 28px;
+	width: 27px;
+	margin-right: 4px;
+}
+
+.compass_small {
+	font-size: 16px;
 }
