@@ -2,4 +2,4 @@
 
 First run `npm install`
 
-then to run it type `node src/server.js`
+then to run it type `node src/server.js` or `nodemon src/server.js`

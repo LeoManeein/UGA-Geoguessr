@@ -2,7 +2,6 @@ import express from "express";
 import { data } from "./data.js";
 const app = express();
 const port = 4000;
-
 app.use(express.json());
 
 app.get("/api/gametype/:id", (req, res) => {
