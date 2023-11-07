@@ -1,4 +1,4 @@
-import React, {  useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import GoogleStreetView from "./GoogleStreetView";
 type LatLngLiteral = google.maps.LatLngLiteral;
 interface Props {
@@ -30,7 +30,7 @@ const GoogleStreetViewWindow: React.FC<Props> = ({ coordinate, setHeading }) => 
 		scrollwheel: true,
 		fullscreenControl: false,
 		// disableDoubleCLickZoom: true,
-		// panControl: false,
+		panControl: false,
 		// linksControl: false,
 		// enableCloseButton: false,
 		// clickToGo: false,
@@ -49,11 +49,13 @@ const GoogleStreetViewWindow: React.FC<Props> = ({ coordinate, setHeading }) => 
 				></GoogleStreetView>
 			</div>
 		);
-	}, []);
+	}, [coordinate]);
 
-	return (
-		{ ...street }
-	);
+	useEffect(() => {
+		console.log("should reload");
+	}, [coordinate]);
+
+	return { ...street };
 };
 
 export default GoogleStreetViewWindow;

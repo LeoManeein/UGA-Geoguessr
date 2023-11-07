@@ -6,6 +6,7 @@ export type GameType = {
 	title: String;
 	description: String;
 	url: String;
+	id: number;
 };
 
 function TestCss() {
@@ -14,6 +15,7 @@ function TestCss() {
 			title: "South Campus",
 			description: "Explore South Campus with your friendsExplore South th your friends",
 			url: "https://cdn.discordapp.com/attachments/1054239396024549486/1170214000827580426/Untitled.jpg?ex=655839b7&is=6545c4b7&hm=03754d93407e5de2746e2aca8f938f0a3ffdd2c16fe43c1930f320eb88f21dd9&",
+			id: 51515,
 		},
 	];
 
@@ -39,7 +41,7 @@ function TestCss() {
 	}, []);
 
 	return (
-		<div className="mx-2">
+		<div className="mx-2 mt-6 ">
 			<div
 				className={` md:m-auto w-full md:w-[768px] h-full pb-1 bg-gradient-to-r  ${styles.background} rounded-lg`}
 			>

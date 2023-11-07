@@ -101,6 +101,7 @@ const ExampleGameThing: React.FC<Props> = ({ answerLocation }) => {
 						locationCoordinate={locationCoordinate}
 					></GoogleMapWindow>
 				</div>
+
 				<div className={`absolute -top-10 left-1/2 transform -translate-x-1/2 p-4 z-30`}>
 					<Compass heading={heading}></Compass>
 				</div>

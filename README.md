@@ -25,6 +25,8 @@ run `npm install -g nodemon`
 
 Run `npm run update-backend` and `npm run update-frontend` to install npm packages (from the top level directory again)
 
+Set up ENV for backend and frontend. Also put one in the top level directory.
+
 Run `npm run dev` to run frontend and backend with 1 command from the top directory. This is a custom script thats in the top level directory's package.json.
 
 The backend has the nodemon package installed to enable hot refresh when developing the server. So instead of running `node server.js` and having to rerun that command after every change, running `nodemon server.js` will restart the server whenever you change it.

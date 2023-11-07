@@ -20,6 +20,7 @@
 		"@types/react": "^18.2.30",
 		"@types/react-dom": "^18.2.14",
 		"@types/three": "^0.157.2",
+		"dotenv": "^16.3.1",
 		"nprogress": "^0.2.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",

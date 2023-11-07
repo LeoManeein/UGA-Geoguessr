@@ -48,14 +48,15 @@ const GoogleMapWindow: React.FC<Props> = ({
 					options={options}
 					onLoad={onLoad}
 					onClick={(event) => {
-						setClicked(true);
 						// console.log(event);
 						const newcoordinate = {
 							lat: event.latLng?.lat(),
 							lng: event.latLng?.lng(),
 						} as LatLngLiteral;
 						setSelectedCoordinate(newcoordinate);
-						setPathCoordinates([locationCoordinate, newcoordinate]);
+						if (clicked) {
+							setPathCoordinates([locationCoordinate, newcoordinate]);
+						}
 					}}
 				>
 					{selectedCoordinate && <MarkerF onLoad={onLoadF} position={selectedCoordinate} />}
@@ -71,6 +72,16 @@ const GoogleMapWindow: React.FC<Props> = ({
 						/>
 					)}
 				</GoogleMap>
+				<div
+					onClick={() => {
+						if (!selectedCoordinate) return;
+						setClicked(true);
+						setPathCoordinates([locationCoordinate, selectedCoordinate]);
+					}}
+					className={` bg-red-200 w-full  h-[50px] z-50  text-center hover:bg-red-300`}
+				>
+					submit
+				</div>
 			</div>
 		</div>
 	);
