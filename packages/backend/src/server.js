@@ -96,7 +96,21 @@ app.get("/api/gametype/:id/create", async (req, res) => {
 app.get("/api/game/:id", (req, res) => {
   const id = req.params.id;
   const result = games.find((obj) => obj.id === id);
+  if (result) {
+    res.json(result);
+  } else {
+    res.status(404).json({ error: "Error no data" });
+  }
+});
 
+app.put("/api/game/:id", (req, res) => {
+  console.log(req.method);
+  console.log(req.headers);
+  console.log(req.body);
+  console.log(req.body.score);
+  const id = req.params.id;
+  const result = games.find((obj) => obj.id === id);
+  console.log(req.headers["submit"]);
   if (result) {
     res.json(result);
   } else {

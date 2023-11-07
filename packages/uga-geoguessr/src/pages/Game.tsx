@@ -3,6 +3,7 @@ import ExampleGameThing from "../components/ExampleGame/ExampleGameThing";
 import RootLayout from "./Root";
 import MoonLoader from "react-spinners/MoonLoader";
 import { useNavigate, useParams } from "react-router-dom";
+import GameWindow from "../components/Game/GameWindow";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 type Game = {
@@ -84,7 +85,7 @@ function Game() {
 			{data &&
 				data.stages.map((current, index) => {
 					if (index !== currentStageNumber) return <></>;
-					return <ExampleGameThing answerLocation={current.answerLocation}></ExampleGameThing>;
+					return <GameWindow answerLocation={current.answerLocation}></GameWindow>;
 				})}
 			{/* <ExampleGameThing answerLocation={correctAnswerLocation}></ExampleGameThing>; */}
 		</div>
