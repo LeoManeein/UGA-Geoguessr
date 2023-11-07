@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import ExampleGameThing from "../components/ExampleGame/ExampleGameThing";
+import RootLayout from "./Root";
+import MoonLoader from "react-spinners/MoonLoader";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 
@@ -58,9 +60,14 @@ function ExampleGame() {
 	}, []);
 
 	if (!correctAnswerLocation) {
-		return <div>Loading... or error lol</div>;
+		return (
+			<RootLayout>
+				<div className="flex items-center justify-center h-screen">
+					<MoonLoader></MoonLoader>
+				</div>
+			</RootLayout>
+		);
 	}
-
 	return <ExampleGameThing answerLocation={correctAnswerLocation}></ExampleGameThing>;
 }
 

@@ -11,7 +11,7 @@ interface Props {
 	answerLocation: LatLngLiteral;
 }
 
-const ExampleGameThing: React.FC<Props> = ({ answerLocation }) => {
+const GameWindow: React.FC<Props> = ({ answerLocation }) => {
 	// Loads the google maps
 	const { isLoaded, loadError } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
@@ -110,4 +110,4 @@ const ExampleGameThing: React.FC<Props> = ({ answerLocation }) => {
 	);
 };
 
-export default ExampleGameThing;
+export default GameWindow;

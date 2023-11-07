@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import classes from "./Header.module.css";
 function Header() {
 	const navigation = [
 		{
@@ -9,28 +10,34 @@ function Header() {
 			name: "ExampleGame",
 			href: "/ExampleGame",
 		},
+		{
+			name: "TestCss",
+			href: "/TestCss",
+		},
 	];
 
 	const location = useLocation();
 	return (
 		<header>
 			<nav>
-				<ul className="flex">
+				<div
+					className={`flex border-b-2 w-full border-slate-900/10 dark:border-slate-300/10 pb-2  ${classes.background}`}
+				>
 					{navigation.map((item, index) => {
 						return (
-							<li key={index}>
+							<div key={index}>
 								<Link
 									className={`${
 										location.pathname.toLocaleLowerCase() === item.href.toLocaleLowerCase()
 											? "bg-blue-500 text-white"
-											: "text-gray-500"
+											: "text-gray-400"
 									} px-4 py-2 rounded-md`}
 									to={item.href}
 								>{`${item.name}`}</Link>
-							</li>
+							</div>
 						);
 					})}
-				</ul>
+				</div>
 			</nav>
 		</header>
 	);

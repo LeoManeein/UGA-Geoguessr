@@ -44,6 +44,18 @@ For displaying the map
 
 Also using [react-google-streetview](https://www.npmjs.com/package/react-google-streetview) for google maps street view
 
+### AntD icons
+
+Antd provides a lot of cool css utilies like buttons, forms, etc, a lot of improved base html things. Ive installed their icons package which provides a lot of svgs you can treat like text.
+
+[all icons](https://ant.design/components/icon)
+
+### React spring
+
+Helps give some really nice animations
+
+[docs](https://www.react-spring.dev/)
+
 ### Really helpful example code
 
 Since the react section of this course is literally taught from a udemy course heres all the example code from that course
