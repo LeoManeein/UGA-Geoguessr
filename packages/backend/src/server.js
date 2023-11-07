@@ -1,5 +1,5 @@
 import express from "express";
-import { gameTypes } from "./data.js"; // DUMY GAMETYPE DATA
+import { gameTypes } from "./data.js"; // DUmMY GAMETYPE DATA
 import dotenv from "dotenv";
 import cors from "cors";
 import axios from "axios";
@@ -22,6 +22,16 @@ app.listen(port, () => {
 
 // ----------------------- APIS ----------------------- //
 
+app.get("/api/gametype", (req, res) => {
+  const result = gameTypes;
+
+  if (result) {
+    res.json(result);
+  } else {
+    res.status(404).json({ error: "Error no data" });
+  }
+});
+
 app.get("/api/gametype/:id", (req, res) => {
   const id = req.params.id;
   const result = gameTypes.find((obj) => obj.id.toString() === id.toString());
@@ -34,17 +44,7 @@ app.get("/api/gametype/:id", (req, res) => {
   }
 });
 
-app.get("/api/gametype", (req, res) => {
-  const result = gameTypes;
-
-  if (result) {
-    res.json(result);
-  } else {
-    res.status(404).json({ error: "Error no data" });
-  }
-});
-
-app.get("/api/gametype/:id/create", async (req, res) => {
+app.post("/api/gametype/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const result = gameTypes.find((obj) => obj.id.toString() === id.toString());

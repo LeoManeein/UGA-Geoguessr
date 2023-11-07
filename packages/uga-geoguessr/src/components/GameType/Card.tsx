@@ -24,8 +24,8 @@ const Card: React.FC<Props> = ({ gameType }) => {
 
 	async function handleGameRequest() {
 		try {
-			const response = await fetch(`api/gametype/${gameType.id}/create`, {
-				method: "GET", // You can change this to the HTTP method you need (GET, POST, etc.)
+			const response = await fetch(`api/gametype/${gameType.id}`, {
+				method: "POST", // You can change this to the HTTP method you need (GET, POST, etc.)
 				headers: {
 					// Add any headers you might need (e.g., authentication headers)
 					"Content-Type": "application/json",
