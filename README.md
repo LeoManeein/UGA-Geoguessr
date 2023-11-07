@@ -21,6 +21,8 @@ We're using the [concurrently](https://www.npmjs.com/package/concurrently) packa
 
 Run `npm install` in the main top level directory
 
+run `npm install -g nodemon`
+
 Run `npm run update-backend` and `npm run update-frontend` to install npm packages (from the top level directory again)
 
 Run `npm run dev` to run frontend and backend with 1 command from the top directory. This is a custom script thats in the top level directory's package.json.
