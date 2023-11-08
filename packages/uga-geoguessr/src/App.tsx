@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import ExampleGame from "./pages/ExampleGame";
 import RootLayout from "./pages/Root";
-import TestCss from "./pages/TestCss";
+import AvailableGames from "./pages/AvailableGames";
 import { useEffect } from "react";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
@@ -16,7 +16,7 @@ function App() {
 			element: <RootLayout />,
 			children: [
 				{ path: "/", element: <Home /> },
-				{ path: "/TestCss", element: <TestCss /> },
+				{ path: "/AvailableGames", element: <AvailableGames /> },
 				{ path: "error/:id", element: <ErrorPage /> },
 				{ path: "*", element: <ErrorPage /> },
 			],
@@ -26,7 +26,7 @@ function App() {
 			element: <ExampleGame />,
 		},
 		{
-			path: "/Game/:id", 
+			path: "/Game/:id",
 			element: <Game />,
 		},
 	]);

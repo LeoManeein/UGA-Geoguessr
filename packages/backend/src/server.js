@@ -44,7 +44,8 @@ app.get("/api/gametype/:id", (req, res) => {
   }
 });
 
-app.post("/api/gametype/:id", async (req, res) => {
+// For creating a GAME from a GAMETYPE
+app.get("/api/gametype/:id/create", async (req, res) => {
   try {
     const id = req.params.id;
     const result = gameTypes.find((obj) => obj.id.toString() === id.toString());
@@ -69,7 +70,7 @@ app.post("/api/gametype/:id", async (req, res) => {
 
       return answerLocation;
     }
-    const numberofstages = 3;
+    const numberofstages = 5;
     const answerstages = [];
     for (let i = 0; i < numberofstages; i++) {
       answerstages.push({

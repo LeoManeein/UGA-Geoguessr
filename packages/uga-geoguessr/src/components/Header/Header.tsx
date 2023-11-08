@@ -6,13 +6,13 @@ function Header() {
 			name: "Home",
 			href: "/",
 		},
+		// {
+		// 	name: "ExampleGame",
+		// 	href: "/ExampleGame",
+		// },
 		{
-			name: "ExampleGame",
-			href: "/ExampleGame",
-		},
-		{
-			name: "TestCss",
-			href: "/TestCss",
+			name: "Available Games",
+			href: "/AvailableGames",
 		},
 	];
 

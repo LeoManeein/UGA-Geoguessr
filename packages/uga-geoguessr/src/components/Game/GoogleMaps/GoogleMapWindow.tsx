@@ -1,5 +1,6 @@
 import { useMemo, useCallback, useRef, useState } from "react";
 import { GoogleMap, MarkerF, PolylineF } from "@react-google-maps/api";
+import styles from "../../../Globals.module.css";
 type LatLngLiteral = google.maps.LatLngLiteral;
 type MapOptions = google.maps.MapOptions;
 interface Props {
@@ -7,6 +8,7 @@ interface Props {
 	defaultMapCoordinate: LatLngLiteral;
 	selectedCoordinate: LatLngLiteral | null;
 	locationCoordinate: LatLngLiteral;
+	setShowScoreWindow: Function;
 }
 
 const GoogleMapWindow: React.FC<Props> = ({
@@ -14,6 +16,7 @@ const GoogleMapWindow: React.FC<Props> = ({
 	defaultMapCoordinate,
 	selectedCoordinate,
 	locationCoordinate,
+	setShowScoreWindow,
 }) => {
 	const mapRef = useRef<GoogleMap>();
 	//Tate Center at 33.951752641469085, -83.37435458710178
@@ -21,8 +24,6 @@ const GoogleMapWindow: React.FC<Props> = ({
 	const onLoadF = (marker: any) => {
 		console.log("marker: ", marker);
 	};
-
-	const [clicked, setClicked] = useState(false);
 
 	const options = useMemo<MapOptions>(
 		() => ({
@@ -32,8 +33,6 @@ const GoogleMapWindow: React.FC<Props> = ({
 		}),
 		[],
 	);
-
-	const [pathCoordinates, setPathCoordinates] = useState<LatLngLiteral[] | null>(null);
 
 	const onLoad = useCallback((map: any) => (mapRef.current = map), []);
 	if (!window.google) return <div></div>;
@@ -54,33 +53,18 @@ const GoogleMapWindow: React.FC<Props> = ({
 							lng: event.latLng?.lng(),
 						} as LatLngLiteral;
 						setSelectedCoordinate(newcoordinate);
-						if (clicked) {
-							setPathCoordinates([locationCoordinate, newcoordinate]);
-						}
 					}}
 				>
 					{selectedCoordinate && <MarkerF onLoad={onLoadF} position={selectedCoordinate} />}
-					{locationCoordinate && clicked && <MarkerF onLoad={onLoadF} position={locationCoordinate} />}
-					{pathCoordinates && (
-						<PolylineF
-							path={pathCoordinates}
-							options={{
-								strokeColor: "#ff2527",
-								strokeOpacity: 0.75,
-								strokeWeight: 2,
-							}}
-						/>
-					)}
 				</GoogleMap>
 				<div
 					onClick={() => {
 						if (!selectedCoordinate) return;
-						setClicked(true);
-						setPathCoordinates([locationCoordinate, selectedCoordinate]);
+						setShowScoreWindow(true);
 					}}
-					className={` bg-red-200 w-full  h-[50px] z-50  text-center hover:bg-red-300`}
+					className={`  w-full  h-[50px] z-50  text-center pt-[4px] mt-1 ${styles.button} `}
 				>
-					submit
+					SUBMIT
 				</div>
 			</div>
 		</div>

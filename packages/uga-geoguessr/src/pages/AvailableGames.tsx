@@ -1,4 +1,4 @@
-import styles from "./TestCss.module.css";
+import styles from "../Globals.module.css";
 import Card from "../components/GameType/Card";
 import { useEffect, useState } from "react";
 
@@ -9,7 +9,7 @@ export type GameType = {
 	id: number;
 };
 
-function TestCss() {
+function AvailableGames() {
 	const exampleDefaultGames: GameType[] = [
 		{
 			title: "South Campus",
@@ -55,10 +55,7 @@ function TestCss() {
 					{/* {exampleDefaultGames.map((item, index) => (
 						<Card key={item.title.toString() + index.toString()} gameType={item}></Card>
 					))} */}
-					{!data &&
-						exampleDefaultGames.map((item, index) => (
-							<Card key={item.title.toString() + index.toString()} gameType={item}></Card>
-						))}
+					{!data && <div className="h-[300px]" />}
 					{data &&
 						data.map((item, index) => (
 							<Card key={item.title.toString() + index.toString()} gameType={item}></Card>
@@ -69,4 +66,4 @@ function TestCss() {
 	);
 }
 
-export default TestCss;
+export default AvailableGames;

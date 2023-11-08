@@ -4,7 +4,8 @@ import RootLayout from "./Root";
 import MoonLoader from "react-spinners/MoonLoader";
 import { useNavigate, useParams } from "react-router-dom";
 import GameWindow from "../components/Game/GameWindow";
-
+import ScoreWindow from "../components/Game/ScoreWindow/ScoreWindow";
+import styles from "../Globals.module.css";
 type LatLngLiteral = google.maps.LatLngLiteral;
 type Game = {
 	id: String;
@@ -54,9 +55,9 @@ function Game() {
 		);
 	}
 	return (
-		<div className="overflow-hidden">
+		<div className={`overflow-hidden relative ${styles.background}`}>
 			{/* Temporary way to switch between the stages */}
-			<div className="flex gap-2">
+			{/* <div className="flex gap-2">
 				<div
 					onClick={() => {
 						setCurrentStageNumber(0);
@@ -81,11 +82,25 @@ function Game() {
 				>
 					Stage 3
 				</div>
-			</div>
+			</div> */}
 			{data &&
 				data.stages.map((current, index) => {
-					if (index !== currentStageNumber) return <></>;
-					return <GameWindow answerLocation={current.answerLocation}></GameWindow>;
+					if (index !== currentStageNumber)
+						return <div className="hidden" key={Math.random() + "lol" + index}></div>;
+
+					let nextStage: number | null = index + 1;
+					if (nextStage === data.numberOfStages) {
+						nextStage = null;
+					}
+
+					return (
+						<GameWindow
+							key={Math.random() + "abc" + index + current.answerLocation.lat}
+							answerLocation={current.answerLocation}
+							setCurrentStageNumber={setCurrentStageNumber}
+							nextStage={nextStage}
+						></GameWindow>
+					);
 				})}
 			{/* <ExampleGameThing answerLocation={correctAnswerLocation}></ExampleGameThing>; */}
 		</div>

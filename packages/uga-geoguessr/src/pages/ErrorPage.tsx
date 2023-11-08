@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import styles from "./TestCss.module.css";
+import styles from "../Globals.module.css";
 
 function ErrorPage() {
 	const params = useParams();

@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import classes from "./Root.module.css";
+import classes from "../Globals.module.css";
 
 const RootLayout = ({ children }: { children?: React.ReactNode }) => {
 	return (
