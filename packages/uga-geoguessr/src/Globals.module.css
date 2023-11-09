@@ -94,7 +94,7 @@
 	color: #fff;
 	background-color: hsla(0, 0%, 100%, 0.1);
 	border-radius: 8px;
-	overflow: hidden;
+	/* overflow: hidden; */
 	transition: 0.1s;
 }
 

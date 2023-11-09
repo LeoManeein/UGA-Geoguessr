@@ -1,0 +1,25 @@
+.meter {
+	height: 20px;
+	position: relative;
+	background: #f3efe6;
+	overflow: hidden;
+}
+
+.meter span {
+	display: block;
+	height: 100%;
+}
+
+.progress {
+	background-color: #e4c465;
+	animation: progressBar 3s ease-in-out;
+}
+
+@keyframes progressBar {
+	0% {
+		width: 0;
+	}
+	100% {
+		width: 100%;
+	}
+}

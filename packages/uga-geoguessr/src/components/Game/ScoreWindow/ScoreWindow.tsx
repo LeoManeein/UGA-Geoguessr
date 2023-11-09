@@ -8,6 +8,7 @@ import Compass from "../GoogleMaps/Compass";
 import ScoreGoogleMapWindow from "./ScoreGoogleMapWindow";
 import { useNavigate } from "react-router-dom";
 import styles from "../../../Globals.module.css";
+import ScoreMeter from "./ScoreMeter";
 type LatLngLiteral = google.maps.LatLngLiteral;
 
 interface Props {
@@ -25,7 +26,22 @@ const ScoreWindow: React.FC<Props> = ({ answerLocation, selectedCoordinate, setC
 	const navigate = useNavigate();
 	const defaultMapCoordinate = { lat: 33.951752641469085, lng: -83.37435458710178 } as LatLngLiteral;
 
-	const [distance, setDistance] = useState<Number>(0);
+	const distance = Math.floor(
+		coordsToFeet(
+			getDistanceFromLatLonInKm(
+				answerLocation.lat,
+				answerLocation.lng,
+				selectedCoordinate.lat,
+				selectedCoordinate.lng,
+			),
+		),
+	);
+
+	const maxScore = 5000;
+
+	const score = distance >= maxScore ? 0 : maxScore - distance;
+
+	const percentage = (score / maxScore) * 100;
 
 	// helper function to find the straight distance between 2 lat and long points
 	function getDistanceFromLatLonInKm(lat1: number | undefined, lon1: number | undefined, lat2: number, lon2: number) {
@@ -60,6 +76,7 @@ const ScoreWindow: React.FC<Props> = ({ answerLocation, selectedCoordinate, setC
 			</div>
 
 			<div className="flex w-full px-2 md:px-0 md:w-[768px] h-[400px] m-auto relative flex-col gap-y-2">
+				<ScoreMeter score={score} percentage={percentage} distance={distance}></ScoreMeter>
 				<ScoreGoogleMapWindow
 					defaultMapCoordinate={defaultMapCoordinate}
 					selectedCoordinate={selectedCoordinate}
@@ -72,7 +89,7 @@ const ScoreWindow: React.FC<Props> = ({ answerLocation, selectedCoordinate, setC
 					}}
 					className={` z-30 m-auto w-[192px] text-center flex ${styles.button_light}`}
 				>
-					<div className="flex m-auto text-center pb-2">{nextStage ? "Next" : "Home"}</div>
+					<div className="flex m-auto text-center ">{nextStage ? "Next" : "Home"}</div>
 				</div>
 			</div>
 		</div>

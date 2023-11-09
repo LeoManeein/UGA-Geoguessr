@@ -25,7 +25,7 @@ class GoogleStreetview extends React.Component {
 	}
 
 	initialize(canvas, prevProps) {
-		// I added || this.props.apikey because i dont want to pass a ref to a gooogle map 
+		// I added || this.props.apikey because i dont want to pass a ref to a gooogle map
 		if ((this.props.googleMaps && this.streetView == null) || this.props.apiKey) {
 			this.streetView = new this.props.googleMaps.StreetViewPanorama(
 				canvas,
@@ -128,8 +128,11 @@ function mapScriptsToProps({ apiKey }) {
 	return {
 		googleMaps: {
 			globalPath: "google.maps",
-			url: `https://maps.googleapis.com/maps/api/js?key=${apiKey}`,
+			url: `https://maps.google.com/maps/api/js?key=${apiKey}`,
 			jsonp: true,
+			headers: {
+				"Access-Control-Allow-Origin": "*",
+			},
 		},
 	};
 }
