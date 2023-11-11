@@ -1,14 +1,15 @@
-import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./pages/Home";
-import ExampleGame from "./pages/ExampleGame";
-import RootLayout from "./pages/Root";
-import AvailableGames from "./pages/AvailableGames";
-import { useEffect } from "react";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
+import { useEffect } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./App.css";
+import AddGame from "./pages/AddGame";
+import AvailableGames from "./pages/AvailableGames";
 import ErrorPage from "./pages/ErrorPage";
+import ExampleGame from "./pages/ExampleGame";
 import Game from "./pages/Game";
+import Home from "./pages/Home";
+import RootLayout from "./pages/Root";
 function App() {
 	const router = createBrowserRouter([
 		{
@@ -17,6 +18,7 @@ function App() {
 			children: [
 				{ path: "/", element: <Home /> },
 				{ path: "/AvailableGames", element: <AvailableGames /> },
+				{ path: "/AddGame", element: <AddGame /> },
 				{ path: "error/:id", element: <ErrorPage /> },
 				{ path: "*", element: <ErrorPage /> },
 			],

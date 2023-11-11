@@ -1,8 +1,9 @@
 import { GoogleMap, MarkerF, PolylineF } from "@react-google-maps/api";
 import { useCallback, useMemo, useRef, useState } from "react";
-import styles from "../../../Globals.module.css";
+import styles from "../../Globals.module.css";
 type LatLngLiteral = google.maps.LatLngLiteral;
 type MapOptions = google.maps.MapOptions;
+
 interface Props {
 	setSelectedCoordinate: Function;
 	defaultMapCoordinate: LatLngLiteral;
