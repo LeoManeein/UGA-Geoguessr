@@ -45,7 +45,7 @@ function AvailableGames() {
 			<div
 				className={` md:m-auto w-full md:w-[768px] h-full pb-1 bg-gradient-to-r  ${styles.background} rounded-lg`}
 			>
-				<div className="text-6xl text-ugared-300 mb-12 border-b-2 border-ugared-400 pb-4 text-center">
+				<div className="text-6xl text-ugared-300 mb-12 border-b-4 border-ugared-500 pb-4 text-center">
 					Game Modes
 				</div>
 

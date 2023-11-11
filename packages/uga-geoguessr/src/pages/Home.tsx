@@ -32,25 +32,27 @@ function Home() {
 	];
 
 	return (
-		<div className="mx-2 mt-12 flex m-auto justify-center">
-			<div className={` mr-32  w-[632px] h-full pb-1 bg-gradient-to-r  ${styles.background} rounded-lg`}>
-				<div className="w-[274px] border-b-4 border-ugared-500 mb-8 "></div>
-				<div className="text-8xl text-ugared-300">UGA</div>
-				<div className="text-8xl text-ugared-300">GEOGUESSR</div>
+		<div className="mx-2 mt-12 flex md:flex-row flex-col m-auto justify-center">
+			<div
+				className={` mr-32  w-full md:w-[632px] h-full pb-1 bg-gradient-to-r  text-center md:text-left ${styles.background} rounded-lg`}
+			>
+				<div className=" w-full md:w-[274px] border-b-4 border-ugared-500 mb-8 "></div>
+				<div className=" text-6xl md:text-8xl text-ugared-300">UGA</div>
+				<div className="text-6xl md:text-8xl text-ugared-300">GEOGUESSR</div>
 				<Link
 					to={"/availablegames"}
-					className="bg-ugatan-100 w-[460px] h-[119px] rounded-full text-center justify-center flex mt-12 "
+					className="bg-ugatan-100 w--full md:w-[460px] h-[119px] rounded-full text-center justify-center flex mt-12 "
 				>
 					<div className="m-auto flex  text-3xl text-center justify-center content-center text-ugared-400 ">
-						Guess Around Campus <ArrowRightOutlined className="pt-[6px] pl-2" />
+						Guess Around Campus <ArrowRightOutlined className="pt-[6px] pl-2 m-auto" />
 					</div>
 				</Link>
-				<div className="text-ugatan-100 w-[569px] mt-12 text-2xl">
+				<div className="text-ugatan-100 w-full md:w-[569px] mt-12 text-2xl">
 					maybe insert some other texts here idk this space looks empty, but it can also look alright without
 					anything
 				</div>
 			</div>
-			<div className={`  w-[327px] h-[471px] pb-1 rounded-lg`}>
+			<div className={`flex justify-center  w-full md:w-[327px] h-[471px] pb-1 rounded-lg`}>
 				<img
 					alt={"img"}
 					className={` w-[327px] h-[471px] object-cover select-none rounded-full p-6 border-4 border-ugatan-100 `}
