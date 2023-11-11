@@ -1,5 +1,6 @@
-import { Key } from "react";
-
+import { ArrowRightOutlined } from "@ant-design/icons";
+import styles from "../Globals.module.css";
+import { Link } from "react-router-dom";
 export type GameType = {
 	title: String;
 	description: String;
@@ -31,90 +32,32 @@ function Home() {
 	];
 
 	return (
-		<>
-			<div className="flex flex-col md:flex-row w-full pt-3 md:h-[800px] h-full px-2 gap-2">
-				<div
-					className={`bg-slate-600 w-full md:w-2/3 md:h-full h-[400px] flex items-center justify-center bg-[url('https://cdn.discordapp.com/attachments/1054239396024549486/1170214000827580426/Untitled.jpg?ex=655839b7&is=6545c4b7&hm=03754d93407e5de2746e2aca8f938f0a3ffdd2c16fe43c1930f320eb88f21dd9&')] bg-cover bg-center  `}
+		<div className="mx-2 mt-12 flex m-auto justify-center">
+			<div className={` mr-32  w-[632px] h-full pb-1 bg-gradient-to-r  ${styles.background} rounded-lg`}>
+				<div className="w-[274px] border-b-4 border-ugared-500 mb-8 "></div>
+				<div className="text-8xl text-ugared-300">UGA</div>
+				<div className="text-8xl text-ugared-300">GEOGUESSR</div>
+				<Link
+					to={"/availablegames"}
+					className="bg-ugatan-100 w-[460px] h-[119px] rounded-full text-center justify-center flex mt-12 "
 				>
-					<div className="w-full h-full bg-black bg-opacity-70 flex items-center justify-center">
-						<div className="text-white text-[2rem] md:text-[6rem] relative w-full px-[2rem]">
-							Welcome to UGA
-						</div>
+					<div className="m-auto flex  text-3xl text-center justify-center content-center text-ugared-400 ">
+						Guess Around Campus <ArrowRightOutlined className="pt-[6px] pl-2" />
 					</div>
-				</div>
-				<div className="md:w-1/3 w-full h-full flex flex-col gap-2 ">
-					<div className="w-full md:h-1/2 h-[200px] bg-ugared-100">Leaderboard</div>
-					<div className="w-full  md:h-1/2 h-[200px] bg-ugagrey-100">Sign up </div>
+				</Link>
+				<div className="text-ugatan-100 w-[569px] mt-12 text-2xl">
+					maybe insert some other texts here idk this space looks empty, but it can also look alright without
+					anything
 				</div>
 			</div>
-			{/* <div className="grid grid-cols-1 2xl:grid-cols-2   ">
-				{exampleDefaultGames.map((item, index) =>
-					index % 2 === 0 ? (
-						<div className="flex mt-2 px-2 gap-2 m-auto w-full  ">
-							<div className=" w-1/2 md:w-[500px] aspect-square ">
-								<img className=" w-full h-full object-cover rounded-lg" src={item.url as string}></img>
-							</div>
-
-							<div className="w-full bg-ugagrey-200">yo</div>
-						</div>
-					) : (
-						<div className="flex mt-2 px-2 gap-2 w-full ">
-							<div className="w-full bg-ugared-200">yo</div>
-							<div className=" w-1/2 md:w-[500px] aspect-square ">
-								<img className=" w-full h-full object-cover rounded-lg" src={item.url as string}></img>
-							</div>
-						</div>
-					),
-				)}
-			</div> */}
-
-			<div className="grid grid-cols-2 2xl:grid-cols-4 gap-2 mt-2 mx-2 overflow-hidden row ">
-				{exampleDefaultGames.map((item, index) =>
-					index % 3 === 0 ? (
-						<div key={(item.title.toString() + Math.random()) as Key}>
-							<div className=" w-full md:w-full aspect-square ">
-								<img
-									alt="yo"
-									className=" w-full h-full object-cover rounded-lg"
-									src={item.url as string}
-								></img>
-							</div>
-
-							<div className={`w-full bg-ugared-200 aspect-square`}>
-								<div className=" justify-center text-left text-white text-[6vw] 2xl:text-[4vw] flex w-4/5 m-auto text-clip ">
-									{item.title}
-								</div>
-								<div className="justify-center text-left text-white text-[3vw] sm:text-[3vw] md:text-[4vw] flex w-4/5 m-auto overflow-hidden 2xl:text-[2vw]">
-									{item.description}
-								</div>
-							</div>
-						</div>
-					) : (
-						<div key={(item.title.toString() + Math.random()) as Key}>
-							<div className={`w-full bg-ugagrey-200 aspect-square`}>
-								<div className=" justify-center text-left text-white text-[6vw] 2xl:text-[4vw] flex w-4/5 m-auto text-clip ">
-									{item.title}
-								</div>
-								<div className="justify-center text-left text-white text-[3vw] sm:text-[3vw] md:text-[4vw] flex w-4/5 m-auto overflow-hidden 2xl:text-[2vw]">
-									{item.description}
-								</div>
-							</div>
-							<div className=" w-full md:w-full aspect-square ">
-								<img
-									alt="yo"
-									className=" w-full h-full object-cover rounded-lg"
-									src={item.url as string}
-								></img>
-							</div>
-						</div>
-					),
-				)}
+			<div className={`  w-[327px] h-[471px] pb-1 rounded-lg`}>
+				<img
+					alt={"img"}
+					className={` w-[327px] h-[471px] object-cover select-none rounded-full p-6 border-4 border-ugatan-100 `}
+					src={exampleDefaultGames[1].url as string}
+				></img>
 			</div>
-
-			{/* <Link to="/ExampleGame" className="text-purple-700">
-				Example Game
-			</Link> */}
-		</>
+		</div>
 	);
 }
 

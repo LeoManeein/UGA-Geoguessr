@@ -75,12 +75,8 @@ const Card: React.FC<Props> = ({ gameType }) => {
 				}}
 			>
 				<div className={`${styles.back} w-full flex flex-col justify-between`}>
-					<div className={`${styles.light_background} w-[100%] text-center text-white text-3xl `}>
-						{gameType.title}
-					</div>
-					<div className={`${styles.light_background} w-[100%] text-center text-white text-xl `}>
-						{gameType.description}
-					</div>
+					<div className={` w-[100%] text-center text-white text-3xl `}>{gameType.title}</div>
+					<div className={` w-[100%] text-center text-white text-xl `}>{gameType.description}</div>
 					<div className="w-full text flex mb-2">
 						<div
 							onClick={() => {

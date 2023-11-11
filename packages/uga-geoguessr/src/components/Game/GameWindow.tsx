@@ -6,6 +6,8 @@ import Header from "../Header/Header";
 import LoadingSpinner from "../LoadingSpinner";
 import Compass from "./GoogleMaps/Compass";
 import ScoreWindow from "./ScoreWindow/ScoreWindow";
+import { CloseOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 type LatLngLiteral = google.maps.LatLngLiteral;
 
 interface Props {
@@ -33,14 +35,15 @@ const GameWindow: React.FC<Props> = ({ answerLocation, setCurrentStageNumber, ne
 
 	const [heading, setHeading] = useState(0);
 
-	if (!isLoaded) return <LoadingSpinner></LoadingSpinner>;
+	if (!isLoaded) return <LoadingSpinner />;
 	if (loadError) return <div>Error</div>;
 
 	return (
 		<div className="h-screen relative overflow-x-hidden overflow-y-hidden">
-			<div className="absolute top-0 z-20 w-screen">
-				<Header></Header>
-			</div>
+			<Link to="/availablegames" className="absolute top-0 right-2 z-20 text-white">
+				{/* <Header></Header> */}
+				<CloseOutlined />
+			</Link>
 			{showScoreWindow && selectedCoordinate && (
 				<ScoreWindow
 					answerLocation={answerLocation}
@@ -67,7 +70,7 @@ const GameWindow: React.FC<Props> = ({ answerLocation, setCurrentStageNumber, ne
 						></GoogleMapWindow>
 					</div>
 
-					<div className={`absolute -top-10 left-1/2 transform -translate-x-1/2 p-4 z-30`}>
+					<div className={`absolute -top-24 left-1/2 transform -translate-x-1/2 p-4 z-30`}>
 						<Compass heading={heading}></Compass>
 					</div>
 				</div>

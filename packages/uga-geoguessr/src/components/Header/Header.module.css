@@ -1,5 +1,5 @@
 .background {
 	background-image: url(../../../public/grain-texture.png),
-		linear-gradient(90deg, #361269, #390a5a 18.23%, #3d217d 48.96%, #3d2981 65.63%, #2e1b59 90.94%, #2c1853);
+		linear-gradient(90deg, #1d1d1d, #1d1d1d 18.23%, #1d1d1d 48.96%, #1d1d1d 65.63%, #1d1d1d 90.94%, #1d1d1d);
 	background-blend-mode: overlay, normal;
 }

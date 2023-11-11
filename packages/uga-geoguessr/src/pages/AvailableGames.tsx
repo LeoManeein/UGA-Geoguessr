@@ -45,13 +45,17 @@ function AvailableGames() {
 			<div
 				className={` md:m-auto w-full md:w-[768px] h-full pb-1 bg-gradient-to-r  ${styles.background} rounded-lg`}
 			>
-				<div
+				<div className="text-6xl text-ugared-300 mb-12 border-b-2 border-ugared-400 pb-4 text-center">
+					Game Modes
+				</div>
+
+				{/* <div
 					className={`w-full text-white justify-center text-center text-6xl pb-2 font-bold ${styles.light_background} rounded-t-lg `}
 				>
 					Select Game Type
-				</div>
+				</div> */}
 
-				<div className="grid grid-cols-2 sm:grid-cols-4 gap-1 w-full  p-2">
+				<div className="grid grid-cols-2 sm:grid-cols-4 gap-1 w-full  p-2 ">
 					{/* {exampleDefaultGames.map((item, index) => (
 						<Card key={item.title.toString() + index.toString()} gameType={item}></Card>
 					))} */}
