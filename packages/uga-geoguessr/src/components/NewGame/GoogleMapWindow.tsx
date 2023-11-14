@@ -75,6 +75,21 @@ const GoogleMapWindow: React.FC<Props> = ({
 											return [...arra.slice(0, index), copyData[index], ...arra.slice(index + 1)];
 										});
 									}}
+									updateLocation={(lat: number, lng: number) => {
+										// jank way of finding the one element that needs to have its radius updated
+										let index = 0;
+										locations.forEach((x, i) => {
+											if (x.lat === current.lat && x.lng === current.lng) {
+												index = i;
+											}
+										});
+										let copyData = locations;
+										copyData[index].lat = lat;
+										copyData[index].lng = lng;
+										setLocations((arra: PossibleLocation[]) => {
+											return [...arra.slice(0, index), copyData[index], ...arra.slice(index + 1)];
+										});
+									}}
 								></GoogleMapLocationCircle>
 							);
 						})}
