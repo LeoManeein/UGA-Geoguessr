@@ -6,9 +6,10 @@ import Header from "../../Header/Header";
 import LoadingSpinner from "../../LoadingSpinner";
 import Compass from "../GoogleMaps/Compass";
 import ScoreGoogleMapWindow from "./ScoreGoogleMapWindow";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "../../../Globals.module.css";
 import ScoreMeter from "./ScoreMeter";
+import { CloseOutlined } from "@ant-design/icons";
 type LatLngLiteral = google.maps.LatLngLiteral;
 
 interface Props {
@@ -71,9 +72,10 @@ const ScoreWindow: React.FC<Props> = ({ answerLocation, selectedCoordinate, setC
 
 	return (
 		<div className="h-screen relative overflow-x-hidden overflow-y-hidden flex flex-col">
-			<div className="absolute top-0 z-20 w-screen">
-				<Header></Header>
-			</div>
+			<Link to="/availablegames" className="absolute top-0 right-2 z-20 text-white">
+				{/* <Header></Header> */}
+				<CloseOutlined />
+			</Link>
 
 			<div className="flex w-full px-2 md:px-0 md:w-[768px] h-[400px] m-auto relative flex-col gap-y-2">
 				<ScoreMeter score={score} percentage={percentage} distance={distance}></ScoreMeter>
