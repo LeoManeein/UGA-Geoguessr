@@ -1,5 +1,5 @@
 import { CircleF, MarkerF } from "@react-google-maps/api";
-import { PossibleLocation } from "./NewGame";
+import { PossibleLocation } from "./NewGameType";
 import { useMemo, useState } from "react";
 type LatLngLiteral = google.maps.LatLngLiteral;
 interface Props {
@@ -8,9 +8,18 @@ interface Props {
 	updateRadius: Function;
 	updateLocation: Function;
 }
-
+/**
+ *
+ * @param current:  the location that the marker will be placed upon
+ * @param deleteCoordinate: helper function to remove the current location from the list when the marker is clicked
+ * @param updateRadius: updates the current locations radius
+ * @param updateLocation: updates the current locations lat and lng
+ * @returns A marker and circle that represents a location and its radius
+ */
 const GoogleMapLocationCircle: React.FC<Props> = ({ current, deleteCoordinate, updateRadius, updateLocation }) => {
+	// temp location that is displayed when dragging the main marker
 	const [tempLocation, setTempLocation] = useState<null | LatLngLiteral>(null);
+	// temp radius for the circle as we drag the resize marker
 	const [tempRadius, setTempRadius] = useState<null | number>(null);
 
 	const circleOptions = {
@@ -23,13 +32,14 @@ const GoogleMapLocationCircle: React.FC<Props> = ({ current, deleteCoordinate, u
 		draggable: false,
 		zIndex: 1,
 	};
-
+	// Using a lot of UseMemo because we want the circle to only rerender when we are dragging either the marker or resizer marker
 	const MoveableCircle = useMemo(() => {
 		return (
 			<CircleF center={tempLocation || current} radius={tempRadius || current.radius} options={circleOptions} />
 		);
 	}, [tempLocation, tempRadius]);
 
+	// Only want the button to move if we are currently dragging it
 	const Resize = useMemo(() => {
 		return (
 			<>
@@ -64,6 +74,7 @@ const GoogleMapLocationCircle: React.FC<Props> = ({ current, deleteCoordinate, u
 		);
 	}, [tempLocation]);
 
+	// Only rerenders when the location changes
 	const Marker = useMemo(() => {
 		return (
 			<>

@@ -1,13 +1,20 @@
 import { useState, useEffect } from "react";
-import ExampleGameThing from "../components/ExampleGame/ExampleGameThing";
-import RootLayout from "./Root";
-import MoonLoader from "react-spinners/MoonLoader";
 import { useNavigate, useParams } from "react-router-dom";
 import GameWindow from "../components/Game/GameWindow";
-import ScoreWindow from "../components/Game/ScoreWindow/ScoreWindow";
 import styles from "../Globals.module.css";
 import LoadingSpinner from "../components/LoadingSpinner";
 type LatLngLiteral = google.maps.LatLngLiteral;
+
+/**
+ * Represents a GAME the user is currently playing.
+ *
+ * Contains an array of stages that contain the correct locations
+ *
+ * A GAME is created by using the possible locations from a GAMETYPE
+ *
+ * Notice the difference between a GAME and GAMETYPE
+ */
+
 type Game = {
 	id: String;
 	currentStage: number;
@@ -17,7 +24,11 @@ type Game = {
 		answerLocation: LatLngLiteral;
 	}[];
 };
-function Game() {
+
+/**
+ * @returns A fullscreen window that displays a geoguessr game of the location fetched from the /game/:id
+ */
+function GamePage() {
 	const navigate = useNavigate();
 	const params = useParams();
 	console.log(params.id);
@@ -39,7 +50,7 @@ function Game() {
 				console.error("Error fetching data:", error);
 				navigate("/Error/GameNotFound");
 			});
-	}, []);
+	}, [params.id, navigate]);
 
 	useEffect(() => {
 		if (currentStageNumber === null || !data) return;
@@ -74,4 +85,4 @@ function Game() {
 	);
 }
 
-export default Game;
+export default GamePage;

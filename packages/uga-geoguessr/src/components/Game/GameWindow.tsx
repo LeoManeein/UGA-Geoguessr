@@ -16,6 +16,13 @@ interface Props {
 	nextStage: number | null;
 }
 
+/**
+ *
+ * @param answerLocation: The correct answer location. Will be used to display the street view and calculate the score/distance to the selected location
+ * @param setCurrentStageNumber: Helper function that will be used to change the stage of the game
+ * @param nextStage: The index of the next stage or null
+ * @returns
+ */
 const GameWindow: React.FC<Props> = ({ answerLocation, setCurrentStageNumber, nextStage }) => {
 	// Loads the google maps
 	const { isLoaded, loadError } = useLoadScript({
@@ -24,9 +31,6 @@ const GameWindow: React.FC<Props> = ({ answerLocation, setCurrentStageNumber, ne
 
 	// The default position that the google maps starts at
 	const defaultMapCoordinate = { lat: 33.951752641469085, lng: -83.37435458710178 } as LatLngLiteral;
-
-	//  constant for the answers locations
-	const [locationCoordinate, setLocationCoordinate] = useState<LatLngLiteral>(answerLocation);
 
 	// The location that is selected on the map when the user clicks on it
 	const [selectedCoordinate, setSelectedCoordinate] = useState<LatLngLiteral | null>(null);
@@ -56,7 +60,7 @@ const GameWindow: React.FC<Props> = ({ answerLocation, setCurrentStageNumber, ne
 				<div className="flex w-full h-screen relative">
 					<GoogleStreetViewWindow
 						setHeading={setHeading}
-						coordinate={locationCoordinate}
+						coordinate={answerLocation}
 					></GoogleStreetViewWindow>
 					<div
 						className={`absolute bottom-6 right-2  w-[300px]  h-[250px] z-10  transition-transform md:hover:w-[700px] md:hover:h-[400px] `}
@@ -65,7 +69,6 @@ const GameWindow: React.FC<Props> = ({ answerLocation, setCurrentStageNumber, ne
 							defaultMapCoordinate={defaultMapCoordinate}
 							selectedCoordinate={selectedCoordinate}
 							setSelectedCoordinate={setSelectedCoordinate}
-							locationCoordinate={locationCoordinate}
 							setShowScoreWindow={setShowScoreWindow}
 						></GoogleMapWindow>
 					</div>

@@ -1,6 +1,6 @@
 import { GoogleMap } from "@react-google-maps/api";
 import { useCallback, useMemo, useRef } from "react";
-import { PossibleLocation } from "./NewGame";
+import { PossibleLocation } from "./NewGameType";
 import GoogleMapLocationCircle from "./GoogleMapLocationCircle";
 type LatLngLiteral = google.maps.LatLngLiteral;
 type MapOptions = google.maps.MapOptions;
@@ -8,12 +8,19 @@ type MapOptions = google.maps.MapOptions;
 interface Props {
 	setSelectedCoordinates: Function;
 	defaultMapCoordinate: LatLngLiteral;
-	selectedCoordinate: PossibleLocation | null;
 	locations: PossibleLocation[] | null;
 	deleteCoordinate: Function;
 	setLocations: Function;
 }
-
+/**
+ *
+ * @param setSelectedCoordinates: A function that can be used to call the OnMapSubmit function
+ * @param defaultMapCoordinate: A latlng coordinate that the google maps will center upon
+ * @param locations: Current list of all the locations selected
+ * @param deleteCoordinate: Function that takes a lat lng object and finds and removes any similar ones in locations.
+ * @param setLocations: helper function that sets the current list of locations
+ * @returns
+ */
 const GoogleMapWindow: React.FC<Props> = ({
 	setSelectedCoordinates,
 	defaultMapCoordinate,

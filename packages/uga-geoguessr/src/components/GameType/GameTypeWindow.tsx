@@ -5,7 +5,11 @@ interface Props {
 	gameTypes: GameType[] | null;
 	title: string;
 }
-
+/**
+ * @param {GameType[] | null} gameTypes: GameType array or null. All the gametypes that will be displayed in the window.
+ * @param {string} title: String that will be displayed as the title of the window
+ * @returns A window containing an array of GameTypes that are mapped as cards
+ */
 const GameTypeWindow: React.FC<Props> = ({ gameTypes, title }) => {
 	return (
 		<div className="mx-2 mt-6 ">

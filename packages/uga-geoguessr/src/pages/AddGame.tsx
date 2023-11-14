@@ -1,7 +1,7 @@
 import React from "react";
-import NewGame from "../components/NewGame/NewGame"; // Assuming the path to your NewGame component
+import NewGameType from "../components/GameType/NewGameType/NewGameType"; // Assuming the path to your NewGame component
 
-const AddGame: React.FC = () => {
+const AddGameType: React.FC = () => {
 	const handleAddGame = async (game: any) => {
 		try {
 			const response = await fetch("/api/gametype", {
@@ -32,9 +32,9 @@ const AddGame: React.FC = () => {
 		<div className="text-ugatan-100">
 			<h2>Test NewGame Component</h2>
 			{/* You can add other components or content here */}
-			<NewGame onAddGame={handleAddGame} />
+			<NewGameType onAddGame={handleAddGame} />
 		</div>
 	);
 };
 
-export default AddGame;
+export default AddGameType;

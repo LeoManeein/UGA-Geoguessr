@@ -5,6 +5,11 @@ interface Props {
 	heading: number;
 }
 
+/**
+ *
+ * @param heading: 0-360 number that contains the cardinal direction the compass should face
+ * @returns A comapss that shows the direction the street view is currently facing
+ */
 const Compass: React.FC<Props> = ({ heading }) => {
 	const [fullWidth, setFullWidth] = useState(528);
 	const [compassOffset, setCompassOffset] = useState(-fullWidth + +88);

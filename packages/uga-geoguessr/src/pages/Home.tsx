@@ -6,7 +6,10 @@ export type GameType = {
 	description: String;
 	url: String;
 };
-
+/**
+ *
+ * @returns Homepage for the website
+ */
 function Home() {
 	const exampleDefaultGames: GameType[] = [
 		{

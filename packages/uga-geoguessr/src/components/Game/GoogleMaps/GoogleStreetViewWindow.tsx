@@ -12,6 +12,12 @@ type povType = {
 	pitch: number;
 };
 
+/**
+ *
+ * @param setHeading: A stateful set function that updates with the current heading the street view camera is facing
+ * @param coordinate: The coordinate (answer location) that the street view should display
+ * @returns A google street view of the coordinate
+ */
 const GoogleStreetViewWindow: React.FC<Props> = ({ coordinate, setHeading }) => {
 	const center = {
 		lat: coordinate.lat,

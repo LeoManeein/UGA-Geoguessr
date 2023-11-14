@@ -7,7 +7,10 @@ export type GameType = {
 	url: String;
 	id: number;
 };
-
+/**
+ * Retrieves a user by ID.
+ * @returns A page that fetches the default documents and the users documents and displays them
+ */
 function AvailableGames() {
 	const exampleDefaultGames: GameType[] = [
 		{

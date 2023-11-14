@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import GoogleMapWindow from "./GoogleMapWindow"; // Import the Google Maps component
 import { useLoadScript } from "@react-google-maps/api";
-// import "./NewGame.css"; // Assuming you update the CSS file name accordingly
 type LatLngLiteral = google.maps.LatLngLiteral;
 
 export type PossibleLocation = {
@@ -18,8 +17,12 @@ interface NewGameProps {
 		possibleCoordinates: PossibleLocation[];
 	}) => void;
 }
-
-const NewGame: React.FC<NewGameProps> = (props) => {
+/**
+ *
+ * @param onAddGame: Function that takes a game as a parameter. Returns void.
+ * @returns
+ */
+const NewGameType: React.FC<NewGameProps> = (props) => {
 	const [gameName, setGameName] = useState<string>("");
 	const [description, setDescription] = useState<string>("");
 	const [imageURL, setImageURL] = useState<string>("");
@@ -33,14 +36,13 @@ const NewGame: React.FC<NewGameProps> = (props) => {
 	// Makes sure the google map loads.
 	const { isLoaded, loadError } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
-		libraries: ["drawing", "geometry", "geometry", "places", "visualization"],
+		libraries: ["geometry"],
 	});
 
 	const onMapSubmit = (selectedCoordinate: { lat: number; lng: number; radius: number } | null) => {
 		if (selectedCoordinate) {
 			setLocations([...locations, selectedCoordinate]);
 		}
-		// Do we need to hide the map? Ideally the map stays open on the side of the screen so the user can mess around with it imo
 		// setShowMap(false);
 	};
 
@@ -83,6 +85,7 @@ const NewGame: React.FC<NewGameProps> = (props) => {
 			});
 		});
 	}
+	if (loadError) return <div>Error</div>;
 	return (
 		<div className="flex m-auto justify-center  ">
 			<div className="input w-1/2 sm:w-[320px] md:w-[384px] lg:w-[512px] xl:w-[640px] 2xl:w-[768px] ">
@@ -142,7 +145,6 @@ const NewGame: React.FC<NewGameProps> = (props) => {
 							) => onMapSubmit(selectedCoordinate)}
 							deleteCoordinate={deleteCoordinate}
 							defaultMapCoordinate={defaultMapCoordinate}
-							selectedCoordinate={null}
 							locations={locations}
 							setLocations={setLocations}
 						/>
@@ -156,4 +158,4 @@ const NewGame: React.FC<NewGameProps> = (props) => {
 	);
 };
 
-export default NewGame;
+export default NewGameType;
