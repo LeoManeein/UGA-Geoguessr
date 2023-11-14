@@ -88,16 +88,29 @@ const NewGame: React.FC<NewGameProps> = (props) => {
 			<div className="input w-1/2 sm:w-[320px] md:w-[384px] lg:w-[512px] xl:w-[640px] 2xl:w-[768px] ">
 				<form onSubmit={submitHandler} className="flex flex-col mr-6">
 					<label>Game Name</label>
-					<input id="gameName" type="text" value={gameName} onChange={(e) => setGameName(e.target.value)} />
+					<input
+						className="text-black"
+						id="gameName"
+						type="text"
+						value={gameName}
+						onChange={(e) => setGameName(e.target.value)}
+					/>
 					<label>Description</label>
 					<input
+						className="text-black"
 						id="description"
 						type="text"
 						value={description}
 						onChange={(e) => setDescription(e.target.value)}
 					/>
 					<label>Image URL</label>
-					<input id="imageURL" type="text" value={imageURL} onChange={(e) => setImageURL(e.target.value)} />
+					<input
+						className="text-black"
+						id="imageURL"
+						type="text"
+						value={imageURL}
+						onChange={(e) => setImageURL(e.target.value)}
+					/>
 
 					{/* Button to show/hide the map */}
 					<button type="button" onClick={() => setShowMap(!showMap)}>
