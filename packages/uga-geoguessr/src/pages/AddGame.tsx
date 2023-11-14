@@ -8,7 +8,7 @@ const TestNewGamePage: React.FC = () => {
 	};
 
 	return (
-		<div>
+		<div className="text-ugatan-100">
 			<h2>Test NewGame Component</h2>
 			{/* You can add other components or content here */}
 			<NewGame onAddGame={handleAddGame} />
