@@ -136,7 +136,7 @@ function generateRandomString(length) {
 function randomPointinRadius(coordinate) {
   const lat = coordinate.lat;
   const lng = coordinate.lng;
-  const radius = coordinate.radius;
+  const radius = coordinate.radius / 111111;
   const angle = Math.random() * 2 * Math.PI;
   const distance = Math.random() * radius;
   const x = lat + distance * Math.cos(angle);
@@ -144,3 +144,7 @@ function randomPointinRadius(coordinate) {
   return { lat: x, lng: y };
 }
 const getRandomElement = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+function metersToLatLng(meters) {
+
+}

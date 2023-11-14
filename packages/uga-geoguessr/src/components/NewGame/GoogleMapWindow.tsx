@@ -1,30 +1,28 @@
-import { GoogleMap, MarkerF, PolylineF } from "@react-google-maps/api";
-import { useCallback, useMemo, useRef, useState } from "react";
-import styles from "../../Globals.module.css";
+import { GoogleMap } from "@react-google-maps/api";
+import { useCallback, useMemo, useRef } from "react";
+import { PossibleLocation } from "./NewGame";
+import GoogleMapLocationCircle from "./GoogleMapLocationCircle";
 type LatLngLiteral = google.maps.LatLngLiteral;
 type MapOptions = google.maps.MapOptions;
 
 interface Props {
-	setSelectedCoordinate: Function;
+	setSelectedCoordinates: Function;
 	defaultMapCoordinate: LatLngLiteral;
-	selectedCoordinate: LatLngLiteral | null;
-	locationCoordinate: LatLngLiteral;
-	setShowScoreWindow: Function;
+	selectedCoordinate: PossibleLocation | null;
+	locations: PossibleLocation[] | null;
+	deleteCoordinate: Function;
+	setLocations: Function;
 }
 
 const GoogleMapWindow: React.FC<Props> = ({
-	setSelectedCoordinate,
+	setSelectedCoordinates,
 	defaultMapCoordinate,
-	selectedCoordinate,
-	locationCoordinate,
-	setShowScoreWindow,
+	locations,
+	deleteCoordinate,
+	setLocations,
 }) => {
 	const mapRef = useRef<GoogleMap>();
-	//Tate Center at 33.951752641469085, -83.37435458710178
 	const center = useMemo<LatLngLiteral>(() => ({ lat: defaultMapCoordinate.lat, lng: defaultMapCoordinate.lng }), []);
-	const onLoadF = (marker: any) => {
-		console.log("marker: ", marker);
-	};
 
 	const options = useMemo<MapOptions>(
 		() => ({
@@ -48,25 +46,47 @@ const GoogleMapWindow: React.FC<Props> = ({
 					options={options}
 					onLoad={onLoad}
 					onClick={(event) => {
-						// console.log(event);
 						const newcoordinate = {
 							lat: event.latLng?.lat(),
 							lng: event.latLng?.lng(),
-						} as LatLngLiteral;
-						setSelectedCoordinate(newcoordinate);
+							radius: 555,
+						} as PossibleLocation;
+						setSelectedCoordinates(newcoordinate);
 					}}
 				>
-					{selectedCoordinate && <MarkerF onLoad={onLoadF} position={selectedCoordinate} />}
+					{locations &&
+						locations.map((current) => {
+							return (
+								<GoogleMapLocationCircle
+									key={Math.random()}
+									current={current}
+									deleteCoordinate={deleteCoordinate}
+									updateRadius={(newRadius: number) => {
+										// jank way of finding the one element that needs to have its radius updated
+										let index = 0;
+										locations.forEach((x, i) => {
+											if (x.lat === current.lat && x.lng === current.lng) {
+												index = i;
+											}
+										});
+										let copyData = locations;
+										copyData[index].radius = newRadius;
+										setLocations((arra: PossibleLocation[]) => {
+											return [...arra.slice(0, index), copyData[index], ...arra.slice(index + 1)];
+										});
+									}}
+								></GoogleMapLocationCircle>
+							);
+						})}
 				</GoogleMap>
-				<div
+				{/* <div
 					onClick={() => {
 						if (!selectedCoordinate) return;
-						setShowScoreWindow(true);
 					}}
 					className={`  w-full  h-[50px] z-50  text-center pt-[4px] mt-1 ${styles.button} `}
 				>
 					SUBMIT
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);

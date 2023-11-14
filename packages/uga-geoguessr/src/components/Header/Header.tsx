@@ -14,6 +14,10 @@ function Header() {
 			name: "Available Games",
 			href: "/AvailableGames",
 		},
+		{
+			name: "Add Game",
+			href: "/addgame",
+		},
 	];
 
 	const location = useLocation();
