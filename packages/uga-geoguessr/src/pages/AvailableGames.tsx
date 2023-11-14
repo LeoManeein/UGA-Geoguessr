@@ -1,6 +1,5 @@
-import styles from "../Globals.module.css";
-import Card from "../components/GameType/Card";
 import { useEffect, useState } from "react";
+import GameTypeWindow from "../components/GameType/GameTypeWindow";
 
 export type GameType = {
 	title: String;
@@ -19,21 +18,27 @@ function AvailableGames() {
 		},
 	];
 
-	const [data, setData] = useState<GameType[] | null>(null);
-	const fetchData = () => {
-		fetch(`/api/gametype/`)
-			.then((response) => {
-				if (!response.ok) {
-					throw new Error("Data not found");
-				}
-				return response.json();
-			})
-			.then((data) => {
-				setData(data);
-			})
-			.catch((error) => {
-				setData(null);
-			});
+	const [defaultGameTypes, setDefaultGameTypes] = useState<GameType[] | null>(null);
+	const [userGameTypes, setUserGameTypes] = useState<GameType[] | null>(null);
+
+	const fetchData = async () => {
+		try {
+			const response = await fetch(`/api/gametype/`);
+			if (!response.ok) {
+				throw new Error("Error fetching data");
+			}
+			const data = await response.json();
+			if (data) {
+				setDefaultGameTypes(data.defaultGames);
+				setUserGameTypes(data.usersGames);
+			} else {
+				throw new Error("No data");
+			}
+		} catch (error) {
+			console.error(error);
+			setDefaultGameTypes(null);
+			setUserGameTypes(null);
+		}
 	};
 
 	useEffect(() => {
@@ -41,32 +46,13 @@ function AvailableGames() {
 	}, []);
 
 	return (
-		<div className="mx-2 mt-6 ">
-			<div
-				className={` md:m-auto w-full md:w-[768px] h-full pb-1 bg-gradient-to-r  ${styles.background} rounded-lg`}
-			>
-				<div className="text-6xl text-ugared-300 mb-12 border-b-4 border-ugared-500 pb-4 text-center">
-					Game Modes
-				</div>
-
-				{/* <div
-					className={`w-full text-white justify-center text-center text-6xl pb-2 font-bold ${styles.light_background} rounded-t-lg `}
-				>
-					Select Game Type
-				</div> */}
-
-				<div className="grid grid-cols-2 sm:grid-cols-4 gap-1 w-full  p-2 ">
-					{/* {exampleDefaultGames.map((item, index) => (
-						<Card key={item.title.toString() + index.toString()} gameType={item}></Card>
-					))} */}
-					{!data && <div className="h-[300px]" />}
-					{data &&
-						data.map((item, index) => (
-							<Card key={item.title.toString() + index.toString()} gameType={item}></Card>
-						))}
-				</div>
-			</div>
-		</div>
+		<>
+			<GameTypeWindow
+				title={"Default Game Types"}
+				gameTypes={defaultGameTypes || exampleDefaultGames}
+			></GameTypeWindow>
+			<GameTypeWindow title={"Custom Game Types"} gameTypes={userGameTypes}></GameTypeWindow>
+		</>
 	);
 }
 

@@ -49,7 +49,7 @@ const GoogleMapWindow: React.FC<Props> = ({
 						const newcoordinate = {
 							lat: event.latLng?.lat(),
 							lng: event.latLng?.lng(),
-							radius: 555,
+							radius: 250,
 						} as PossibleLocation;
 						setSelectedCoordinates(newcoordinate);
 					}}
@@ -71,8 +71,12 @@ const GoogleMapWindow: React.FC<Props> = ({
 										});
 										let copyData = locations;
 										copyData[index].radius = newRadius;
-										setLocations((arra: PossibleLocation[]) => {
-											return [...arra.slice(0, index), copyData[index], ...arra.slice(index + 1)];
+										setLocations((oldArray: PossibleLocation[]) => {
+											return [
+												...oldArray.slice(0, index),
+												copyData[index],
+												...oldArray.slice(index + 1),
+											];
 										});
 									}}
 									updateLocation={(lat: number, lng: number) => {
@@ -86,8 +90,12 @@ const GoogleMapWindow: React.FC<Props> = ({
 										let copyData = locations;
 										copyData[index].lat = lat;
 										copyData[index].lng = lng;
-										setLocations((arra: PossibleLocation[]) => {
-											return [...arra.slice(0, index), copyData[index], ...arra.slice(index + 1)];
+										setLocations((oldArray: PossibleLocation[]) => {
+											return [
+												...oldArray.slice(0, index),
+												copyData[index],
+												...oldArray.slice(index + 1),
+											];
 										});
 									}}
 								></GoogleMapLocationCircle>

@@ -1,6 +1,7 @@
-export const gameTypes = [
+export let gameTypes = [
   {
     id: "231232",
+    default: true,
     title: "Entire Campus",
     description: "Guess your way around the entire campus",
     url: "https://cdn.discordapp.com/attachments/1054239396024549486/1170214395788406855/Business-Learning-Community-1030x686.jpg?ex=65583a15&is=6545c515&hm=6b648ab2f29f1e087d178c4924f89a622fc1708e6ba93785ac6c31a64cb3fefe&",
@@ -26,6 +27,7 @@ export const gameTypes = [
   },
   {
     id: "114124",
+    default: true,
     title: "North Campus",
     description: "Explore the north campus!",
     url: "https://cdn.discordapp.com/attachments/1054239396024549486/1171665469791539270/historic-4775425_1920-1800x1000.jpg?ex=655d8180&is=654b0c80&hm=45f8129baf5f522a5ac0fe64f27cf8540ad6e849039c03c6b5814ac1cfd6c662&",
@@ -39,6 +41,7 @@ export const gameTypes = [
 
   {
     id: "424143",
+    default: true,
     title: "South Campus",
     description: "Explore South Campus with your friends",
     url: "https://cdn.discordapp.com/attachments/1054239396024549486/1171667786343395348/woocommerce-15.jpg?ex=655d83a8&is=654b0ea8&hm=25031174744dd94b29abc8f2faff18c5d6b827899ad12db9cb6dc08bc91ed0ca&",
@@ -54,6 +57,7 @@ export const gameTypes = [
   },
   {
     id: "4241432",
+    default: true,
     title: "South CampusTEST",
     description: "Explore South Campus with your friends",
     url: "https://cdn.discordapp.com/attachments/1054239396024549486/1171667786343395348/woocommerce-15.jpg?ex=655d83a8&is=654b0ea8&hm=25031174744dd94b29abc8f2faff18c5d6b827899ad12db9cb6dc08bc91ed0ca&",

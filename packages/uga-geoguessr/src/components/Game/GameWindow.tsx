@@ -42,7 +42,7 @@ const GameWindow: React.FC<Props> = ({ answerLocation, setCurrentStageNumber, ne
 		<div className="h-screen relative overflow-x-hidden overflow-y-hidden">
 			<Link to="/availablegames" className="absolute top-0 right-2 z-20 text-white">
 				{/* <Header></Header> */}
-				<CloseOutlined />
+				<CloseOutlined className="hover:text-yellow-500" />
 			</Link>
 			{showScoreWindow && selectedCoordinate && (
 				<ScoreWindow

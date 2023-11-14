@@ -12,10 +12,10 @@ export type PossibleLocation = {
 interface NewGameProps {
 	onAddGame: (game: {
 		id: string;
-		gameName: string;
+		title: string;
 		description: string;
-		imageURL: string;
-		locations: PossibleLocation[];
+		url: string;
+		possibleCoordinates: PossibleLocation[];
 	}) => void;
 }
 
@@ -62,10 +62,10 @@ const NewGame: React.FC<NewGameProps> = (props) => {
 
 		const newGame = {
 			id: Math.random().toString(),
-			gameName: gameName,
+			title: gameName,
 			description: description,
-			imageURL: imageURL,
-			locations: locations,
+			url: imageURL,
+			possibleCoordinates: locations,
 		};
 
 		props.onAddGame(newGame);
