@@ -1,12 +1,12 @@
 .background {
 	background-image: url(https://grainy-gradients.vercel.app/noise.svg),
-		radial-gradient(circle at 47.26% 50.2%, #392d91, transparent 87%),
-		radial-gradient(circle at 0.95% 1.09%, #370f60, transparent 80%),
-		radial-gradient(circle at 28.55% 23.61%, #47258b, transparent 53%),
-		radial-gradient(circle at 4.2% 96.09%, #2a154f, transparent 70%),
-		radial-gradient(circle at 97.62% 97.5%, #271248, transparent 100%),
-		radial-gradient(circle at 94.45% 5.32%, #42269a, transparent 100%),
-		radial-gradient(circle at 50% 50%, #312f73, #312f73 100%);
+		radial-gradient(circle at 47.26% 50.2%, #1d1d1d, transparent 87%),
+		radial-gradient(circle at 0.95% 1.09%, #1d1d1d, transparent 80%),
+		radial-gradient(circle at 28.55% 23.61%, #1d1d1d, transparent 53%),
+		radial-gradient(circle at 4.2% 96.09%, #1d1d1d, transparent 70%),
+		radial-gradient(circle at 97.62% 97.5%, #1d1d1d, transparent 100%),
+		radial-gradient(circle at 94.45% 5.32%, #1d1d1d, transparent 100%),
+		radial-gradient(circle at 50% 50%, #1d1d1d, #1d1d1d 100%);
 	background-size: auto, cover, cover, cover, cover, cover, cover, cover;
 	background-blend-mode: overlay, normal, normal, normal, normal, normal, normal, normal;
 }
@@ -61,26 +61,26 @@
 	border-radius: 8px;
 	overflow: hidden;
 	background-image: url(https://grainy-gradients.vercel.app/noise.svg),
-		radial-gradient(circle at 47.26% 50.2%, #392d91, transparent 87%),
-		radial-gradient(circle at 0.95% 1.09%, #370f60, transparent 80%),
-		radial-gradient(circle at 28.55% 23.61%, #47258b, transparent 53%),
-		radial-gradient(circle at 4.2% 96.09%, #2a154f, transparent 70%),
-		radial-gradient(circle at 97.62% 97.5%, #271248, transparent 100%),
-		radial-gradient(circle at 94.45% 5.32%, #42269a, transparent 100%),
-		radial-gradient(circle at 50% 50%, #312f73, #312f73 100%);
+		radial-gradient(circle at 47.26% 50.2%, #1d1d1d, transparent 87%),
+		radial-gradient(circle at 0.95% 1.09%, #1d1d1d, transparent 80%),
+		radial-gradient(circle at 28.55% 23.61%, #1d1d1d, transparent 53%),
+		radial-gradient(circle at 4.2% 96.09%, #1d1d1d, transparent 70%),
+		radial-gradient(circle at 97.62% 97.5%, #1d1d1d, transparent 100%),
+		radial-gradient(circle at 94.45% 5.32%, #1d1d1d, transparent 100%),
+		radial-gradient(circle at 50% 50%, #1d1d1d, #1d1d1d 100%);
 	background-size: auto, cover, cover, cover, cover, cover, cover, cover;
 	background-blend-mode: overlay, normal, normal, normal, normal, normal, normal, normal;
 }
 
 .button:hover {
 	background-image: url(https://grainy-gradients.vercel.app/noise.svg),
-		radial-gradient(circle at 47.26% 50.2%, #483baa, transparent 87%),
-		radial-gradient(circle at 0.95% 1.09%, #461677, transparent 80%),
-		radial-gradient(circle at 28.55% 23.61%, #47258b, transparent 53%),
-		radial-gradient(circle at 4.2% 96.09%, #3e2071, transparent 70%),
-		radial-gradient(circle at 97.62% 97.5%, #3f1e75, transparent 100%),
-		radial-gradient(circle at 94.45% 5.32%, #4a2ea6, transparent 100%),
-		radial-gradient(circle at 50% 50%, #454295, #403d8f 100%);
+		radial-gradient(circle at 47.26% 50.2%, #302f2f, transparent 87%),
+		radial-gradient(circle at 0.95% 1.09%, #302f2f, transparent 80%),
+		radial-gradient(circle at 28.55% 23.61%, #302f2f, transparent 53%),
+		radial-gradient(circle at 4.2% 96.09%, #302f2f, transparent 70%),
+		radial-gradient(circle at 97.62% 97.5%, #302f2f, transparent 100%),
+		radial-gradient(circle at 94.45% 5.32%, #302f2f, transparent 100%),
+		radial-gradient(circle at 50% 50%, #302f2f, #302f2f 100%);
 }
 
 .button_light {
