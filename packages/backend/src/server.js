@@ -1,50 +1,40 @@
-import express from "express";
-import { MongoClient } from "mongodb";
-import { gameTypes } from "./data.js"; // DUmMY GAMETYPE DATA
-import dotenv from "dotenv";
-import cors from "cors";
-import axios from "axios";
-dotenv.config();
 // ----------------------- CONSTANTS ----------------------- //
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
+const express = require("express");
+const { MongoClient } = require("mongodb");
+const dotenv = require("dotenv");
+const axios = require("axios");
+const gameTypes = require("./data.js");
+const mongoose = require("mongoose");
+const cors = require("cors");
+dotenv.config();
+
 const app = express();
 const port = 4000;
 const googlemapskey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-
+const URI = process.env.MONGO_DB_STRING;
 const games = []; // ARRAY OF ALL THE CURRENT GAMES
 // -------------------- Connect to Database ------------------ //
-app.use(cors({origin: true, credentials: true}));
-app.use(express.json({extended: false}));
-app.get("/", (req, res) => res.send('Hello World'));
+app.use(cors({ origin: true, credentials: true }));
+app.use(express.json({ extended: false }));
 
-const client = new MongoClient(process.en.URI);
-mongoose.set('strictQuery', false);
-mongoose.connect(URI, {
-  useUnifiedTopology : true,
-  useNewUrlParser : true
-})
-.then(() => {
-  app.listen(port)
-  console.log('Mongo Connection Suceeded...')
-})
-.catch(err => {
-  console.log('Error in DB Connection ${err}')
-});
+const client = new MongoClient(URI);
+mongoose.set("strictQuery", false);
+mongoose
+  .connect(URI)
+  .then(() => {
+    app.listen(port);
+    console.log("Mongo Connection Suceeded...");
+  })
+  .catch((err) => {
+    console.log("Error in DB Connection ${err}");
+  });
 // ----------------------- ENTRY POINT ----------------------- //
-
-app.use(express.json());
-app.use(cors());
-app.listen(port, () => {
-  console.log("Server is running on port 4000");
-});
 
 // ----------------------- APIS ----------------------- //
 
 app.get("/api/gametype", (req, res) => {
   const result = gameTypes;
-
+  console.log("sending", result);
   if (result) {
     res.json(result);
   } else {

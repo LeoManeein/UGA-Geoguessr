@@ -1,4 +1,4 @@
-export const gameTypes = [
+const gameTypes = [
   {
     id: "231232",
     title: "Entire Campus",
@@ -52,6 +52,7 @@ export const gameTypes = [
       { lat: 33.94088394389009, lng: -83.37890297244151, radius: 0.005 }, //
     ],
   },
+
   // {
   //   id: "4222",
   //   title: "Parks",
@@ -119,3 +120,4 @@ export const gameTypes = [
   //   ],
   // },
 ];
+module.exports = { gameTypes };
