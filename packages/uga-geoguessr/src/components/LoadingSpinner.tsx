@@ -1,6 +1,9 @@
 import MoonLoader from "react-spinners/MoonLoader";
-import RootLayout from "../pages/Root";
 import styles from "../Globals.module.css";
+/**
+ *
+ * @returns A spinner to highlight something is loading
+ */
 const LoadingSpinner: React.FC = () => {
 	return (
 		<div className={`flex w-screen items-center justify-center h-screen text-white ${styles.background}`}>

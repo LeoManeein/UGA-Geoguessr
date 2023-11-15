@@ -5,8 +5,10 @@ import MoonLoader from "react-spinners/MoonLoader";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 
-// TODO - Currently every thing here is on the client. We need to move a lot of this over to the backend. Theoretically we dont want the client to ever interact with the correct locations coordinates.
-
+/**
+ *
+ * @returns DEPRECATED. Do not use unless as a reference for a game.
+ */
 function ExampleGame() {
 	const [correctAnswerLocation, setCorrectAnswerLocation] = useState<LatLngLiteral | null>(null);
 

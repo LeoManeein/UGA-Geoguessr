@@ -23,12 +23,51 @@ app.listen(port, () => {
 // ----------------------- APIS ----------------------- //
 
 app.get("/api/gametype", (req, res) => {
-  const result = gameTypes;
-
-  if (result) {
-    res.json(result);
+  const defaultGames = gameTypes.filter((current) => current.default === true);
+  const usersGames = gameTypes.filter((current) => current.default === false);
+  if (defaultGames) {
+    res.json({ defaultGames: defaultGames, usersGames: usersGames });
   } else {
     res.status(404).json({ error: "Error no data" });
+  }
+});
+
+app.post("/api/gametype", (req, res) => {
+  try {
+    const newGameType = req.body;
+    if (
+      !newGameType ||
+      !newGameType.id ||
+      !newGameType.title ||
+      !newGameType.description ||
+      !newGameType.url ||
+      !newGameType.possibleCoordinates ||
+      newGameType.possibleCoordinates.length === 0
+    ) {
+      throw new Error("something is wrong");
+    }
+    newGameType.default = false;
+
+    // New or update?
+    const result = gameTypes.find(
+      (obj) => obj.id.toString() === newGameType.id.toString()
+    );
+    console.log(result);
+    if (!result) {
+      gameTypes.push(newGameType);
+    } else {
+      console.log("updating");
+      result.title = newGameType.title;
+      result.description = newGameType.description;
+      result.url = newGameType.url;
+      result.possibleCoordinates = newGameType.possibleCoordinates;
+    }
+    console.log(result);
+    console.log("success adding new game type");
+    res.json({ success: true });
+  } catch (error) {
+    console.log("post error");
+    res.json({ success: false });
   }
 });
 
@@ -136,7 +175,7 @@ function generateRandomString(length) {
 function randomPointinRadius(coordinate) {
   const lat = coordinate.lat;
   const lng = coordinate.lng;
-  const radius = coordinate.radius;
+  const radius = coordinate.radius / 111111;
   const angle = Math.random() * 2 * Math.PI;
   const distance = Math.random() * radius;
   const x = lat + distance * Math.cos(angle);
@@ -144,3 +183,5 @@ function randomPointinRadius(coordinate) {
   return { lat: x, lng: y };
 }
 const getRandomElement = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+function metersToLatLng(meters) {}
