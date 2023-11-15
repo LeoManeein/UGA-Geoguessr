@@ -1,6 +1,6 @@
 import { CircleF, MarkerF } from "@react-google-maps/api";
-import { PossibleLocation } from "./NewGameType";
 import { useMemo, useState } from "react";
+import { PossibleLocation } from "./NewGameType";
 type LatLngLiteral = google.maps.LatLngLiteral;
 interface Props {
 	current: PossibleLocation;
