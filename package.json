@@ -22,5 +22,8 @@
   "homepage": "https://github.com/LeoManeein/UGA-Geoguessr#readme",
   "dependencies": {
     "concurrently": "^8.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.9.0"
   }
 }
