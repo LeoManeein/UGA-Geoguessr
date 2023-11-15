@@ -3,6 +3,10 @@ import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import classes from "../Globals.module.css";
 
+/**
+ *
+ * @returns Wrapper layout for whatever children it has
+ */
 const RootLayout = ({ children }: { children?: React.ReactNode }) => {
 	return (
 		<>

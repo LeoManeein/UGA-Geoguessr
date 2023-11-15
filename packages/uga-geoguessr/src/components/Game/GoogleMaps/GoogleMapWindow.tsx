@@ -1,5 +1,5 @@
-import { useMemo, useCallback, useRef, useState } from "react";
 import { GoogleMap, MarkerF, PolylineF } from "@react-google-maps/api";
+import { useCallback, useMemo, useRef, useState } from "react";
 import styles from "../../../Globals.module.css";
 type LatLngLiteral = google.maps.LatLngLiteral;
 type MapOptions = google.maps.MapOptions;
@@ -7,19 +7,24 @@ interface Props {
 	setSelectedCoordinate: Function;
 	defaultMapCoordinate: LatLngLiteral;
 	selectedCoordinate: LatLngLiteral | null;
-	locationCoordinate: LatLngLiteral;
 	setShowScoreWindow: Function;
 }
 
+/**
+ *
+ * @param setSelectedCoordinate: Function that sets the currently selected coordinate when a position is clicked on the google map
+ * @param defaultMapCoordinate: The default center point of the google map. probably should be the center of UGA campus
+ * @param selectedCoordinate: The currently selected latlng point on the google map.
+ * @param setShowScoreWindow: When submit is clicked this function will make the score window display
+ * @returns A google map window the user can click to select points, and a button to submit the selected point
+ */
 const GoogleMapWindow: React.FC<Props> = ({
 	setSelectedCoordinate,
 	defaultMapCoordinate,
 	selectedCoordinate,
-	locationCoordinate,
 	setShowScoreWindow,
 }) => {
 	const mapRef = useRef<GoogleMap>();
-	//Tate Center at 33.951752641469085, -83.37435458710178
 	const center = useMemo<LatLngLiteral>(() => ({ lat: defaultMapCoordinate.lat, lng: defaultMapCoordinate.lng }), []);
 	const onLoadF = (marker: any) => {
 		console.log("marker: ", marker);

@@ -8,7 +8,11 @@ import { PlayCircleOutlined } from "@ant-design/icons";
 interface Props {
 	gameType: GameType;
 }
-
+/**
+ *
+ * @param gametype: The gametype that the card will display.
+ * @returns A card that will show the details and image of the gameType.
+ */
 const Card: React.FC<Props> = ({ gameType }) => {
 	const [isFlipped, setFlipped] = useState(false);
 	const navigate = useNavigate();
@@ -22,24 +26,22 @@ const Card: React.FC<Props> = ({ gameType }) => {
 		setFlipped(!isFlipped);
 	};
 
+	// Makes a request for a new GAME to be created using the current GAMETYPE
 	async function handleGameRequest() {
 		try {
 			const response = await fetch(`api/gametype/${gameType.id}/create`, {
-				method: "GET", // You can change this to the HTTP method you need (GET, POST, etc.)
+				method: "GET",
 				headers: {
-					// Add any headers you might need (e.g., authentication headers)
 					"Content-Type": "application/json",
 				},
 			});
 
 			if (response.ok) {
 				const data = await response.json();
-				// Do something with the data received from the API
 
 				navigate(`${data}`);
 				console.log(data);
 			} else {
-				// Handle errors here (e.g., show an error message to the user)
 				console.error("API request failed");
 			}
 		} catch (error) {
@@ -80,6 +82,8 @@ const Card: React.FC<Props> = ({ gameType }) => {
 					<div className="w-full text flex mb-2">
 						<div
 							onClick={() => {
+								// INSTEAD OF MAKING THE REQUEST HERE, PLEASE MAKE A MODAL
+								// This should instead call the function that causes the modal to show up.
 								handleGameRequest();
 							}}
 							className={`m-auto p-4  ${styles.playbtn}  rounded-full hover:cursor-pointer`}

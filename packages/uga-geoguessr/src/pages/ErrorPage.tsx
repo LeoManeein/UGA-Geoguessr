@@ -1,6 +1,9 @@
 import { useParams } from "react-router-dom";
 import styles from "../Globals.module.css";
-
+/**
+ *
+ * @returns An error page that will display the /error/:id message on the screen or a default page not found message
+ */
 function ErrorPage() {
 	const params = useParams();
 	console.log(params.id);
