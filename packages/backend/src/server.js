@@ -10,17 +10,15 @@ dotenv.config();
 const app = express();
 const port = 4000;
 const googlemapskey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-const URI = process.env.MONGO_DB_STRING;
+const MONGO_DB_STRING = process.env.URI;
 const games = []; // ARRAY OF ALL THE CURRENT GAMES
 // -------------------- Connect to Database ------------------ //
 app.listen(port);
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json({ extended: false }));
-
-const client = new MongoClient(URI);
 mongoose.set("strictQuery", false);
 mongoose
-  .connect(URI)
+  .connect(MONGO_DB_STRING)
   .then(() => {
     console.log("Mongo Connection Suceeded...");
   })
