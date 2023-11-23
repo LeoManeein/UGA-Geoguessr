@@ -1,9 +1,6 @@
 import { GameType } from "../../pages/AvailableGames";
-import { useState } from "react";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import styles from "./Card.module.css";
-import { useSpring, animated } from "@react-spring/web";
 import { PlayCircleOutlined } from "@ant-design/icons";
 import axios from "axios";
 interface Props {
@@ -15,17 +12,7 @@ interface Props {
  * @returns A card that will show the details and image of the gameType.
  */
 const Card: React.FC<Props> = ({ gameType }) => {
-	const [isFlipped, setFlipped] = useState(false);
 	const navigate = useNavigate();
-	const { transform, opacity } = useSpring({
-		opacity: isFlipped ? 1 : 0,
-		transform: `perspective(600px) rotateY(${isFlipped ? 180 : 0}deg)`,
-		config: { friction: 18, tension: 150 },
-	});
-
-	const handleCardClick = () => {
-		setFlipped(!isFlipped);
-	};
 
 	// Makes a request for a new GAME to be created using the current GAMETYPE
 	async function handleGameRequest() {
@@ -49,31 +36,19 @@ const Card: React.FC<Props> = ({ gameType }) => {
 	}
 
 	return (
-		<div className={styles.flip_card} onClick={handleCardClick}>
-			<animated.div
-				className={`${styles.card} hover:cursor-pointer `}
-				style={{
-					opacity: opacity.to((o) => 1 - o),
-					transform,
-				}}
-			>
+		<div className={styles.flip_card}>
+			<div className={`${styles.card} hover:cursor-pointer `}>
 				<div className={` w-full  h-[300px]  ${styles.front}`}>
 					<div className={`rounded-lg w-[100%] h-[100%] `}>
 						<img
 							alt={"img"}
-							className={` w-full h-full object-cover select-none ${styles.card} `}
+							className={` w-full h-full object-cover select-none  ${styles.card} `}
 							src={gameType.url as string}
 						></img>
 					</div>
 				</div>
-			</animated.div>
-			<animated.div
-				className={styles.card}
-				style={{
-					opacity,
-					transform: transform.to((t) => `${t} rotateY(180deg)`),
-				}}
-			>
+			</div>
+			<div className={styles.card}>
 				<div className={`${styles.back} w-full flex flex-col justify-between`}>
 					<div className={` w-[100%] text-center text-white text-3xl `}>{gameType.title}</div>
 					<div className={` w-[100%] text-center text-white text-xl `}>{gameType.description}</div>
@@ -90,7 +65,7 @@ const Card: React.FC<Props> = ({ gameType }) => {
 						</div>
 					</div>
 				</div>
-			</animated.div>
+			</div>
 		</div>
 	);
 };
