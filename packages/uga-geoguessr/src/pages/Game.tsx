@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import GameWindow from "../components/Game/GameWindow";
 import styles from "../Globals.module.css";
 import LoadingSpinner from "../components/LoadingSpinner";
+import axios from "axios";
 type LatLngLiteral = google.maps.LatLngLiteral;
 
 /**
@@ -37,19 +38,22 @@ function GamePage() {
 	const [correctAnswerLocation, setCorrectAnswerLocation] = useState<LatLngLiteral | null>(null);
 
 	useEffect(() => {
-		fetch(`/api/game/${params.id}`)
-			.then((response) => response.json())
-			.then((data: Game) => {
+		const fetchData = async () => {
+			try {
+				const response = await axios.get(`http://localhost:4000/api/game/${params.id}`);
+				const data = response.data;
+
 				const currentStageObject = data.stages[data.currentStage];
 				if (!currentStageObject.score) {
 					setData(data);
 					setCurrentStageNumber(data.currentStage);
 				}
-			})
-			.catch((error) => {
+			} catch (error) {
 				console.error("Error fetching data:", error);
 				navigate("/Error/GameNotFound");
-			});
+			}
+		};
+		fetchData();
 	}, [params.id, navigate]);
 
 	useEffect(() => {

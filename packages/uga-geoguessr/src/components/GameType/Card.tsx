@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Card.module.css";
 import { useSpring, animated } from "@react-spring/web";
 import { PlayCircleOutlined } from "@ant-design/icons";
+import axios from "axios";
 interface Props {
 	gameType: GameType;
 }
@@ -29,18 +30,15 @@ const Card: React.FC<Props> = ({ gameType }) => {
 	// Makes a request for a new GAME to be created using the current GAMETYPE
 	async function handleGameRequest() {
 		try {
-			const response = await fetch(`api/gametype/${gameType.id}/create`, {
-				method: "GET",
+			const response = await axios.get(`http://localhost:4000/api/gametype/${gameType.id}/create`, {
 				headers: {
 					"Content-Type": "application/json",
 				},
 			});
 
-			if (response.ok) {
-				const data = await response.json();
-
+			if (response.status === 200) {
+				const data = response.data;
 				navigate(`${data}`);
-				console.log(data);
 			} else {
 				console.error("API request failed");
 			}

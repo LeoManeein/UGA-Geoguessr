@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import GameTypeWindow from "../components/GameType/GameTypeWindow";
+import axios from "axios";
 
 export type GameType = {
 	title: String;
@@ -26,11 +27,8 @@ function AvailableGames() {
 
 	const fetchData = async () => {
 		try {
-			const response = await fetch(`/api/gametype/`);
-			if (!response.ok) {
-				throw new Error("Error fetching data");
-			}
-			const data = await response.json();
+			const response = await axios.get("http://localhost:4000/api/gametype");
+			const data = await response.data;
 			if (data) {
 				setDefaultGameTypes(data.defaultGames);
 				setUserGameTypes(data.usersGames);

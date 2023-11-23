@@ -1,20 +1,20 @@
 import React from "react";
 import NewGameType from "../components/GameType/NewGameType/NewGameType"; // Assuming the path to your NewGame component
+import axios from "axios";
+import { GameType } from "./AvailableGames";
 
 const AddGameType: React.FC = () => {
 	const handleAddGame = async (game: any) => {
 		try {
-			const response = await fetch("/api/gametype", {
-				method: "POST",
+			const response = await axios.post("http://localhost:4000/api/gametype", game, {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify(game),
 			});
 
 			console.log(game);
 
-			const data = await response.json();
+			const data = response.data;
 			console.log(data);
 			if (data.success) {
 				console.log("New game added:", game);
