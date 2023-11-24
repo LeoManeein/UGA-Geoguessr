@@ -8,10 +8,10 @@ interface Props {
 }
 
 const Switch: React.FC<Props> = ({ isChecked, setFunction, text }) => {
-	const [checkboxState, setCheckBoxState] = useState(isChecked || false);
+	const [checkboxState, setCheckBoxState] = useState(isChecked);
 
 	const handleChange = () => {
-		setFunction(checkboxState);
+		setFunction(!checkboxState);
 
 		setCheckBoxState((checkboxState) => !checkboxState);
 	};
