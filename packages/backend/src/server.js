@@ -167,6 +167,57 @@ app.put("/api/game/:id", (req, res) => {
   }
 });
 
+app.post("/api/game", async (req, res) => {
+  try {
+    const difficulty = req.body.difficulty;
+    const id = req.body.gameType.id;
+    const result = gameTypes.find((obj) => obj.id.toString() === id.toString());
+    const possibleCoordinates = result.possibleCoordinates;
+
+    // Calls google maps api to get a random location
+    async function getRandomAnswerLocation() {
+      const randomPoint = randomPointinRadius(
+        getRandomElement(possibleCoordinates)
+      );
+
+      const apiKey = googlemapskey;
+      const location = `${randomPoint.lat},${randomPoint.lng}`;
+      const size = "600x300";
+      const radius = "1234";
+
+      const response = await axios.get(
+        `https://maps.googleapis.com/maps/api/streetview/metadata?size=${size}&location=${location}&radius=${radius}&key=${apiKey}`
+      );
+
+      const answerLocation = response.data.location;
+
+      return answerLocation;
+    }
+    const numberofstages = 5;
+    const answerstages = [];
+    for (let i = 0; i < numberofstages; i++) {
+      answerstages.push({
+        score: null,
+        answerLocation: await getRandomAnswerLocation(),
+      });
+    }
+    const newGame = {
+      id: generateRandomString(10),
+      currentStage: 0,
+      stages: answerstages,
+      numberOfStages: numberofstages,
+      difficulty: difficulty,
+    };
+    games.push(newGame);
+    console.log(`---GAME ${newGame.id} CREATED---`);
+    console.log(games);
+    res.json(`/game/${newGame.id}`);
+  } catch {
+    res.json("/error");
+    return;
+  }
+});
+
 // ----------------------- HELPER FUNCTIONS ----------------------- //
 
 function generateRandomString(length) {

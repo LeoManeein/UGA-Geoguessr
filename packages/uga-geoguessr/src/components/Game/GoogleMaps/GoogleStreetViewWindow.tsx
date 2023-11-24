@@ -42,6 +42,7 @@ const GoogleStreetViewWindow: React.FC<Props> = ({ coordinate, setHeading, diffi
 		disableDoubleCLickZoom: true,
 		panControl: false,
 		enableCloseButton: false,
+
 		clickToGo: difficulty ? difficulty.movement : true,
 		linksControl: difficulty ? difficulty.movement : true,
 	};

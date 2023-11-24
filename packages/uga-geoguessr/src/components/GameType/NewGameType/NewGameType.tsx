@@ -89,7 +89,7 @@ const NewGameType: React.FC<NewGameProps> = (props) => {
 	return (
 		<div className="flex m-auto justify-center  ">
 			<div className="input w-1/2 sm:w-[320px] md:w-[384px] lg:w-[512px] xl:w-[640px] 2xl:w-[768px] ">
-				<form onSubmit={submitHandler} className="flex flex-col mr-6">
+				<form onSubmit={submitHandler} autoComplete="off" className="flex flex-col mr-6">
 					<label>Game Name</label>
 					<input
 						className="text-black"
