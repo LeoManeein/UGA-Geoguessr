@@ -193,13 +193,24 @@ app.post("/api/game", async (req, res) => {
 
       return answerLocation;
     }
-    const numberofstages = 5;
+    if (!req.body.numberOfStages || req.body.numberOfStages > 10) {
+      throw new Error("To many stages");
+    }
+    const numberofstages = req.body.numberOfStages;
+
     const answerstages = [];
+
+    async function delay(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    }
     for (let i = 0; i < numberofstages; i++) {
       answerstages.push({
         score: null,
         answerLocation: await getRandomAnswerLocation(),
       });
+      if ((i + 1) % 5 === 0 && i !== numberofstages - 1) {
+        await delay(3000); // Pause for 3 seconds
+      }
     }
     const newGame = {
       id: generateRandomString(10),

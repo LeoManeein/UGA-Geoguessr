@@ -11,9 +11,9 @@ const Switch: React.FC<Props> = ({ isChecked, setFunction, text }) => {
 	const [checkboxState, setCheckBoxState] = useState(isChecked || false);
 
 	const handleChange = () => {
-		setFunction(!checkboxState);
+		setFunction(checkboxState);
 
-		setCheckBoxState(!checkboxState);
+		setCheckBoxState((checkboxState) => !checkboxState);
 	};
 
 	return (
