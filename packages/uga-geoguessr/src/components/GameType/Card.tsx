@@ -5,13 +5,14 @@ import { PlayCircleOutlined } from "@ant-design/icons";
 import axios from "axios";
 interface Props {
 	gameType: GameType;
+	setModalData: Function;
 }
 /**
  *
  * @param gametype: The gametype that the card will display.
  * @returns A card that will show the details and image of the gameType.
  */
-const Card: React.FC<Props> = ({ gameType }) => {
+const Card: React.FC<Props> = ({ gameType, setModalData }) => {
 	const navigate = useNavigate();
 
 	// Makes a request for a new GAME to be created using the current GAMETYPE
@@ -61,7 +62,8 @@ const Card: React.FC<Props> = ({ gameType }) => {
 							onClick={() => {
 								// INSTEAD OF MAKING THE REQUEST HERE, PLEASE MAKE A MODAL
 								// This should instead call the function that causes the modal to show up.
-								handleGameRequest();
+								//handleGameRequest();
+								setModalData(gameType);
 							}}
 							className={`m-auto p-4  ${styles.playbtn}  rounded-full hover:cursor-pointer`}
 						>

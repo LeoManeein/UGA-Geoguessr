@@ -92,8 +92,7 @@ function GamePage() {
 							answerLocation={current.answerLocation}
 							setCurrentStageNumber={setCurrentStageNumber}
 							nextStage={nextStage}
-							// difficulty={data.difficulty}
-							difficulty={dummyDifficulty}
+							difficulty={data.difficulty || dummyDifficulty}
 						></GameWindow>
 					);
 				})}

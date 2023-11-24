@@ -4,13 +4,15 @@ import Card from "./Card";
 interface Props {
 	gameTypes: GameType[] | null;
 	title: string;
+	setModalData: Function;
 }
 /**
  * @param {GameType[] | null} gameTypes: GameType array or null. All the gametypes that will be displayed in the window.
  * @param {string} title: String that will be displayed as the title of the window
+ * @param setModalData: set the gametype to display in the difficulty modal
  * @returns A window containing an array of GameTypes that are mapped as cards
  */
-const GameTypeWindow: React.FC<Props> = ({ gameTypes, title }) => {
+const GameTypeWindow: React.FC<Props> = ({ gameTypes, title, setModalData }) => {
 	return (
 		<div className="mx-2 mt-6 ">
 			<div
@@ -24,7 +26,11 @@ const GameTypeWindow: React.FC<Props> = ({ gameTypes, title }) => {
 					{!gameTypes && <div className="h-[300px]" />}
 					{gameTypes &&
 						gameTypes.map((item, index) => (
-							<Card key={item.title.toString() + index.toString()} gameType={item}></Card>
+							<Card
+								setModalData={setModalData}
+								key={item.title.toString() + index.toString()}
+								gameType={item}
+							></Card>
 						))}
 				</div>
 			</div>
