@@ -15,8 +15,12 @@ type LatLngLiteral = google.maps.LatLngLiteral;
  *
  * Notice the difference between a GAME and GAMETYPE
  */
-
-type Game = {
+export type difficultyType = {
+	zoom: boolean;
+	compass: boolean;
+	movement: boolean;
+};
+export type Game = {
 	id: String;
 	currentStage: number;
 	numberOfStages: number;
@@ -24,6 +28,7 @@ type Game = {
 		score: null | number;
 		answerLocation: LatLngLiteral;
 	}[];
+	difficulty: difficultyType;
 };
 
 /**
@@ -36,12 +41,18 @@ function GamePage() {
 	const [data, setData] = useState<Game | null>(null);
 	const [correctAnswerLocation, setCorrectAnswerLocation] = useState<LatLngLiteral | null>(null);
 
+	const dummyDifficulty = {
+		zoom: true,
+		compass: true,
+		movement: true,
+	};
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				const response = await axios.get(`http://localhost:4000/api/game/${params.id}`);
 				const data = response.data;
-
+				console.log("data", data);
 				const currentStageObject = data.stages[data.currentStage];
 				if (!currentStageObject.score) {
 					setData(data);
@@ -81,6 +92,8 @@ function GamePage() {
 							answerLocation={current.answerLocation}
 							setCurrentStageNumber={setCurrentStageNumber}
 							nextStage={nextStage}
+							// difficulty={data.difficulty}
+							difficulty={dummyDifficulty}
 						></GameWindow>
 					);
 				})}
