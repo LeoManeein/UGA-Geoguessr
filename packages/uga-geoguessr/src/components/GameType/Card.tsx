@@ -37,7 +37,7 @@ const Card: React.FC<Props> = ({ gameType }) => {
 
 	return (
 		<div className={styles.flip_card}>
-			<div className={`${styles.card} hover:cursor-pointer `}>
+			<div className={`${styles.card} hover:cursor-pointer  `}>
 				<div className={` w-full  h-[300px]  ${styles.front}`}>
 					<div className={`rounded-lg w-[100%] h-[100%] `}>
 						<img
@@ -49,9 +49,13 @@ const Card: React.FC<Props> = ({ gameType }) => {
 				</div>
 			</div>
 			<div className={styles.card}>
-				<div className={`${styles.back} w-full flex flex-col justify-between`}>
-					<div className={` w-[100%] text-center text-white text-3xl `}>{gameType.title}</div>
-					<div className={` w-[100%] text-center text-white text-xl `}>{gameType.description}</div>
+				<div className={`${styles.back} w-full flex flex-col justify-between `}>
+					<div className={` w-[100%]  break-words text-center text-white text-3xl `}>
+						{gameType.title.slice(0, 30)}
+					</div>
+					<div className={` w-[100%] break-words text-center text-white text-xl `}>
+						{gameType.description.slice(0, 90)}
+					</div>
 					<div className="w-full text flex mb-2">
 						<div
 							onClick={() => {

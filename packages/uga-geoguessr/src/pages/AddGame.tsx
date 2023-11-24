@@ -27,7 +27,7 @@ const AddGameType: React.FC = () => {
 
 	return (
 		<div className="text-ugatan-100">
-			<h2>Test NewGame Component</h2>
+			<h2 className="text-center text-xl my-2">Add new GameType</h2>
 			{/* You can add other components or content here */}
 			<GameIdProvider>
 				<NewGameType onAddGame={handleAddGame} />

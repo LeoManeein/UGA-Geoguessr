@@ -90,7 +90,7 @@ const NewGameType: React.FC<NewGameProps> = (props) => {
 	return (
 		<div className="flex m-auto justify-center  ">
 			<div className="input w-1/2 sm:w-[320px] md:w-[384px] lg:w-[512px] xl:w-[640px] 2xl:w-[768px] ">
-				<form onSubmit={submitHandler} className="flex flex-col mr-6">
+				<form onSubmit={submitHandler} autoComplete="false" className="flex flex-col mr-6">
 					<label>Game Name</label>
 					<input
 						className="text-black"
@@ -118,8 +118,10 @@ const NewGameType: React.FC<NewGameProps> = (props) => {
 
 					{error && <div style={{ color: "red" }}>{error}</div>}
 
-					<button type="submit">Add Game</button>
-					<div>Temp way to see all the current locations</div>
+					<button className="bg-ugared-200 mt-4 hover:bg-ugared-300" type="submit">
+						Add Game
+					</button>
+					<div>Selected Locations:</div>
 					{locations.map((current) => {
 						return (
 							<div className="flex gap-x-2" key={Math.random()}>
