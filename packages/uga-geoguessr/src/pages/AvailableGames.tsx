@@ -53,7 +53,7 @@ function AvailableGames() {
 		<div className="relative">
 			{modalData && (
 				<div
-					className={`w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 justify-center items-center flex   z-40 `}
+					className={`w-full h-full   fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 justify-center items-center flex   z-40 `}
 				>
 					<PlayGameTypeModal gameType={modalData} setModalData={setModalData}></PlayGameTypeModal>
 					<div
