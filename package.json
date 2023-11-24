@@ -21,9 +21,14 @@
   },
   "homepage": "https://github.com/LeoManeein/UGA-Geoguessr#readme",
   "dependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "mongodb": "^6.2.0",
+    "mongoose": "^8.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.9.0"
-  }
+    "nodemon": "^3.0.1"
+  },
+  "main": "index.js",
+  "keywords": []
+
 }

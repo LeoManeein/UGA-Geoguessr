@@ -21,7 +21,7 @@ const Compass: React.FC<Props> = ({ heading }) => {
 	useEffect(() => {
 		const offset = -fullWidth + 88.5 - ((heading % 360) / 360) * fullWidth;
 		setCompassOffset(offset);
-	}, [, heading]);
+	}, [heading, fullWidth]);
 
 	// Getting a ref to one of the compass parts to obtain it's width
 	const myRef = useRef<HTMLDivElement | null>(null);

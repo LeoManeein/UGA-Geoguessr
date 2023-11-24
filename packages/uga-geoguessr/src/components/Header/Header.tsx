@@ -27,11 +27,6 @@ function Header() {
 		href: "/Register",
 	};
 
-	const yourGames = {
-		name: "Your Games",
-		href: "/YourGames",
-	};
-
 	const [showDropDown, setShowDropDown] = useState(false);
 
 	const location = useLocation();
@@ -58,16 +53,6 @@ function Header() {
 						})}
 					</div>
 					<div className="flex gap-x-4">
-						<div>
-							<Link
-								className={`${
-									location.pathname.toLocaleLowerCase() === yourGames.href.toLocaleLowerCase()
-										? "   border-ugared-300"
-										: " border-transparent  text-gray-300"
-								} pb-[8px] pt-[6px] px-2 rounded-full border-2 text-white`}
-								to={yourGames.href}
-							>{`${yourGames.name}`}</Link>
-						</div>
 						<div>
 							<Link
 								className={`${
@@ -112,16 +97,6 @@ function Header() {
 								);
 							})}
 
-							<div>
-								<Link
-									className={`${
-										location.pathname.toLocaleLowerCase() === yourGames.href.toLocaleLowerCase()
-											? "   border-ugared-300"
-											: " border-transparent  text-gray-300"
-									} pb-[8px] pt-[6px] px-2 rounded-full border-2 text-white`}
-									to={yourGames.href}
-								>{`${yourGames.name}`}</Link>
-							</div>
 							<div>
 								<Link
 									className={`${
