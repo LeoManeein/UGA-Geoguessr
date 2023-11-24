@@ -7,7 +7,7 @@ import Compass from "./GoogleMaps/Compass";
 import ScoreWindow from "./ScoreWindow/ScoreWindow";
 import { CloseOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { difficultyType } from "../../pages/Game";
+import { difficultyType } from "../../pages/GamePage";
 type LatLngLiteral = google.maps.LatLngLiteral;
 
 interface Props {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import GameTypeWindow from "../components/GameType/GameTypeWindow";
 import axios from "axios";
-import { difficultyType } from "./Game";
+import { difficultyType } from "./GamePage";
 import PlayGameTypeModal from "../components/GameType/GameTypeModal/PlayGameTypeModal";
 
 export type GameType = {

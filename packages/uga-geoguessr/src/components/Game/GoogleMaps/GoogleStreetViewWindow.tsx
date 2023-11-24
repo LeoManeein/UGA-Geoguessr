@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import GoogleStreetView from "./GoogleStreetView";
 import { ReloadOutlined } from "@ant-design/icons";
-import { difficultyType } from "../../../pages/Game";
+import { difficultyType } from "../../../pages/GamePage";
 type LatLngLiteral = google.maps.LatLngLiteral;
 interface Props {
 	coordinate: LatLngLiteral;

@@ -6,7 +6,7 @@ import "./App.css";
 import AddGameType from "./pages/AddGame";
 import AvailableGames from "./pages/AvailableGames";
 import ErrorPage from "./pages/ErrorPage";
-import GamePage from "./pages/Game";
+import GamePage from "./pages/GamePage";
 import Home from "./pages/Home";
 import RootLayout from "./pages/Root";
 function App() {
