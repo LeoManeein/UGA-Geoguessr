@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "../../../Globals.module.css";
 import Switch from "./Switch";
 import { CloseOutlined } from "@ant-design/icons";
+import { MoonLoader } from "react-spinners";
 interface Props {
 	gameType: GameType;
 	setModalData: Function;
@@ -16,8 +17,10 @@ const PlayGameTypeModal: React.FC<Props> = ({ gameType, setModalData }) => {
 	const [compass, setCompass] = useState(true);
 	const [movement, setMovement] = useState(true);
 	const [numberOfStages, setNumberOfStages] = useState(3);
+	const [clicked, setClicked] = useState(false);
 	async function handleGameRequest() {
 		try {
+			setClicked(true);
 			const response = await axios.post(
 				`http://localhost:4000/api/game`,
 				{
@@ -33,10 +36,12 @@ const PlayGameTypeModal: React.FC<Props> = ({ gameType, setModalData }) => {
 			);
 
 			if (response.status === 200) {
+				setClicked(false);
 				const data = response.data;
 				navigate(`${data}`);
 			} else {
 				console.error("API request failed");
+				setClicked(false);
 			}
 		} catch (error) {
 			// Handle network errors or other exceptions here
@@ -78,14 +83,22 @@ const PlayGameTypeModal: React.FC<Props> = ({ gameType, setModalData }) => {
 				</div>
 			</div>
 			<div className="w-[200px] mx-auto">
-				<div
-					onClick={() => {
-						handleGameRequest();
-					}}
-					className={`  w-[200px]  h-[43px] z-50  text-center pt-[4px] mt-1 ${styles.button} `}
-				>
-					Play Game
-				</div>
+				{!clicked && (
+					<div
+						onClick={() => {
+							handleGameRequest();
+						}}
+						className={`  w-[200px]  h-[43px] z-50  text-center pt-[4px] mt-1 ${styles.button} `}
+					>
+						Play Game
+					</div>
+				)}
+
+				{clicked && (
+					<div className={`  w-[200px]  h-[43px] flex justify-center  pt-[4px] mt-1 ${styles.button2}`}>
+						<MoonLoader className="m-auto" color={"white"} size={25}></MoonLoader>
+					</div>
+				)}
 			</div>
 		</div>
 	);
