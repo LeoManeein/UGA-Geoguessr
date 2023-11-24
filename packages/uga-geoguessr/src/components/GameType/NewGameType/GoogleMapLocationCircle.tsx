@@ -37,6 +37,7 @@ const GoogleMapLocationCircle: React.FC<Props> = ({ current, deleteCoordinate, u
 		return (
 			<CircleF center={tempLocation || current} radius={tempRadius || current.radius} options={circleOptions} />
 		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [tempLocation, tempRadius]);
 
 	// Only want the button to move if we are currently dragging it
@@ -72,6 +73,7 @@ const GoogleMapLocationCircle: React.FC<Props> = ({ current, deleteCoordinate, u
 				)}
 			</>
 		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [tempLocation]);
 
 	// Only rerenders when the location changes
@@ -95,6 +97,7 @@ const GoogleMapLocationCircle: React.FC<Props> = ({ current, deleteCoordinate, u
 				/>
 			</>
 		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [current]);
 	return (
 		<>

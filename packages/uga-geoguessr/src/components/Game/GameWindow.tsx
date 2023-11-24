@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLoadScript } from "@react-google-maps/api";
 import GoogleStreetViewWindow from "./GoogleMaps/GoogleStreetViewWindow";
 import GoogleMapWindow from "./GoogleMaps/GoogleMapWindow";
-import Header from "../Header/Header";
 import LoadingSpinner from "../LoadingSpinner";
 import Compass from "./GoogleMaps/Compass";
 import ScoreWindow from "./ScoreWindow/ScoreWindow";

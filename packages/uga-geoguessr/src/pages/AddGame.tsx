@@ -1,7 +1,6 @@
 import React from "react";
 import NewGameType from "../components/GameType/NewGameType/NewGameType"; // Assuming the path to your NewGame component
 import axios from "axios";
-import { GameType } from "./AvailableGames";
 
 const AddGameType: React.FC = () => {
 	const handleAddGame = async (game: any) => {
@@ -12,10 +11,7 @@ const AddGameType: React.FC = () => {
 				},
 			});
 
-			console.log(game);
-
 			const data = response.data;
-			console.log(data);
 			if (data.success) {
 				console.log("New game added:", game);
 			} else {

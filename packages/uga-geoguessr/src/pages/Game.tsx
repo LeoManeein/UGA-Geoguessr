@@ -32,7 +32,6 @@ type Game = {
 function GamePage() {
 	const navigate = useNavigate();
 	const params = useParams();
-	console.log(params.id);
 	const [currentStageNumber, setCurrentStageNumber] = useState<null | number>(null);
 	const [data, setData] = useState<Game | null>(null);
 	const [correctAnswerLocation, setCorrectAnswerLocation] = useState<LatLngLiteral | null>(null);

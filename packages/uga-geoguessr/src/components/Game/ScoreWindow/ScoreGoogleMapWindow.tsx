@@ -1,7 +1,6 @@
-import { useMemo, useCallback, useRef, useState, useEffect } from "react";
+import { useCallback, useRef } from "react";
 import { GoogleMap, MarkerF, PolylineF } from "@react-google-maps/api";
 type LatLngLiteral = google.maps.LatLngLiteral;
-type MapOptions = google.maps.MapOptions;
 interface Props {
 	defaultMapCoordinate: LatLngLiteral;
 	selectedCoordinate: LatLngLiteral;
@@ -10,15 +9,11 @@ interface Props {
 
 const ScoreGoogleMapWindow: React.FC<Props> = ({ defaultMapCoordinate, selectedCoordinate, locationCoordinate }) => {
 	const mapRef = useRef<GoogleMap>();
-	const center = useMemo<LatLngLiteral>(
-		() =>
-			calculateMidpoint(
-				selectedCoordinate.lat,
-				selectedCoordinate.lng,
-				locationCoordinate.lat,
-				locationCoordinate.lng,
-			),
-		[],
+	const center = calculateMidpoint(
+		selectedCoordinate.lat,
+		selectedCoordinate.lng,
+		locationCoordinate.lat,
+		locationCoordinate.lng,
 	);
 	const onLoadF = (marker: any) => {
 		console.log("marker: ", marker);
@@ -42,20 +37,13 @@ const ScoreGoogleMapWindow: React.FC<Props> = ({ defaultMapCoordinate, selectedC
 		return { lat: avgLat, lng: avgLng };
 	}
 
-	const options = useMemo<MapOptions>(
-		() => ({
-			mapId: "b181cac70f27f5e6",
-			disableDefaultUI: true,
-			clickableIcons: false,
-		}),
-		[],
-	);
+	const options = {
+		mapId: "b181cac70f27f5e6",
+		disableDefaultUI: true,
+		clickableIcons: false,
+	};
 
-	useEffect(() => {
-		setPathCoordinates([locationCoordinate, selectedCoordinate]);
-	}, []);
-
-	const [pathCoordinates, setPathCoordinates] = useState<LatLngLiteral[] | null>(null);
+	const pathCoordinates = [locationCoordinate, selectedCoordinate];
 
 	const onLoad = useCallback((map: any) => (mapRef.current = map), []);
 	if (!window.google) return <div></div>;

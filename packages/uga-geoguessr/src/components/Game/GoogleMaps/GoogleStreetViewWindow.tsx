@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import GoogleStreetView from "./GoogleStreetView";
 import { ReloadOutlined } from "@ant-design/icons";
 type LatLngLiteral = google.maps.LatLngLiteral;
@@ -65,11 +65,8 @@ const GoogleStreetViewWindow: React.FC<Props> = ({ coordinate, setHeading }) => 
 				></GoogleStreetView>
 			</div>
 		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [coordinate, rerenderStreetView]);
-
-	useEffect(() => {
-		console.log("should reload");
-	}, [coordinate]);
 
 	return { ...street };
 };

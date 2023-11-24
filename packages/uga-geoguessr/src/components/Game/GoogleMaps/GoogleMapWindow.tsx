@@ -1,5 +1,5 @@
-import { GoogleMap, MarkerF, PolylineF } from "@react-google-maps/api";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { GoogleMap, MarkerF } from "@react-google-maps/api";
+import { useCallback, useMemo, useRef } from "react";
 import styles from "../../../Globals.module.css";
 type LatLngLiteral = google.maps.LatLngLiteral;
 type MapOptions = google.maps.MapOptions;
@@ -25,6 +25,7 @@ const GoogleMapWindow: React.FC<Props> = ({
 	setShowScoreWindow,
 }) => {
 	const mapRef = useRef<GoogleMap>();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const center = useMemo<LatLngLiteral>(() => ({ lat: defaultMapCoordinate.lat, lng: defaultMapCoordinate.lng }), []);
 	const onLoadF = (marker: any) => {
 		console.log("marker: ", marker);

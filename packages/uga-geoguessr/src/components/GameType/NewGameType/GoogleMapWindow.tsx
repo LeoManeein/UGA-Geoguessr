@@ -29,6 +29,7 @@ const GoogleMapWindow: React.FC<Props> = ({
 	setLocations,
 }) => {
 	const mapRef = useRef<GoogleMap>();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const center = useMemo<LatLngLiteral>(() => ({ lat: defaultMapCoordinate.lat, lng: defaultMapCoordinate.lng }), []);
 
 	const options = useMemo<MapOptions>(
