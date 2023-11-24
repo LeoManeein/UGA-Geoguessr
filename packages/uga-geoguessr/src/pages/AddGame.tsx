@@ -1,4 +1,5 @@
 import React from "react";
+import { GameIdProvider } from "../components/GameType/NewGameType/GameIdContext";
 import NewGameType from "../components/GameType/NewGameType/NewGameType"; // Assuming the path to your NewGame component
 import axios from "axios";
 
@@ -28,7 +29,9 @@ const AddGameType: React.FC = () => {
 		<div className="text-ugatan-100">
 			<h2>Test NewGame Component</h2>
 			{/* You can add other components or content here */}
-			<NewGameType onAddGame={handleAddGame} />
+			<GameIdProvider>
+				<NewGameType onAddGame={handleAddGame} />
+			</GameIdProvider>
 		</div>
 	);
 };

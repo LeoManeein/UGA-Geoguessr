@@ -1,6 +1,6 @@
 import { CircleF, MarkerF } from "@react-google-maps/api";
-import { PossibleLocation } from "./NewGameType";
 import { useMemo, useState } from "react";
+import { PossibleLocation } from "./NewGameType";
 type LatLngLiteral = google.maps.LatLngLiteral;
 interface Props {
 	current: PossibleLocation;
@@ -23,10 +23,10 @@ const GoogleMapLocationCircle: React.FC<Props> = ({ current, deleteCoordinate, u
 	const [tempRadius, setTempRadius] = useState<null | number>(null);
 
 	const circleOptions = {
-		strokeColor: "#ff0000",
+		strokeColor: "#B41512",
 		fillColor: tempLocation ? "#943E3E" : "#dcfc26",
 		fillOpacity: 0.2,
-		strokeWeight: 2,
+		strokeWeight: 6,
 		clickable: false,
 		editable: false,
 		draggable: false,
@@ -47,8 +47,8 @@ const GoogleMapLocationCircle: React.FC<Props> = ({ current, deleteCoordinate, u
 				{!tempLocation && (
 					<MarkerF
 						icon={{
-							url: "https://cdn.discordapp.com/attachments/1054239396024549486/1173784441378844682/pixil-frame-01.png?ex=656536f2&is=6552c1f2&hm=d98f47a61c0c7bb37c532b61365fbe7249b17c569a8c99f9debbbb1795a6f490&",
-							anchor: new google.maps.Point(14, 28),
+							url: "https://cdn.discordapp.com/attachments/1168655523646804080/1174472801793605672/Group_56.png?ex=6567b808&is=65554308&hm=480f0adda14b330ef4bfb4f15c757be948954495eb2fc4e4f0269cfb9f49ae70&",
+							anchor: new google.maps.Point(14, 24),
 							scaledSize: new google.maps.Size(28, 28),
 						}}
 						key={Math.random()}
