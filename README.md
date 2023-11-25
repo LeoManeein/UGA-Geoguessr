@@ -23,7 +23,7 @@ Run `npm install` in the main top level directory
 
 run `npm install -g nodemon`
 
-Run `npm run update-backend` and `npm rnn update-frontend` to install npm packages (from the top level directory again)
+Run `npm run update-backend` and `npm run update-frontend` to install npm packages (from the top level directory again)
 
 Set up ENV for backend and frontend. Also put one in the top level directory.
 
