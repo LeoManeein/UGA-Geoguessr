@@ -42,7 +42,7 @@ const Login: React.FC = () => {
 						handleSubmit(e);
 					}}
 					autoComplete="off"
-					className="flex flex-col mr-6"
+					className="flex flex-col mx-4"
 				>
 					<label>email</label>
 					<input
@@ -66,8 +66,8 @@ const Login: React.FC = () => {
 					<button className="bg-ugared-200 mt-4 hover:bg-ugared-300" type="submit">
 						Submit
 					</button>
-					<Link to={"/signup"} className="bg-ugared-500 mt-4 hover:bg-ugared-400" type="submit">
-						Sign Up
+					<Link to={"/signup"} className="bg-ugared-500 text-3xl mt-4 hover:bg-ugared-400" type="submit">
+						Signup
 					</Link>
 				</form>
 			</div>

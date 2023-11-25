@@ -50,7 +50,7 @@ const Signup: React.FC = () => {
 						handleSubmit(e);
 					}}
 					autoComplete="off"
-					className="flex flex-col mr-6"
+					className="flex flex-col mx-4"
 				>
 					<label>email</label>
 					<input
@@ -94,6 +94,9 @@ const Signup: React.FC = () => {
 					<button className="bg-ugared-200 mt-4 hover:bg-ugared-300" type="submit">
 						Submit
 					</button>
+					<Link to={"/login"} className="bg-ugared-500 text-3xl mt-4 hover:bg-ugared-400" type="submit">
+						Already have an account? Login
+					</Link>
 				</form>
 			</div>
 		</div>
