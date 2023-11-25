@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import GameTypeWindow from "../components/GameType/GameTypeWindow";
+import axios from "axios";
+import { difficultyType } from "./GamePage";
+import PlayGameTypeModal from "../components/GameType/GameTypeModal/PlayGameTypeModal";
 
 export type GameType = {
 	title: String;
@@ -23,14 +26,12 @@ function AvailableGames() {
 
 	const [defaultGameTypes, setDefaultGameTypes] = useState<GameType[] | null>(null);
 	const [userGameTypes, setUserGameTypes] = useState<GameType[] | null>(null);
+	const [modalData, setModalData] = useState<GameType | null>(null);
 
 	const fetchData = async () => {
 		try {
-			const response = await fetch(`/api/gametype/`);
-			if (!response.ok) {
-				throw new Error("Error fetching data");
-			}
-			const data = await response.json();
+			const response = await axios.get("http://localhost:4000/api/gametype");
+			const data = await response.data;
 			if (data) {
 				setDefaultGameTypes(data.defaultGames);
 				setUserGameTypes(data.usersGames);
@@ -49,13 +50,31 @@ function AvailableGames() {
 	}, []);
 
 	return (
-		<>
+		<div className="relative">
+			{modalData && (
+				<div
+					className={`w-full h-full   fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 justify-center items-center flex   z-40 `}
+				>
+					<PlayGameTypeModal gameType={modalData} setModalData={setModalData}></PlayGameTypeModal>
+					<div
+						onClick={() => {
+							setModalData(null);
+						}}
+						className="w-full h-full  absolute"
+					></div>
+				</div>
+			)}
 			<GameTypeWindow
 				title={"Default Game Types"}
 				gameTypes={defaultGameTypes || exampleDefaultGames}
+				setModalData={setModalData}
 			></GameTypeWindow>
-			<GameTypeWindow title={"Custom Game Types"} gameTypes={userGameTypes}></GameTypeWindow>
-		</>
+			<GameTypeWindow
+				title={"Custom Game Types"}
+				gameTypes={userGameTypes}
+				setModalData={setModalData}
+			></GameTypeWindow>
+		</div>
 	);
 }
 

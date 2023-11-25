@@ -6,8 +6,7 @@ import "./App.css";
 import AddGameType from "./pages/AddGame";
 import AvailableGames from "./pages/AvailableGames";
 import ErrorPage from "./pages/ErrorPage";
-import ExampleGame from "./pages/ExampleGame";
-import GamePage from "./pages/Game";
+import GamePage from "./pages/GamePage";
 import Home from "./pages/Home";
 import RootLayout from "./pages/Root";
 function App() {
@@ -23,12 +22,9 @@ function App() {
 				{ path: "*", element: <ErrorPage /> },
 			],
 		},
+
 		{
-			path: "/ExampleGame", // Example game is on its own part because i want it to be fullscreen and not have the footer
-			element: <ExampleGame />,
-		},
-		{
-			path: "/Game/:id", 
+			path: "/Game/:id",
 			element: <GamePage />,
 		},
 	]);
@@ -45,6 +41,7 @@ function App() {
 		router.subscribe((location) => {
 			NProgress.done();
 		});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return <RouterProvider router={router}></RouterProvider>;

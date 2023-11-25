@@ -9,7 +9,13 @@
         - components
     - backend
       - src
-        - server.js
+        - models
+          - Games.js
+          - GameTypes.js
+        - routes/api
+          - games.js
+          - gameTypes.js
+      - server.js
 
 ## How to run frontend and backend at the same time
 

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import GameWindow from "../components/Game/GameWindow";
 import styles from "../Globals.module.css";
 import LoadingSpinner from "../components/LoadingSpinner";
+import axios from "axios";
 type LatLngLiteral = google.maps.LatLngLiteral;
 
 /**
@@ -14,8 +15,12 @@ type LatLngLiteral = google.maps.LatLngLiteral;
  *
  * Notice the difference between a GAME and GAMETYPE
  */
-
-type Game = {
+export type difficultyType = {
+	zoom: boolean;
+	compass: boolean;
+	movement: boolean;
+};
+export type Game = {
 	id: String;
 	currentStage: number;
 	numberOfStages: number;
@@ -23,6 +28,7 @@ type Game = {
 		score: null | number;
 		answerLocation: LatLngLiteral;
 	}[];
+	difficulty: difficultyType;
 };
 
 /**
@@ -31,25 +37,33 @@ type Game = {
 function GamePage() {
 	const navigate = useNavigate();
 	const params = useParams();
-	console.log(params.id);
 	const [currentStageNumber, setCurrentStageNumber] = useState<null | number>(null);
 	const [data, setData] = useState<Game | null>(null);
 	const [correctAnswerLocation, setCorrectAnswerLocation] = useState<LatLngLiteral | null>(null);
 
+	const dummyDifficulty = {
+		zoom: true,
+		compass: true,
+		movement: true,
+	};
+
 	useEffect(() => {
-		fetch(`/api/game/${params.id}`)
-			.then((response) => response.json())
-			.then((data: Game) => {
+		const fetchData = async () => {
+			try {
+				const response = await axios.get(`http://localhost:4000/api/game/${params.id}`);
+				const data = response.data;
+				console.log("data", data);
 				const currentStageObject = data.stages[data.currentStage];
 				if (!currentStageObject.score) {
 					setData(data);
 					setCurrentStageNumber(data.currentStage);
 				}
-			})
-			.catch((error) => {
+			} catch (error) {
 				console.error("Error fetching data:", error);
 				navigate("/Error/GameNotFound");
-			});
+			}
+		};
+		fetchData();
 	}, [params.id, navigate]);
 
 	useEffect(() => {
@@ -78,6 +92,7 @@ function GamePage() {
 							answerLocation={current.answerLocation}
 							setCurrentStageNumber={setCurrentStageNumber}
 							nextStage={nextStage}
+							difficulty={data.difficulty || dummyDifficulty}
 						></GameWindow>
 					);
 				})}

@@ -1,19 +1,20 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLoadScript } from "@react-google-maps/api";
 import GoogleStreetViewWindow from "./GoogleMaps/GoogleStreetViewWindow";
 import GoogleMapWindow from "./GoogleMaps/GoogleMapWindow";
-import Header from "../Header/Header";
 import LoadingSpinner from "../LoadingSpinner";
 import Compass from "./GoogleMaps/Compass";
 import ScoreWindow from "./ScoreWindow/ScoreWindow";
 import { CloseOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { difficultyType } from "../../pages/GamePage";
 type LatLngLiteral = google.maps.LatLngLiteral;
 
 interface Props {
 	answerLocation: LatLngLiteral;
 	setCurrentStageNumber: Function;
 	nextStage: number | null;
+	difficulty: difficultyType | null;
 }
 
 /**
@@ -23,7 +24,7 @@ interface Props {
  * @param nextStage: The index of the next stage or null
  * @returns
  */
-const GameWindow: React.FC<Props> = ({ answerLocation, setCurrentStageNumber, nextStage }) => {
+const GameWindow: React.FC<Props> = ({ answerLocation, setCurrentStageNumber, nextStage, difficulty }) => {
 	// Loads the google maps
 	const { isLoaded, loadError } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
@@ -61,6 +62,7 @@ const GameWindow: React.FC<Props> = ({ answerLocation, setCurrentStageNumber, ne
 					<GoogleStreetViewWindow
 						setHeading={setHeading}
 						coordinate={answerLocation}
+						difficulty={difficulty}
 					></GoogleStreetViewWindow>
 					<div
 						className={`absolute bottom-6 right-2  w-[300px]  h-[250px] z-10  transition-transform md:hover:w-[700px] md:hover:h-[400px] `}
@@ -73,7 +75,11 @@ const GameWindow: React.FC<Props> = ({ answerLocation, setCurrentStageNumber, ne
 						></GoogleMapWindow>
 					</div>
 
-					<div className={`absolute -top-24 left-1/2 transform -translate-x-1/2 p-4 z-30`}>
+					<div
+						className={`absolute -top-24 left-1/2 transform -translate-x-1/2 p-4 z-30 ${
+							difficulty?.compass === false ? "hidden" : ""
+						}`}
+					>
 						<Compass heading={heading}></Compass>
 					</div>
 				</div>

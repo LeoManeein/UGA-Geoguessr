@@ -1,21 +1,18 @@
 import React from "react";
+import { GameIdProvider } from "../components/GameType/NewGameType/GameIdContext";
 import NewGameType from "../components/GameType/NewGameType/NewGameType"; // Assuming the path to your NewGame component
+import axios from "axios";
 
 const AddGameType: React.FC = () => {
 	const handleAddGame = async (game: any) => {
 		try {
-			const response = await fetch("/api/gametype", {
-				method: "POST",
+			const response = await axios.post("http://localhost:4000/api/gametype", game, {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify(game),
 			});
 
-			console.log(game);
-
-			const data = await response.json();
-			console.log(data);
+			const data = response.data;
 			if (data.success) {
 				console.log("New game added:", game);
 			} else {
@@ -30,9 +27,11 @@ const AddGameType: React.FC = () => {
 
 	return (
 		<div className="text-ugatan-100">
-			<h2>Test NewGame Component</h2>
+			<h2 className="text-center text-xl my-2">Add new GameType</h2>
 			{/* You can add other components or content here */}
-			<NewGameType onAddGame={handleAddGame} />
+			<GameIdProvider>
+				<NewGameType onAddGame={handleAddGame} />
+			</GameIdProvider>
 		</div>
 	);
 };

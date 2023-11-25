@@ -1,10 +1,12 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import GoogleStreetView from "./GoogleStreetView";
 import { ReloadOutlined } from "@ant-design/icons";
+import { difficultyType } from "../../../pages/GamePage";
 type LatLngLiteral = google.maps.LatLngLiteral;
 interface Props {
 	coordinate: LatLngLiteral;
 	setHeading: Function;
+	difficulty: difficultyType | null;
 }
 
 type povType = {
@@ -18,7 +20,7 @@ type povType = {
  * @param coordinate: The coordinate (answer location) that the street view should display
  * @returns A google street view of the coordinate
  */
-const GoogleStreetViewWindow: React.FC<Props> = ({ coordinate, setHeading }) => {
+const GoogleStreetViewWindow: React.FC<Props> = ({ coordinate, setHeading, difficulty }) => {
 	const center = {
 		lat: coordinate.lat,
 		lng: coordinate.lng,
@@ -34,14 +36,15 @@ const GoogleStreetViewWindow: React.FC<Props> = ({ coordinate, setHeading }) => 
 		addressControl: false,
 		showRoadLabels: false,
 		zoomControl: false,
-		// linkControl: false,
-		scrollwheel: true,
+		motionTrackingControl: false,
+		scrollwheel: difficulty ? difficulty.zoom : true,
 		fullscreenControl: false,
-		// disableDoubleCLickZoom: true,
+		disableDoubleCLickZoom: true,
 		panControl: false,
-		// linksControl: false,
-		// enableCloseButton: false,
-		// clickToGo: false,
+		enableCloseButton: false,
+
+		clickToGo: difficulty ? difficulty.movement : true,
+		linksControl: difficulty ? difficulty.movement : true,
 	};
 
 	// We dont want the street view to rerender whenever we update our POV for our compass. Add any dependencies that it actually does need to the second param of use memo.
@@ -65,11 +68,8 @@ const GoogleStreetViewWindow: React.FC<Props> = ({ coordinate, setHeading }) => 
 				></GoogleStreetView>
 			</div>
 		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [coordinate, rerenderStreetView]);
-
-	useEffect(() => {
-		console.log("should reload");
-	}, [coordinate]);
 
 	return { ...street };
 };
