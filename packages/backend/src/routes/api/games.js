@@ -75,46 +75,4 @@ router.get("/:id", async (req, res) => {
     }
   });
 
-  function generateRandomString(length) {
-    let result = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const charactersLength = characters.length;
-
-    for (let i = 0; i < length; i++) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-
-    return result;
-}
-
-function getRandomCoordinates() {
-    const minLat = -90;
-    const maxLat = 90;
-    const minLng = -180;
-    const maxLng = 180;
-
-    const latitude = Math.random() * (maxLat - minLat) + minLat;
-    const longitude = Math.random() * (maxLng - minLng) + minLng;
-
-    return { lat: latitude, lng: longitude };
-}
-
-function randomPointInRadius(center, radius) {
-    const radiusInDegrees = radius / 111300; // Convert radius from meters to degrees
-    const u = Math.random();
-    const v = Math.random();
-    const w = radiusInDegrees * Math.sqrt(u);
-    const t = 2 * Math.PI * v;
-    const x = w * Math.cos(t);
-    const y = w * Math.sin(t);
-
-    // Adjust the x-coordinate for the shrinking of the east-west distances
-    const new_x = x / Math.cos(center.lat);
-
-    const foundLongitude = new_x + center.lng;
-    const foundLatitude = y + center.lat;
-
-    return { lat: foundLatitude, lng: foundLongitude };
-}
-
   module.exports = router;
