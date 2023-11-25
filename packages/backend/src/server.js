@@ -6,6 +6,7 @@ const cors = require("cors");
 const game = require("./routes/api/games");
 const gameType = require("./routes/api/gameTypes");
 const Games = require("./models/Game");
+const users = require("./routes/api/users");
 dotenv.config();
 
 const app = express();
@@ -34,7 +35,7 @@ app.listen(port, () => {
 
 app.use("/api/gameTypes", gameType);
 app.use("/api/games", game);
-
+app.use("/api/users", users);
 async function deleteOldGames() {
   try {
     const thirtyMinutesAgo = new Date(Date.now() - 30 * 60 * 1000);

@@ -2,11 +2,17 @@ const express = require("express");
 const router = express.Router();
 const GameTypes = require("../../models/GameType");
 const dotenv = require("dotenv");
+const auth = require("../../middleware/auth");
+const User = require("../../models/User");
 dotenv.config();
 
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
-    const gameTypes = await GameTypes.find();
+    const user = await User.findById(req.user);
+    if (!user) {
+      return res.status(500).json([]);
+    }
+    const gameTypes = await GameTypes.find({ email: user.email });
     res.json(gameTypes);
   } catch (err) {
     console.error(err);
@@ -14,10 +20,15 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   try {
-    console.log(req.body);
-    await GameTypes.create(req.body);
+    const user = await User.findById(req.user);
+    if (!user) {
+      return res.status(500).json({ msg: "Must be authenticated" });
+    }
+    const newGameType = req.body;
+    newGameType.email = user.email;
+    await GameTypes.create(newGameType);
     res.json({ success: "Item added successfully" });
   } catch (error) {
     console.error(error);
@@ -25,9 +36,14 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
   try {
     const gameType = await GameTypes.findById(req.params.id);
+    const user = await User.findById(req.user);
+    if (!user) {
+      return res.status(500).json({ msg: "must send auth token" });
+    }
+    if (user.email !== gameType.email) throw new Error("GameType not found");
 
     if (gameType) {
       res.json(gameType);
@@ -40,9 +56,17 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   try {
-    const deletedGameType = await GameTypes.findByIdAndDelete(req.params.id);
+    const user = await User.findById(req.user);
+    if (!user) {
+      return res.status(500).json({ msg: "must send auth token" });
+    }
+
+    const deletedGameType = await GameTypes.findOneAndDelete({
+      _id: req.params.id,
+      email: user.email,
+    });
 
     if (deletedGameType) {
       res.json({ msg: "Item Entry Deleted Successfully" });
@@ -56,8 +80,15 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   try {
+    const user = await User.findById(req.user);
+    if (!user) {
+      return res.status(500).json({ msg: "must send auth token" });
+    }
+
+    const verifyItem = await GameTypes.findById(req.params.id);
+    if (verifyItem.email != user.email) throw new Error("Wrong email");
     const updatedItem = await GameTypes.findByIdAndUpdate(
       req.params.id,
       req.body

@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GameIdProvider } from "../components/GameType/NewGameType/GameIdContext";
 import NewGameType from "../components/GameType/NewGameType/NewGameType"; // Assuming the path to your NewGame component
 import axios from "axios";
+import ErrorPage from "./ErrorPage";
 
 const AddGameType: React.FC = () => {
 	const handleAddGame = async (game: any) => {
 		try {
+			let token = localStorage.getItem("auth-token");
 			const response = await axios.post("http://localhost:4000/api/gametypes", game, {
 				headers: {
 					"Content-Type": "application/json",
+					"x-auth-token": token,
 				},
 			});
 
@@ -24,7 +27,11 @@ const AddGameType: React.FC = () => {
 
 		// You can perform other actions with the added game data
 	};
-
+	const [token, setToken] = useState<string | null>("");
+	useEffect(() => {
+		setToken(localStorage.getItem("auth-token"));
+	}, []);
+	if (!token) return <ErrorPage error={"Sign in to create a GameType"}></ErrorPage>;
 	return (
 		<div className="text-ugatan-100">
 			<h2 className="text-center text-xl my-2">Add new GameType</h2>

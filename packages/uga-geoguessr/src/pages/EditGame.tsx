@@ -41,24 +41,32 @@ const EditGameType: React.FC = () => {
 
 	const fetchData = async () => {
 		try {
-			const response = await axios.get(`http://localhost:4000/api/gametypes/${id}`, {});
+			let token = localStorage.getItem("auth-token");
+			const response = await axios.get(`http://localhost:4000/api/gametypes/${id}`, {
+				headers: {
+					"x-auth-token": token,
+				},
+			});
 			const data = await response.data;
 			if (data) {
 				setEditGame(data);
-				console.log(data);
+				//console.log(data);
 			} else {
 				throw new Error("No data");
 			}
-		} catch (error) {
-			console.error(error);
+		} catch (error: any) {
+			console.error(error.message);
 			setEditGame(null);
 		}
 	};
+	const [token, setToken] = useState<string | null>("");
 
 	useEffect(() => {
+		setToken(localStorage.getItem("auth-token"));
+
 		fetchData();
 	}, []);
-
+	if (!token) return <ErrorPage error={"please sign in"}></ErrorPage>;
 	return (
 		<div className="text-ugatan-100">
 			<h2 className="text-center text-xl my-2">Edit GameType</h2>

@@ -1,6 +1,8 @@
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import styles from "../Globals.module.css";
+import { useContext, useEffect, useState } from "react";
+import UserContext from "../components/auth/Context/UserContext";
 export type GameType = {
 	title: String;
 	description: String;
@@ -33,7 +35,11 @@ function Home() {
 			url: "https://cdn.discordapp.com/attachments/1054239396024549486/1170214395788406855/Business-Learning-Community-1030x686.jpg?ex=65583a15&is=6545c515&hm=6b648ab2f29f1e087d178c4924f89a622fc1708e6ba93785ac6c31a64cb3fefe&",
 		},
 	];
-
+	const [token, setToken] = useState<string | null>("");
+	const { setUserData, userData } = useContext(UserContext);
+	useEffect(() => {
+		setToken(localStorage.getItem("auth-token"));
+	}, [userData]);
 	return (
 		<div className="mx-2 mt-12 flex md:flex-row flex-col m-auto justify-center">
 			<div
@@ -47,7 +53,16 @@ function Home() {
 					className="bg-ugatan-100 w--full md:w-[460px] h-[119px] rounded-full text-center justify-center flex mt-12 "
 				>
 					<div className="m-auto flex  text-3xl text-center justify-center content-center text-ugared-400 ">
-						Play <ArrowRightOutlined className="pt-[6px] pl-2 m-auto" />
+						{token && (
+							<>
+								Play <ArrowRightOutlined className="pt-[6px] pl-2 m-auto" />
+							</>
+						)}
+						{!token && (
+							<>
+								Sign up to play <ArrowRightOutlined className="pt-[6px] pl-2 m-auto" />
+							</>
+						)}
 					</div>
 				</Link>
 				<div className="text-ugatan-100 w-full md:w-[569px] mt-12 text-2xl">

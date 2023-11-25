@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import GameTypeWindow from "../components/GameType/GameTypeWindow";
 import axios from "axios";
 import { difficultyType } from "./GamePage";
 import PlayGameTypeModal from "../components/GameType/GameTypeModal/PlayGameTypeModal";
+import UserContext from "../components/auth/Context/UserContext";
 
 export type GameType = {
 	title: String;
@@ -42,7 +43,11 @@ function AvailableGames() {
 
 	const fetchData = async () => {
 		try {
-			const response = await axios.get("http://localhost:4000/api/gametypes");
+			let token = localStorage.getItem("auth-token");
+			if (!token) throw new Error("Must be logged in");
+			const response = await axios.get("http://localhost:4000/api/gametypes", {
+				headers: { "x-auth-token": token },
+			});
 			const data = await response.data;
 			console.log(data);
 			if (data) {
@@ -57,8 +62,10 @@ function AvailableGames() {
 			setUserGameTypes(null);
 		}
 	};
+	const [token, setToken] = useState<string | null>("");
 
 	useEffect(() => {
+		setToken(localStorage.getItem("auth-token"));
 		fetchData();
 	}, []);
 
@@ -83,12 +90,14 @@ function AvailableGames() {
 				gameTypes={defaultGameTypes || exampleDefaultGames}
 				setModalData={setModalData}
 			></GameTypeWindow>
-			<GameTypeWindow
-				fetchData={fetchData}
-				title={"Custom Game Types"}
-				gameTypes={userGameTypes}
-				setModalData={setModalData}
-			></GameTypeWindow>
+			{token && (
+				<GameTypeWindow
+					fetchData={fetchData}
+					title={"Custom Game Types"}
+					gameTypes={userGameTypes}
+					setModalData={setModalData}
+				></GameTypeWindow>
+			)}
 		</div>
 	);
 }

@@ -1,7 +1,8 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import classes from "./Header.module.css";
 import { MenuUnfoldOutlined, UserOutlined } from "@ant-design/icons";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import UserContext from "../auth/Context/UserContext";
 function Header() {
 	const navigation = [
 		{
@@ -22,12 +23,18 @@ function Header() {
 		},
 	];
 
-	const register = {
-		name: "Register",
-		href: "/Register",
+	const login = {
+		name: "Login",
+		href: "/Login",
 	};
 
 	const [showDropDown, setShowDropDown] = useState(false);
+	const navigate = useNavigate();
+	const [token, setToken] = useState<string | null>("");
+	const { setUserData, userData } = useContext(UserContext);
+	useEffect(() => {
+		setToken(localStorage.getItem("auth-token"));
+	}, [, userData]);
 
 	const location = useLocation();
 	return (
@@ -53,16 +60,34 @@ function Header() {
 						})}
 					</div>
 					<div className="flex gap-x-4">
-						<div>
-							<Link
-								className={`${
-									location.pathname.toLocaleLowerCase() === register.href.toLocaleLowerCase()
-										? "   border-ugared-300"
-										: " border-transparent  text-gray-300"
-								} pb-[8px] pt-[6px] px-2 rounded-full border-2 text-white`}
-								to={register.href}
-							>{`${register.name}`}</Link>
-						</div>
+						{!token && (
+							<div>
+								<Link
+									className={`${
+										location.pathname.toLocaleLowerCase() === login.href.toLocaleLowerCase()
+											? "   border-ugared-300"
+											: " border-transparent  text-gray-300"
+									} pb-[8px] pt-[6px] px-2 rounded-full border-2 text-white`}
+									to={login.href}
+								>{`${login.name}`}</Link>
+							</div>
+						)}
+						{token && (
+							<div>
+								<Link
+									onClick={() => {
+										localStorage.setItem("auth-token", "");
+										navigate("/");
+										setUserData({
+											token: undefined,
+											user: undefined,
+										});
+									}}
+									className={`${" border-transparent  text-gray-300"} pb-[8px] pt-[6px] px-2 rounded-full border-2 text-white`}
+									to={"/"}
+								>{`Logout`}</Link>
+							</div>
+						)}
 					</div>
 				</div>
 				<div className="sm:hidden flex flex-col">
@@ -100,12 +125,12 @@ function Header() {
 							<div>
 								<Link
 									className={`${
-										location.pathname.toLocaleLowerCase() === register.href.toLocaleLowerCase()
+										location.pathname.toLocaleLowerCase() === login.href.toLocaleLowerCase()
 											? "   border-ugared-300"
 											: " border-transparent  text-gray-300"
 									} pb-[8px] pt-[6px] px-2 rounded-full border-2 text-white`}
-									to={register.href}
-								>{`${register.name}`}</Link>
+									to={login.href}
+								>{`${login.name}`}</Link>
 							</div>
 						</div>
 					)}

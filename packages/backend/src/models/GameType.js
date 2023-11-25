@@ -16,6 +16,10 @@ const GameTypeSchema = new mongoose.Schema({
     required: true,
   },
   update_date: { type: Date, default: Date.now },
+  email: {
+    required: true,
+    type: String,
+  },
 });
 
 module.exports = GameTypes = mongoose.model("gameTypes", GameTypeSchema);

@@ -22,6 +22,7 @@ const Card: React.FC<Props> = ({ gameType, setModalData, fetchData }) => {
 			const response = await axios.delete(`http://localhost:4000/api/gametypes/${gameType._id}/`, {
 				headers: {
 					"Content-Type": "application/json",
+					"x-auth-token": token,
 				},
 			});
 
