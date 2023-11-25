@@ -18,7 +18,7 @@ const Card: React.FC<Props> = ({ gameType, setModalData }) => {
 	// Makes a request for a new GAME to be created using the current GAMETYPE
 	async function handleGameRequest() {
 		try {
-			const response = await axios.get(`http://localhost:4000/api/gametype/${gameType.id}/create`, {
+			const response = await axios.get(`http://localhost:4000/api/gametypes/${gameType.id}/create`, {
 				headers: {
 					"Content-Type": "application/json",
 				},

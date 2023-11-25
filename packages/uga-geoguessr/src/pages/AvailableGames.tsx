@@ -30,7 +30,7 @@ function AvailableGames() {
 
 	const fetchData = async () => {
 		try {
-			const response = await axios.get("http://localhost:4000/api/gametype");
+			const response = await axios.get("http://localhost:4000/api/gametypes");
 			const data = await response.data;
 			if (data) {
 				setDefaultGameTypes(data.defaultGames);
@@ -38,8 +38,8 @@ function AvailableGames() {
 			} else {
 				throw new Error("No data");
 			}
-		} catch (error) {
-			console.error(error);
+		} catch (error: any) {
+			console.error(error.message);
 			setDefaultGameTypes(null);
 			setUserGameTypes(null);
 		}

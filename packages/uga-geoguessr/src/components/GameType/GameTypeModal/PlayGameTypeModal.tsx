@@ -22,7 +22,7 @@ const PlayGameTypeModal: React.FC<Props> = ({ gameType, setModalData }) => {
 		try {
 			setClicked(true);
 			const response = await axios.post(
-				`http://localhost:4000/api/game`,
+				`http://localhost:4000/api/games`,
 				{
 					gameType: gameType,
 					numberOfStages: numberOfStages,
@@ -43,9 +43,9 @@ const PlayGameTypeModal: React.FC<Props> = ({ gameType, setModalData }) => {
 				console.error("API request failed");
 				setClicked(false);
 			}
-		} catch (error) {
+		} catch (error: any) {
 			// Handle network errors or other exceptions here
-			console.error("An error occurred", error);
+			console.error("An error occurred", error.message);
 		}
 	}
 

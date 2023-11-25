@@ -6,7 +6,7 @@ import axios from "axios";
 const AddGameType: React.FC = () => {
 	const handleAddGame = async (game: any) => {
 		try {
-			const response = await axios.post("http://localhost:4000/api/gametype", game, {
+			const response = await axios.post("http://localhost:4000/api/gametypes", game, {
 				headers: {
 					"Content-Type": "application/json",
 				},

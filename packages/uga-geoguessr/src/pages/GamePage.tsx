@@ -50,7 +50,7 @@ function GamePage() {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await axios.get(`http://localhost:4000/api/game/${params.id}`);
+				const response = await axios.get(`http://localhost:4000/api/games/${params.id}`);
 				const data = response.data;
 				console.log("data", data);
 				const currentStageObject = data.stages[data.currentStage];
