@@ -40,11 +40,11 @@ const Signup: React.FC = () => {
 			error.response.data.msg && setError(error.response.data.msg);
 		}
 	}
-    
 
 	return (
 		<div className="flex m-auto justify-center  ">
 			<div className="input w-1/2 sm:w-[320px] md:w-[384px] lg:w-[512px] xl:w-[640px] 2xl:w-[768px] ">
+				<>TEMP SIGNUP</>
 				<form
 					onSubmit={(e) => {
 						handleSubmit(e);

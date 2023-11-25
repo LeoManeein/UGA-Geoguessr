@@ -122,16 +122,34 @@ function Header() {
 								);
 							})}
 
-							<div>
-								<Link
-									className={`${
-										location.pathname.toLocaleLowerCase() === login.href.toLocaleLowerCase()
-											? "   border-ugared-300"
-											: " border-transparent  text-gray-300"
-									} pb-[8px] pt-[6px] px-2 rounded-full border-2 text-white`}
-									to={login.href}
-								>{`${login.name}`}</Link>
-							</div>
+							{!token && (
+								<div>
+									<Link
+										className={`${
+											location.pathname.toLocaleLowerCase() === login.href.toLocaleLowerCase()
+												? "   border-ugared-300"
+												: " border-transparent  text-gray-300"
+										} pb-[8px] pt-[6px] px-2 rounded-full border-2 text-white`}
+										to={login.href}
+									>{`${login.name}`}</Link>
+								</div>
+							)}
+							{token && (
+								<div>
+									<Link
+										onClick={() => {
+											localStorage.setItem("auth-token", "");
+											navigate("/");
+											setUserData({
+												token: undefined,
+												user: undefined,
+											});
+										}}
+										className={`${" border-transparent  text-gray-300"} pb-[8px] pt-[6px] px-2 rounded-full border-2 text-white`}
+										to={"/"}
+									>{`Logout`}</Link>
+								</div>
+							)}
 						</div>
 					)}
 				</div>

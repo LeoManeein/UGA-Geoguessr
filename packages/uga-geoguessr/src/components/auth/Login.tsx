@@ -36,6 +36,7 @@ const Login: React.FC = () => {
 	return (
 		<div className="flex m-auto justify-center  ">
 			<div className="input w-1/2 sm:w-[320px] md:w-[384px] lg:w-[512px] xl:w-[640px] 2xl:w-[768px] ">
+				<>TEMP LOGIN</>
 				<form
 					onSubmit={(e: any) => {
 						handleSubmit(e);

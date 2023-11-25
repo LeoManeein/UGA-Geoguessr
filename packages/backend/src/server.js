@@ -38,13 +38,15 @@ app.use("/api/games", game);
 app.use("/api/users", users);
 async function deleteOldGames() {
   try {
-    const thirtyMinutesAgo = new Date(Date.now() - 30 * 60 * 1000);
-    const testl = await Games.deleteMany({
+    const TooOldTime = new Date(Date.now() - 60 * 60 * 1000);
+    const oldGamesDeleted = await Games.deleteMany({
       update_date: {
-        $lt: thirtyMinutesAgo,
+        $lt: TooOldTime,
       },
     });
-    console.log("Deleting old games", testl);
+    if (oldGamesDeleted.deletedCount > 0) {
+      console.log("Deleting old games", oldGamesDeleted);
+    }
   } catch {
     console.log("could not delete old games");
   }
