@@ -28,8 +28,9 @@ const Login: React.FC = () => {
 			localStorage.setItem("auth-token", loginRes.data.token);
 			setLoading(false);
 			navigate("/");
-		} catch (error) {
+		} catch (error: any) {
 			setLoading(false);
+			error.response.data.msg && setError(error.response.data.msg);
 		}
 	}
 	return (

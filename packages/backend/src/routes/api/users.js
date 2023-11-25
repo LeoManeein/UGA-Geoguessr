@@ -11,10 +11,13 @@ userRouter.post("/signup", async (req, res) => {
     if (!email || !password || !username || !confirmPassword) {
       return res.status(400).json({ msg: "Please enter all fields" });
     }
+    if (password.length < 6) throw new Error("Password too short");
+
     if (confirmPassword !== password) {
       return res.status(400).json({ msg: "Both the passwords dont match" });
     }
 
+    if (!validateEmail(email)) throw new Error("Please enter valid email");
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
@@ -28,7 +31,7 @@ userRouter.post("/signup", async (req, res) => {
     console.log(savedUser.username);
     res.json(savedUser);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ msg: error.message });
   }
 });
 
@@ -54,7 +57,7 @@ userRouter.post("/login", async (req, res) => {
     const token = jwt.sign({ id: user._id }, "passwordKey");
     res.json({ token, user: { id: user._id, username: user.username } });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ msg: error.message });
   }
 });
 
@@ -68,7 +71,7 @@ userRouter.post("/tokenIsValid", async (req, res) => {
     if (!user) return res.json(false);
     return res.json(true);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ msg: error.message });
   }
 });
 
@@ -81,3 +84,11 @@ userRouter.get("/", auth, async (req, res) => {
 });
 
 module.exports = userRouter;
+
+const validateEmail = (email) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};

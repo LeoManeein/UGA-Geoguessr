@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UserContext from "./Context/UserContext";
@@ -14,7 +14,7 @@ const Signup: React.FC = () => {
 	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
 
-	const { setUserData,userData } = useContext(UserContext);
+	const { setUserData, userData } = useContext(UserContext);
 	async function handleSubmit(e: any) {
 		e.preventDefault();
 		setLoading(true);
@@ -35,10 +35,12 @@ const Signup: React.FC = () => {
 			localStorage.setItem("auth-token", loginRes.data.token);
 			setLoading(false);
 			navigate("/");
-		} catch (error) {
+		} catch (error: any) {
 			setLoading(false);
+			error.response.data.msg && setError(error.response.data.msg);
 		}
 	}
+    
 
 	return (
 		<div className="flex m-auto justify-center  ">

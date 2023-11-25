@@ -49,7 +49,7 @@ function Home() {
 				<div className=" text-6xl md:text-8xl text-ugared-300">UGA</div>
 				<div className="text-6xl md:text-8xl text-ugared-300">GEOGUESSR</div>
 				<Link
-					to={"/availablegames"}
+					to={token ? "/availablegames" : "/signup"}
 					className="bg-ugatan-100 w--full md:w-[460px] h-[119px] rounded-full text-center justify-center flex mt-12 "
 				>
 					<div className="m-auto flex  text-3xl text-center justify-center content-center text-ugared-400 ">
