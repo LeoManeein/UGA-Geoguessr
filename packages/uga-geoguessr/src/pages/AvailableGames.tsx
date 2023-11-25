@@ -32,15 +32,16 @@ function AvailableGames() {
 		try {
 			const response = await axios.get("http://localhost:4000/api/gametypes");
 			const data = await response.data;
+			console.log(data);
 			if (data) {
-				setDefaultGameTypes(data.defaultGames);
-				setUserGameTypes(data.usersGames);
+				//setDefaultGameTypes(data.defaultGames);
+				setUserGameTypes(data);
 			} else {
 				throw new Error("No data");
 			}
 		} catch (error: any) {
 			console.error(error.message);
-			setDefaultGameTypes(null);
+			//setDefaultGameTypes(null);
 			setUserGameTypes(null);
 		}
 	};

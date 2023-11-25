@@ -35,6 +35,8 @@ const PlayGameTypeModal: React.FC<Props> = ({ gameType, setModalData }) => {
 				},
 			);
 
+			console.log(response);
+
 			if (response.status === 200) {
 				setClicked(false);
 				const data = response.data;

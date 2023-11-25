@@ -52,6 +52,7 @@ function GamePage() {
 			try {
 				const response = await axios.get(`http://localhost:4000/api/games/${params.id}`);
 				const data = response.data;
+				
 				console.log("data", data);
 				const currentStageObject = data.stages[data.currentStage];
 				if (!currentStageObject.score) {

@@ -3,7 +3,7 @@ const router = express.Router();
 const axios = require('axios');
 const dotenv = require("dotenv");
 dotenv.config();
-const Games = require('../../models/Games');
+const Games = require('../../models/Game');
 
 router.get("/:id", async (req, res) => {
     try {
