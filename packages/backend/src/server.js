@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const game = require("./routes/api/games");
 const gameType = require("./routes/api/gameTypes");
+const Games = require("./models/Game");
 dotenv.config();
 
 const app = express();
@@ -20,6 +21,7 @@ mongoose
   .connect(URI)
   .then(() => {
     console.log("Mongo Connection Suceeded...");
+    deleteOldGames();
   })
   .catch((err) => {
     console.log(`Error in DB Connection ${err}`);
@@ -32,3 +34,17 @@ app.listen(port, () => {
 
 app.use("/api/gameTypes", gameType);
 app.use("/api/games", game);
+
+async function deleteOldGames() {
+  try {
+    const thirtyMinutesAgo = new Date(Date.now() - 30 * 60 * 1000);
+    const testl = await Games.deleteMany({
+      update_date: {
+        $lt: thirtyMinutesAgo,
+      },
+    });
+    console.log("Deleting old games", testl);
+  } catch {
+    console.log("could not delete old games");
+  }
+}

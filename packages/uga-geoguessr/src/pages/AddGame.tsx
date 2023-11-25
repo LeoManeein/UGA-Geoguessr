@@ -30,7 +30,7 @@ const AddGameType: React.FC = () => {
 			<h2 className="text-center text-xl my-2">Add new GameType</h2>
 			{/* You can add other components or content here */}
 			<GameIdProvider>
-				<NewGameType onAddGame={handleAddGame} />
+				<NewGameType editGameType={null} onAddGame={handleAddGame} />
 			</GameIdProvider>
 		</div>
 	);

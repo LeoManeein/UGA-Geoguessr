@@ -11,6 +11,7 @@ import { difficultyType } from "../../pages/GamePage";
 type LatLngLiteral = google.maps.LatLngLiteral;
 
 interface Props {
+	_id: String;
 	answerLocation: LatLngLiteral;
 	setCurrentStageNumber: Function;
 	nextStage: number | null;
@@ -24,7 +25,7 @@ interface Props {
  * @param nextStage: The index of the next stage or null
  * @returns
  */
-const GameWindow: React.FC<Props> = ({ answerLocation, setCurrentStageNumber, nextStage, difficulty }) => {
+const GameWindow: React.FC<Props> = ({ _id,answerLocation, setCurrentStageNumber, nextStage, difficulty }) => {
 	// Loads the google maps
 	const { isLoaded, loadError } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
@@ -72,6 +73,8 @@ const GameWindow: React.FC<Props> = ({ answerLocation, setCurrentStageNumber, ne
 							selectedCoordinate={selectedCoordinate}
 							setSelectedCoordinate={setSelectedCoordinate}
 							setShowScoreWindow={setShowScoreWindow}
+							_id={_id}
+							nextStage={nextStage}
 						></GoogleMapWindow>
 					</div>
 

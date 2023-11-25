@@ -8,7 +8,7 @@ export type GameType = {
 	title: String;
 	description: String;
 	url: String;
-	id: number;
+	_id: String;
 };
 /**
  * Retrieves a user by ID.
@@ -17,10 +17,22 @@ export type GameType = {
 function AvailableGames() {
 	const exampleDefaultGames: GameType[] = [
 		{
+			title: "Entire Campus",
+			description: "Guess your way around the entire campus",
+			url: "https://cdn.discordapp.com/attachments/1054239396024549486/1170214395788406855/Business-Learning-Community-1030x686.jpg?ex=65583a15&is=6545c515&hm=6b648ab2f29f1e087d178c4924f89a622fc1708e6ba93785ac6c31a64cb3fefe&",
+			_id: "default01",
+		},
+		{
+			title: "North Campus",
+			description: "Explore the north campus!",
+			url: "https://cdn.discordapp.com/attachments/1054239396024549486/1171665469791539270/historic-4775425_1920-1800x1000.jpg?ex=655d8180&is=654b0c80&hm=45f8129baf5f522a5ac0fe64f27cf8540ad6e849039c03c6b5814ac1cfd6c662&",
+			_id: "default02",
+		},
+		{
 			title: "South Campus",
-			description: "Explore South Campus with your friendsExplore South th your friends",
-			url: "https://cdn.discordapp.com/attachments/1054239396024549486/1170214000827580426/Untitled.jpg?ex=655839b7&is=6545c4b7&hm=03754d93407e5de2746e2aca8f938f0a3ffdd2c16fe43c1930f320eb88f21dd9&",
-			id: 51515,
+			description: "Explore South Campus with your friends",
+			url: "https://cdn.discordapp.com/attachments/1054239396024549486/1171667786343395348/woocommerce-15.jpg?ex=655d83a8&is=654b0ea8&hm=25031174744dd94b29abc8f2faff18c5d6b827899ad12db9cb6dc08bc91ed0ca&",
+			_id: "default03",
 		},
 	];
 
@@ -66,11 +78,13 @@ function AvailableGames() {
 				</div>
 			)}
 			<GameTypeWindow
+				fetchData={null}
 				title={"Default Game Types"}
 				gameTypes={defaultGameTypes || exampleDefaultGames}
 				setModalData={setModalData}
 			></GameTypeWindow>
 			<GameTypeWindow
+				fetchData={fetchData}
 				title={"Custom Game Types"}
 				gameTypes={userGameTypes}
 				setModalData={setModalData}

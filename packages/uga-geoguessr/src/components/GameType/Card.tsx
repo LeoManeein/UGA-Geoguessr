@@ -1,24 +1,25 @@
 import { GameType } from "../../pages/AvailableGames";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Card.module.css";
-import { PlayCircleOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, PlayCircleOutlined } from "@ant-design/icons";
 import axios from "axios";
 interface Props {
 	gameType: GameType;
 	setModalData: Function;
+	fetchData: Function | null;
 }
 /**
  *
  * @param gametype: The gametype that the card will display.
  * @returns A card that will show the details and image of the gameType.
  */
-const Card: React.FC<Props> = ({ gameType, setModalData }) => {
+const Card: React.FC<Props> = ({ gameType, setModalData, fetchData }) => {
 	const navigate = useNavigate();
 
-	// Makes a request for a new GAME to be created using the current GAMETYPE
-	async function handleGameRequest() {
+	async function handleDeleteRequest() {
 		try {
-			const response = await axios.get(`http://localhost:4000/api/gametypes/${gameType.id}/create`, {
+			let token = localStorage.getItem("auth-token");
+			const response = await axios.delete(`http://localhost:4000/api/gametypes/${gameType._id}/`, {
 				headers: {
 					"Content-Type": "application/json",
 				},
@@ -26,18 +27,33 @@ const Card: React.FC<Props> = ({ gameType, setModalData }) => {
 
 			if (response.status === 200) {
 				const data = response.data;
-				navigate(`${data}`);
+				console.log("deleted");
+				if (fetchData) {
+					fetchData();
+				}
 			} else {
 				console.error("API request failed");
 			}
-		} catch (error) {
+		} catch (error: any) {
 			// Handle network errors or other exceptions here
-			console.error("An error occurred", error);
+			console.error("An error occurred", error.message);
 		}
 	}
-
 	return (
 		<div className={styles.flip_card}>
+			{fetchData && (
+				<>
+					<Link className=" absolute bottom-1 right-1 z-20" to={`/editgame/${gameType._id}`}>
+						<EditOutlined style={{ color: "white" }} />
+					</Link>
+					<div
+						onClick={() => handleDeleteRequest()}
+						className="hover:cursor-pointer absolute bottom-1 right-6 z-20"
+					>
+						<DeleteOutlined style={{ color: "white" }} />
+					</div>
+				</>
+			)}
 			<div className={`${styles.card} hover:cursor-pointer  `}>
 				<div className={` w-full  h-[300px]  ${styles.front}`}>
 					<div className={`rounded-lg w-[100%] h-[100%] `}>

@@ -1,6 +1,7 @@
 import { GoogleMap, MarkerF } from "@react-google-maps/api";
 import { useCallback, useMemo, useRef } from "react";
 import styles from "../../../Globals.module.css";
+import axios from "axios";
 type LatLngLiteral = google.maps.LatLngLiteral;
 type MapOptions = google.maps.MapOptions;
 interface Props {
@@ -8,6 +9,8 @@ interface Props {
 	defaultMapCoordinate: LatLngLiteral;
 	selectedCoordinate: LatLngLiteral | null;
 	setShowScoreWindow: Function;
+	nextStage: number | null;
+	_id: String;
 }
 
 /**
@@ -23,6 +26,8 @@ const GoogleMapWindow: React.FC<Props> = ({
 	defaultMapCoordinate,
 	selectedCoordinate,
 	setShowScoreWindow,
+	nextStage,
+	_id,
 }) => {
 	const mapRef = useRef<GoogleMap>();
 	// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -64,8 +69,16 @@ const GoogleMapWindow: React.FC<Props> = ({
 					{selectedCoordinate && <MarkerF onLoad={onLoadF} position={selectedCoordinate} />}
 				</GoogleMap>
 				<div
-					onClick={() => {
+					onClick={async () => {
 						if (!selectedCoordinate) return;
+						try {
+							console.log("made request");
+							const response = await axios.put(`http://localhost:4000/api/games/${_id}`, { nextStage });
+							console.log("ADWADAWDAWDWAD", response);
+							const data = await response.data;
+						} catch (error) {
+							console.error(error);
+						}
 						setShowScoreWindow(true);
 					}}
 					className={`  w-full  h-[50px] z-50  text-center pt-[4px] mt-1 ${styles.button} `}

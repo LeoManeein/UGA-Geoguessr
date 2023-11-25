@@ -58,21 +58,17 @@ router.delete("/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   try {
-    const updatedGameType = await GameTypes.findByIdAndUpdate(
+    const updatedItem = await GameTypes.findByIdAndUpdate(
       req.params.id,
-      req.body,
-      { new: true } // Optional: Return the updated document instead of the original
+      req.body
     );
 
-    if (updatedGameType) {
-      res.json({ msg: "Update Successful" });
-    } else {
-      // No document was found with the given ID
-      res.status(404).json({ error: "No such item to update" });
+    if (updatedItem) {
+      res.json({ success: "Update Successfully" });
     }
-  } catch (err) {
-    console.error(err);
-    res.status(400).json({ error: "Unable to Update Database" });
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ error: "unable to update gameType" });
   }
 });
 

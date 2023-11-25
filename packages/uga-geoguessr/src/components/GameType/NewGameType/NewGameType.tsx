@@ -1,5 +1,5 @@
 import { useLoadScript } from "@react-google-maps/api";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useGameId } from "./GameIdContext"; // keeps track of id's
 import GoogleMapWindow from "./GoogleMapWindow"; // Import the Google Maps component
 type LatLngLiteral = google.maps.LatLngLiteral;
@@ -10,27 +10,34 @@ export type PossibleLocation = {
 	radius: number;
 };
 interface NewGameProps {
-	onAddGame: (game: {
+	onAddGame: Function;
+	editGameType: {
 		id: string;
 		title: string;
 		url: string;
 		description: string;
 		possibleCoordinates: PossibleLocation[];
-	}) => void;
+	} | null;
 }
 /**
  *
  * @param onAddGame: Function that takes a game as a parameter. Returns void.
  * @returns
  */
-const NewGameType: React.FC<NewGameProps> = (props) => {
+const NewGameType: React.FC<NewGameProps> = ({ onAddGame, editGameType }) => {
 	const [gameName, setGameName] = useState<string>("");
 	const [imageURL, setImageURL] = useState<string>("");
 	const [description, setDescription] = useState<string>("");
 	const [locations, setLocations] = useState<PossibleLocation[]>([]);
 	const [error, setError] = useState<string | null>(null);
 	const { getNextId } = useGameId();
-
+	useEffect(() => {
+		if (!editGameType) return;
+		setGameName(editGameType.title);
+		setImageURL(editGameType.url);
+		setDescription(editGameType.description);
+		setLocations(editGameType.possibleCoordinates);
+	}, [editGameType]);
 	// The default position that the google maps starts at
 	const defaultMapCoordinate = { lat: 33.951752641469085, lng: -83.37435458710178 } as LatLngLiteral;
 
@@ -71,7 +78,7 @@ const NewGameType: React.FC<NewGameProps> = (props) => {
 			possibleCoordinates: locations,
 		};
 
-		props.onAddGame(newGame);
+		onAddGame(newGame);
 
 		setGameName("");
 		setDescription("");
@@ -90,9 +97,7 @@ const NewGameType: React.FC<NewGameProps> = (props) => {
 	return (
 		<div className="flex m-auto justify-center  ">
 			<div className="input w-1/2 sm:w-[320px] md:w-[384px] lg:w-[512px] xl:w-[640px] 2xl:w-[768px] ">
-
 				<form onSubmit={submitHandler} autoComplete="off" className="flex flex-col mr-6">
-
 					<label>Game Name</label>
 					<input
 						className="text-black"

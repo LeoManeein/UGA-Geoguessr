@@ -21,7 +21,7 @@ export type difficultyType = {
 	movement: boolean;
 };
 export type Game = {
-	id: String;
+	_id: String;
 	currentStage: number;
 	numberOfStages: number;
 	stages: {
@@ -52,15 +52,17 @@ function GamePage() {
 			try {
 				const response = await axios.get(`http://localhost:4000/api/games/${params.id}`);
 				const data = response.data;
-				
+				if (!data) {
+					throw new Error("Game not found");
+				}
 				console.log("data", data);
 				const currentStageObject = data.stages[data.currentStage];
 				if (!currentStageObject.score) {
 					setData(data);
 					setCurrentStageNumber(data.currentStage);
 				}
-			} catch (error) {
-				console.error("Error fetching data:", error);
+			} catch (error: any) {
+				console.error("Error fetching data:", error.message);
 				navigate("/Error/GameNotFound");
 			}
 		};
@@ -89,6 +91,7 @@ function GamePage() {
 
 					return (
 						<GameWindow
+							_id={data._id}
 							key={Math.random() + "abc" + index + current.answerLocation.lat}
 							answerLocation={current.answerLocation}
 							setCurrentStageNumber={setCurrentStageNumber}

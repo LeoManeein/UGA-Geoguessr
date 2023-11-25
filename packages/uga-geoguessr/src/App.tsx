@@ -9,6 +9,7 @@ import ErrorPage from "./pages/ErrorPage";
 import GamePage from "./pages/GamePage";
 import Home from "./pages/Home";
 import RootLayout from "./pages/Root";
+import EditGameType from "./pages/EditGame";
 function App() {
 	const router = createBrowserRouter([
 		{
@@ -20,6 +21,7 @@ function App() {
 				{ path: "/AddGame", element: <AddGameType /> },
 				{ path: "error/:id", element: <ErrorPage /> },
 				{ path: "*", element: <ErrorPage /> },
+				{ path: "/EditGame/:id", element: <EditGameType /> },
 			],
 		},
 

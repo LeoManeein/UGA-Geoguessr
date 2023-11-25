@@ -23,21 +23,26 @@ router.get("/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   try {
-    // Using findByIdAndUpdate with async/await
-    const updatedGame = await Games.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
-
-    if (updatedGame) {
-      res.json(updatedGame);
+    const foundGame = await Games.findById(req.params.id);
+    let nextStage = req.body.nextStage;
+    if (nextStage === null) {
+      nextStage = foundGame.numberOfStages;
+    }
+    let result;
+    if (nextStage === foundGame.numberOfStages) {
+      result = await Games.findByIdAndDelete(req.params.id);
+      console.log(`GAME ${foundGame._id} FINISHED AND DELETED`);
     } else {
-      // No game found with the given id
-      res.status(404).json({ error: "Game not found" });
+      foundGame.currentStage = req.body.nextStage;
+      result = await Games.findByIdAndUpdate(req.params.id, foundGame);
+    }
+
+    if (result) {
+      res.json(result);
     }
   } catch (error) {
-    // Handle potential errors, such as an invalid ObjectId
-    console.error(error);
-    res.status(500).json({ error: "Error updating the game" });
+    console.log(error);
+    res.status(400).json({ error: "unable to fetch gameType" });
   }
 });
 
@@ -47,8 +52,19 @@ router.post("/", async (req, res) => {
     if (!numberOfStages || numberOfStages > 10) {
       throw new Error("Invalid number of stages");
     }
+    let gameTypeInfo;
+    if (
+      gameType._id === "default01" ||
+      gameType._id === "default02" ||
+      gameType._id === "default03"
+    ) {
+      gameTypeInfo = defaultgameTypes.find(
+        (obj) => obj.id.toString() === gameType._id.toString()
+      );
+    } else {
+      gameTypeInfo = await GameTypes.findById(gameType._id);
+    }
 
-    const gameTypeInfo = await GameTypes.findById(gameType._id);
     if (!gameTypeInfo) {
       return res.status(404).json({ error: "GameType not found" });
     }

@@ -5,6 +5,7 @@ interface Props {
 	gameTypes: GameType[] | null;
 	title: string;
 	setModalData: Function;
+	fetchData: Function | null;
 }
 /**
  * @param {GameType[] | null} gameTypes: GameType array or null. All the gametypes that will be displayed in the window.
@@ -12,7 +13,7 @@ interface Props {
  * @param setModalData: set the gametype to display in the difficulty modal
  * @returns A window containing an array of GameTypes that are mapped as cards
  */
-const GameTypeWindow: React.FC<Props> = ({ gameTypes, title, setModalData }) => {
+const GameTypeWindow: React.FC<Props> = ({ gameTypes, title, setModalData, fetchData }) => {
 	return (
 		<div className="mx-2 mt-6 ">
 			<div
@@ -27,6 +28,7 @@ const GameTypeWindow: React.FC<Props> = ({ gameTypes, title, setModalData }) => 
 					{gameTypes &&
 						gameTypes.map((item, index) => (
 							<Card
+								fetchData={fetchData}
 								setModalData={setModalData}
 								key={item.title.toString() + index.toString()}
 								gameType={item}
