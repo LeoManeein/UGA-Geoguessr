@@ -6,7 +6,7 @@ dotenv.config();
 const Games = require('../../models/Games');
 
 router.get("/:id", async (req, res) => {
-    try{
+    try {
             const game = await Games.findById(req.params.id);
             if (game) {
                 res.json(game);
@@ -74,5 +74,22 @@ router.get("/:id", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
   });
+
+  router.delete('/:id', async (req, res) => {
+    try {
+        const deletedGame = await Games.findByIdAndDelete(req.params.id);
+
+        if (deletedGame) {
+            res.json({ msg: 'Game entry deleted successfully' });
+        } else {
+            // If no game was found and deleted
+            res.status(404).json({ error: 'No such game found' });
+        }
+        } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Error deleting the game' });
+        }
+    });
+
 
   module.exports = router;
