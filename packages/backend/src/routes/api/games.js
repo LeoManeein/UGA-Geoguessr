@@ -4,7 +4,7 @@ const axios = require("axios");
 const dotenv = require("dotenv");
 dotenv.config();
 const Games = require("../../models/Game");
-
+const googlemapskey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 router.get("/:id", async (req, res) => {
   try {
     const game = await Games.findById(req.params.id);
@@ -58,7 +58,7 @@ router.post("/", async (req, res) => {
         getRandomElement(possibleCoordinates)
       );
 
-      const apiKey = process.env.GOOGLE_MAPS_API_KEY;
+      const apiKey = googlemapskey;
       const location = `${randomPoint.lat},${randomPoint.lng}`;
       const size = "600x300";
       const radius = "1234";
@@ -72,13 +72,7 @@ router.post("/", async (req, res) => {
     }
 
     const stages = [];
-    // for (let i = 0; i < numberOfStages; i++) {
-    //   const answerLocation = await getRandomAnswerLocation(
-    //     gameTypeInfo.possibleCoordinates,
-    //     apiKey
-    //   );
-    //   stages.push({ score: null, answerLocation });
-    // }
+
     for (let i = 0; i < numberOfStages; i++) {
       stages.push({
         score: null,
@@ -98,7 +92,7 @@ router.post("/", async (req, res) => {
     console.log(`--- NEW GAME ${createdGame._id} CREATED ---`);
     res.json(`/game/${createdGame._id}`);
   } catch (error) {
-    console.error(error);
+    //console.error(error);
     res.status(500).json({ error: error.message });
   }
 });
