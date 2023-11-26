@@ -18,6 +18,7 @@ const PlayGameTypeModal: React.FC<Props> = ({ gameType, setModalData }) => {
 	const [movement, setMovement] = useState(true);
 	const [numberOfStages, setNumberOfStages] = useState(3);
 	const [clicked, setClicked] = useState(false);
+	const [error, setError] = useState("");
 	async function handleGameRequest() {
 		try {
 			setClicked(true);
@@ -41,13 +42,15 @@ const PlayGameTypeModal: React.FC<Props> = ({ gameType, setModalData }) => {
 				setClicked(false);
 				const data = response.data;
 				navigate(`${data}`);
+				setError("");
 			} else {
-				console.error("API request failed");
-				setClicked(false);
+				throw new Error("whoops");
 			}
 		} catch (error: any) {
 			// Handle network errors or other exceptions here
+			setClicked(false);
 			console.error("An error occurred", error.message);
+			setError(error.response.data.msg && error.response.data.msg);
 		}
 	}
 
@@ -84,6 +87,7 @@ const PlayGameTypeModal: React.FC<Props> = ({ gameType, setModalData }) => {
 					<Switch text={"Compass"} isChecked={compass} setFunction={setCompass}></Switch>
 				</div>
 			</div>
+			{error && <div className="text-orange-200 text-center">{error}</div>}
 			<div className="w-[200px] mx-auto">
 				{!clicked && (
 					<div

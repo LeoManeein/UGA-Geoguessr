@@ -12,12 +12,11 @@ router.get("/:id", async (req, res) => {
       res.json(game);
     } else {
       // No game found with the given id
-      res.status(404).json({ error: "Game not found" });
+      res.status(404).json({ msg: "Game not found" });
     }
   } catch (error) {
     // Handle potential errors, such as an invalid ObjectId
-    console.error(error);
-    res.status(500).json({ error: "Error fetching data" });
+    res.status(500).json({ msg: "Error fetching data" });
   }
 });
 
@@ -41,8 +40,7 @@ router.put("/:id", async (req, res) => {
       res.json(result);
     }
   } catch (error) {
-    console.log(error);
-    res.status(400).json({ error: "unable to fetch gameType" });
+    res.status(400).json({ msg: "unable to fetch gameType" });
   }
 });
 
@@ -66,7 +64,7 @@ router.post("/", async (req, res) => {
     }
 
     if (!gameTypeInfo) {
-      return res.status(404).json({ error: "GameType not found" });
+      return res.status(404).json({ msg: "GameType not found" });
     }
     const possibleCoordinates = gameTypeInfo.possibleCoordinates;
     async function getRandomAnswerLocation() {
@@ -109,7 +107,7 @@ router.post("/", async (req, res) => {
     res.json(`/game/${createdGame._id}`);
   } catch (error) {
     //console.error(error);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ msg: `Error: ${error.message} ` });
   }
 });
 
@@ -121,11 +119,10 @@ router.delete("/:id", async (req, res) => {
       res.json({ msg: "Game entry deleted successfully" });
     } else {
       // If no game was found and deleted
-      res.status(404).json({ error: "No such game found" });
+      res.status(404).json({ msg: "No such game found" });
     }
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Error deleting the game" });
+    res.status(500).json({ msg: "Error deleting the game" });
   }
 });
 

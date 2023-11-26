@@ -64,7 +64,7 @@ const NewGameType: React.FC<NewGameProps> = ({ onAddGame, editGameType }) => {
 		return true;
 	};
 
-	const submitHandler = (event: React.FormEvent) => {
+	const submitHandler = async (event: React.FormEvent) => {
 		event.preventDefault();
 
 		if (!validateForm()) {
@@ -79,8 +79,8 @@ const NewGameType: React.FC<NewGameProps> = ({ onAddGame, editGameType }) => {
 			possibleCoordinates: locations,
 		};
 
-		onAddGame(newGame);
-
+		const success = await onAddGame(newGame);
+		if (!success) return;
 		setGameName("");
 		setDescription("");
 		setImageURL("");

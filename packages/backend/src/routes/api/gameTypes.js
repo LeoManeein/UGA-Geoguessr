@@ -15,8 +15,7 @@ router.get("/", auth, async (req, res) => {
     const gameTypes = await GameTypes.find({ email: user.email });
     res.json(gameTypes);
   } catch (err) {
-    console.error(err);
-    res.status(404).json({ error: "No Items Found" });
+    res.status(404).json({ msg: "No Items Found" });
   }
 });
 
@@ -31,8 +30,7 @@ router.post("/", auth, async (req, res) => {
     await GameTypes.create(newGameType);
     res.json({ success: "Item added successfully" });
   } catch (error) {
-    console.error(error);
-    res.status(400).json({ error: `Unable to add this item: ${error}` });
+    res.status(400).json({ msg: `Unable to add this item: ${error}` });
   }
 });
 
@@ -48,11 +46,10 @@ router.get("/:id", auth, async (req, res) => {
     if (gameType) {
       res.json(gameType);
     } else {
-      res.status(404).json({ error: "No Item Found" });
+      res.status(404).json({ msg: "No Item Found" });
     }
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Error fetching data" });
+    res.status(500).json({ msg: `Error fetching data: ${err.message}` });
   }
 });
 
@@ -72,11 +69,10 @@ router.delete("/:id", auth, async (req, res) => {
       res.json({ msg: "Item Entry Deleted Successfully" });
     } else {
       // If no document was found and deleted
-      res.status(404).json({ error: "No Such Item" });
+      res.status(404).json({ msg: "No Such Item" });
     }
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Error deleting the item" });
+    res.status(500).json({ msg: "Error deleting the item" });
   }
 });
 
@@ -98,8 +94,9 @@ router.put("/:id", auth, async (req, res) => {
       res.json({ success: "Update Successfully" });
     }
   } catch (error) {
-    console.log(error.message);
-    res.status(400).json({ error: "unable to update gameType" });
+    res
+      .status(400)
+      .json({ msg: `unable to update gameType: ${error.message}` });
   }
 });
 

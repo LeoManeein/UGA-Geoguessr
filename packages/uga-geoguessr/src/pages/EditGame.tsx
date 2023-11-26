@@ -12,6 +12,7 @@ export type editGameType = {
 	possibleCoordinates: PossibleLocation[];
 };
 const EditGameType: React.FC = () => {
+	const [error, setError] = useState<string>("");
 	const [editGame, setEditGame] = useState<null | editGameType>(null);
 	const navigate = useNavigate();
 	const id = useParams().id;
@@ -28,12 +29,16 @@ const EditGameType: React.FC = () => {
 			const data = response.data;
 			if (data.success) {
 				console.log("New game added:", game);
+				setError("");
 				navigate("/availablegames");
+				return true;
 			} else {
 				throw new Error("Data not posted");
 			}
 		} catch (error: any) {
 			console.error(error.message);
+			setError(error.response.data.msg && error.response.data.msg);
+			return false;
 		}
 
 		// You can perform other actions with the added game data
@@ -50,12 +55,14 @@ const EditGameType: React.FC = () => {
 			const data = await response.data;
 			if (data) {
 				setEditGame(data);
+				setError("");
 				//console.log(data);
 			} else {
 				throw new Error("No data");
 			}
 		} catch (error: any) {
 			console.error(error.message);
+			setError(error.response.data.msg && error.response.data.msg);
 			setEditGame(null);
 		}
 	};
@@ -70,10 +77,17 @@ const EditGameType: React.FC = () => {
 	return (
 		<div className="text-ugatan-100">
 			<h2 className="text-center text-xl my-2">Edit GameType</h2>
+			{error && (
+				<div className="text-center" style={{ color: "red" }}>
+					{error}
+				</div>
+			)}
 			{/* You can add other components or content here */}
-			<GameIdProvider>
-				<NewGameType editGameType={editGame} onAddGame={handleAddGame} />
-			</GameIdProvider>
+			{editGame && (
+				<GameIdProvider>
+					<NewGameType editGameType={editGame} onAddGame={handleAddGame} />
+				</GameIdProvider>
+			)}
 		</div>
 	);
 };
