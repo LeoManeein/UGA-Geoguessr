@@ -87,14 +87,17 @@ const Profile: React.FC = () => {
 				<div className="">
 					{pastGameData.map((game, index) => {
 						return (
-							<div className="m-4 border p-2" key={index}>
+							<div
+								key={game.gameTypeTitle + index.toString() + Math.random().toString()}
+								className="m-4 border p-2"
+							>
 								<div>game {index + 1}</div>
 								<div>id:{game.gameTypeId}</div>
 								<div>title:{game.gameTypeTitle}</div>
 								<div className="">
 									{game.stages.map((stage, i) => {
 										return (
-											<div className="flex bg-ugagrey-100 my-2">
+											<div key={Math.random() + "stage"} className="flex bg-ugagrey-100 my-2">
 												<div>
 													<div>Score: {stage.score}</div>
 													<div>Distance: {stage.distance}</div>
