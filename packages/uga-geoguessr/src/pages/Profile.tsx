@@ -70,7 +70,7 @@ const Profile: React.FC = () => {
 	useEffect(() => {}, [pastGameData]);
 	if (!token) return <ErrorPage error={error || "please log in"}></ErrorPage>;
 	return (
-		<div className="text-ugatan-100">
+		<div className="text-ugatan-100 w-min m-auto">
 			<h2 className="text-center text-xl my-2">Profile</h2>
 			{error && (
 				<div className="text-center" style={{ color: "red" }}>
@@ -84,17 +84,17 @@ const Profile: React.FC = () => {
 			</div>
 			<div>Number of games played: {gamesPlayed}</div>
 			{pastGameData && (
-				<div className=" ">
+				<div className="">
 					{pastGameData.map((game, index) => {
 						return (
-							<div className="m-2 bg-blue-500" key={index}>
+							<div className="m-4 border p-2" key={index}>
 								<div>game {index + 1}</div>
 								<div>id:{game.gameTypeId}</div>
 								<div>title:{game.gameTypeTitle}</div>
 								<div className="">
 									{game.stages.map((stage, i) => {
 										return (
-											<div className="flex bg-slate-700 my-2">
+											<div className="flex bg-ugagrey-100 my-2">
 												<div>
 													<div>Score: {stage.score}</div>
 													<div>Distance: {stage.distance}</div>
