@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UserContext from "./Context/UserContext";
-type LatLngLiteral = google.maps.LatLngLiteral;
 
 const Login: React.FC = () => {
 	const [email, setEmail] = useState<string>("");
@@ -15,6 +14,13 @@ const Login: React.FC = () => {
 	async function handleSubmit(e: any) {
 		e.preventDefault();
 		setLoading(true);
+
+		if (!email || !password) {
+			setError("Please enter both email and password.");
+			setLoading(false);
+			return;
+		}
+
 		try {
 			const loginUser = { email, password };
 
@@ -30,7 +36,16 @@ const Login: React.FC = () => {
 			navigate("/");
 		} catch (error: any) {
 			setLoading(false);
-			error.response.data.msg && setError(error.response.data.msg);
+			if (error.response) {
+				// Server responded with a status code other than 2xx
+				setError(`Server error: ${error.response.data.msg}`);
+			} else if (error.request) {
+				// The request was made but no response was received
+				setError("Network error. Please check your internet connection.");
+			} else {
+				// Something happened in setting up the request that triggered an Error
+				setError("An unexpected error occurred. Please try again later.");
+			}
 		}
 	}
 	return (
@@ -44,7 +59,7 @@ const Login: React.FC = () => {
 					autoComplete="off"
 					className="flex flex-col mx-4"
 				>
-					<label>email</label>
+					<label htmlFor="email">email</label>
 					<input
 						className="text-black"
 						id="gameName"
@@ -52,19 +67,19 @@ const Login: React.FC = () => {
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 					/>
-					<label>Password</label>
+					<label htmlFor="password">Password</label>
 					<input
 						className="text-black"
 						id="imageURL"
-						type="text"
+						type="password"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 					/>
 
 					{error && <div style={{ color: "red" }}>{error}</div>}
 
-					<button className="bg-ugared-200 mt-4 hover:bg-ugared-300" type="submit">
-						Submit
+					<button className="bg-ugared-200 mt-4 hover:bg-ugared-300" type="submit" disabled={loading}>
+						{loading ? "Submitting..." : "Submit"}
 					</button>
 					<Link to={"/signup"} className="bg-ugared-500 text-3xl mt-4 hover:bg-ugared-400" type="submit">
 						Signup
