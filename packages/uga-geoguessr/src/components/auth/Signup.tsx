@@ -18,6 +18,19 @@ const Signup: React.FC = () => {
 	async function handleSubmit(e: any) {
 		e.preventDefault();
 		setLoading(true);
+
+		if (!email || !username || !password || !confirmPassword) {
+			setError("Please fill in all fields.");
+			setLoading(false);
+			return;
+		}
+
+		if (password !== confirmPassword) {
+			setError("Passwords do not match.");
+			setLoading(false);
+			return;
+		}
+
 		try {
 			const newUser = { email, password, confirmPassword, username };
 
@@ -37,7 +50,16 @@ const Signup: React.FC = () => {
 			navigate("/");
 		} catch (error: any) {
 			setLoading(false);
-			error.response.data.msg && setError(error.response.data.msg);
+			if (error.response) {
+				// Server responded with a status code other than 2xx
+				setError(`Server error: ${error.response.data.msg}`);
+			} else if (error.request) {
+				// The request was made but no response was received
+				setError("Network error. Please check your internet connection.");
+			} else {
+				// Something happened in setting up the request that triggered an Error
+				setError("An unexpected error occurred. Please try again later.");
+			}
 		}
 	}
 
@@ -52,7 +74,7 @@ const Signup: React.FC = () => {
 					autoComplete="off"
 					className="flex flex-col mx-4"
 				>
-					<label>email</label>
+					<label htmlFor="email">Email</label>
 					<input
 						className="text-black"
 						id="gameName"
@@ -61,7 +83,7 @@ const Signup: React.FC = () => {
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 					/>
-					<label>UserName</label>
+					<label htmlFor="username">Username</label>
 					<input
 						className="text-black"
 						id="imageURL"
@@ -70,20 +92,20 @@ const Signup: React.FC = () => {
 						value={username}
 						onChange={(e) => setUsername(e.target.value)}
 					/>
-					<label>Password</label>
+					<label htmlFor="password">Password</label>
 					<input
 						className="text-black"
 						id="imageURL"
-						type="text"
+						type="password"
 						required
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 					/>
-					<label>Confirm Passowrd</label>
+					<label htmlFor="password">Confirm Passowrd</label>
 					<input
 						className="text-black"
 						id="imageURL"
-						type="text"
+						type="password"
 						required
 						value={confirmPassword}
 						onChange={(e) => setConfirmPassword(e.target.value)}
