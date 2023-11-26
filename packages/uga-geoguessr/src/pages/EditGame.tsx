@@ -36,8 +36,7 @@ const EditGameType: React.FC = () => {
 				throw new Error("Data not posted");
 			}
 		} catch (error: any) {
-			console.error(error.message);
-			setError(error.response.data.msg && error.response.data.msg);
+			setError(error.response.data.msg || error.message || "error");
 			return false;
 		}
 
@@ -61,8 +60,7 @@ const EditGameType: React.FC = () => {
 				throw new Error("No data");
 			}
 		} catch (error: any) {
-			console.error(error.message);
-			setError(error.response.data.msg && error.response.data.msg);
+			setError(error.response.data.msg || error.message || "error");
 			setEditGame(null);
 		}
 	};

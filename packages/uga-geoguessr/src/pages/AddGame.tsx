@@ -25,9 +25,7 @@ const AddGameType: React.FC = () => {
 				throw new Error("Data not posted");
 			}
 		} catch (error: any) {
-			console.log(error);
-			setError(error.response.data.msg && error.response.data.msg);
-			console.error(error.message);
+			setError(error.response.data.msg || error.message || "error");
 			return false;
 		}
 
