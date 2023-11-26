@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import UserContext from "./Context/UserContext";
 
 const Signup: React.FC = () => {
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
@@ -18,8 +20,42 @@ const Signup: React.FC = () => {
 		e.preventDefault();
 		setLoading(true);
 
-		if (!email || !username || !password || !confirmPassword) {
+		if (!firstName || !lastName || !email || !username || !password || !confirmPassword) {
 			setError("Please fill in all fields.");
+			setLoading(false);
+			return;
+		}
+
+		// Validating email
+		const validateEmail = (email: string): boolean => {
+			return (
+				String(email)
+					.toLowerCase()
+					.match(
+						/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+					) !== null
+			);
+		};
+		if (!validateEmail(email)) {
+			setError("Please enter valid email");
+			setLoading(false);
+			return;
+		}
+
+		// Validating password
+		const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+		const hasUppercase = /[A-Z]/.test(password);
+		const isLengthValid = password.length >= 8;
+
+		if (!hasSpecialChar || !hasUppercase || !isLengthValid) {
+			let errorMessage = "Password must ";
+			if (!hasSpecialChar) errorMessage += "contain a special character, ";
+			if (!hasUppercase) errorMessage += "contain an uppercase letter, ";
+			if (!isLengthValid) errorMessage += "be at least 8 characters long, ";
+
+			errorMessage = errorMessage.slice(0, -2); // Remove the trailing comma and space
+
+			setError(errorMessage);
 			setLoading(false);
 			return;
 		}
@@ -31,7 +67,7 @@ const Signup: React.FC = () => {
 		}
 
 		try {
-			const newUser = { email, password, confirmPassword, username };
+			const newUser = { firstName, lastName, email, password, confirmPassword, username };
 
 			await axios.post("http://localhost:4000/api/users/signup", newUser);
 			const loginRes = await axios.post("http://localhost:4000/api/users/login", {
@@ -73,10 +109,28 @@ const Signup: React.FC = () => {
 					autoComplete="off"
 					className="flex flex-col mx-4"
 				>
+					<label htmlFor="firstName">First Name</label>
+					<input
+						className="text-black"
+						id="firstName"
+						type="text"
+						required
+						value={firstName}
+						onChange={(e) => setFirstName(e.target.value)}
+					/>
+					<label htmlFor="lastName">Last Name</label>
+					<input
+						className="text-black"
+						id="lastName"
+						type="text"
+						required
+						value={lastName}
+						onChange={(e) => setLastName(e.target.value)}
+					/>
 					<label htmlFor="email">Email</label>
 					<input
 						className="text-black"
-						id="gameName"
+						id="email"
 						type="text"
 						required
 						value={email}
