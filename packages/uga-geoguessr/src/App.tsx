@@ -14,6 +14,7 @@ import axios from "axios";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import UserContext from "./components/auth/Context/UserContext";
+import Profile from "./pages/Profile";
 function App() {
 	const router = createBrowserRouter([
 		{
@@ -28,6 +29,7 @@ function App() {
 				{ path: "/EditGame/:id", element: <EditGameType /> },
 				{ path: "/signup", element: <SignUpPage></SignUpPage> },
 				{ path: "/login", element: <LoginPage></LoginPage> },
+				{ path: "/profile", element: <Profile></Profile> },
 			],
 		},
 
@@ -61,7 +63,7 @@ function App() {
 		try {
 			const checkLoggedIn = async () => {
 				let token = localStorage.getItem("auth-token");
-				console.log(token);
+				//console.log(token);
 				if (token === null) {
 					localStorage.setItem("auth-token", "");
 					token = "";
@@ -69,15 +71,15 @@ function App() {
 				const tokenResponse = await axios.post("http://localhost:4000/api/users/tokenIsValid", null, {
 					headers: { "x-auth-token": token },
 				});
-				console.log(tokenResponse.data);
+				//console.log(tokenResponse.data);
 
 				if (tokenResponse.data) {
 					const userRes = await axios.get("http://localhost:4000/api/users/", {
 						headers: { "x-auth-token": token },
 					});
 					setUserData({ token, user: userRes.data });
-					console.log(userRes.data);
-					console.log(tokenResponse.data);
+					//console.log(userRes.data);
+					//console.log(tokenResponse.data);
 				}
 			};
 			checkLoggedIn();
@@ -87,7 +89,7 @@ function App() {
 	}, []);
 
 	useEffect(() => {
-		console.log(userData);
+		//	console.log(userData);
 	}, [userData]);
 
 	return (

@@ -25,7 +25,7 @@ interface Props {
  * @param nextStage: The index of the next stage or null
  * @returns
  */
-const GameWindow: React.FC<Props> = ({ _id,answerLocation, setCurrentStageNumber, nextStage, difficulty }) => {
+const GameWindow: React.FC<Props> = ({ _id, answerLocation, setCurrentStageNumber, nextStage, difficulty }) => {
 	// Loads the google maps
 	const { isLoaded, loadError } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
@@ -37,7 +37,13 @@ const GameWindow: React.FC<Props> = ({ _id,answerLocation, setCurrentStageNumber
 	// The location that is selected on the map when the user clicks on it
 	const [selectedCoordinate, setSelectedCoordinate] = useState<LatLngLiteral | null>(null);
 
-	const [showScoreWindow, setShowScoreWindow] = useState(false);
+	const [showScoreWindow, setShowScoreWindow] = useState<null | {
+		score: number;
+		percentage: number;
+		distance: number;
+		selectedCoordinate: LatLngLiteral;
+		answerLocation: LatLngLiteral;
+	}>(null);
 
 	const [heading, setHeading] = useState(0);
 
@@ -52,6 +58,7 @@ const GameWindow: React.FC<Props> = ({ _id,answerLocation, setCurrentStageNumber
 			</Link>
 			{showScoreWindow && selectedCoordinate && (
 				<ScoreWindow
+					showScoreWindow={showScoreWindow}
 					answerLocation={answerLocation}
 					selectedCoordinate={selectedCoordinate}
 					setCurrentStageNumber={setCurrentStageNumber}
@@ -69,6 +76,7 @@ const GameWindow: React.FC<Props> = ({ _id,answerLocation, setCurrentStageNumber
 						className={`absolute bottom-6 right-2  w-[300px]  h-[250px] z-10  transition-transform md:hover:w-[700px] md:hover:h-[400px] `}
 					>
 						<GoogleMapWindow
+							answerLocation={answerLocation}
 							defaultMapCoordinate={defaultMapCoordinate}
 							selectedCoordinate={selectedCoordinate}
 							setSelectedCoordinate={setSelectedCoordinate}

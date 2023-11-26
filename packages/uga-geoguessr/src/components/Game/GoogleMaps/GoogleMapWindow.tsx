@@ -11,6 +11,7 @@ interface Props {
 	setShowScoreWindow: Function;
 	nextStage: number | null;
 	_id: String;
+	answerLocation: LatLngLiteral;
 }
 
 /**
@@ -27,6 +28,7 @@ const GoogleMapWindow: React.FC<Props> = ({
 	selectedCoordinate,
 	setShowScoreWindow,
 	nextStage,
+	answerLocation,
 	_id,
 }) => {
 	const mapRef = useRef<GoogleMap>();
@@ -44,7 +46,27 @@ const GoogleMapWindow: React.FC<Props> = ({
 		}),
 		[],
 	);
+	function getDistanceFromLatLonInKm(lat1: number | undefined, lon1: number | undefined, lat2: number, lon2: number) {
+		if (!lat1 || !lon1) return 0;
 
+		var R = 6371; // Radius of the earth in km
+		var dLat = deg2rad(lat2 - lat1); // deg2rad below
+		var dLon = deg2rad(lon2 - lon1);
+		var a =
+			Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+			Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		var d = R * c; // Distance in km
+		return d;
+	}
+	function deg2rad(deg: number) {
+		return deg * (Math.PI / 180);
+	}
+
+	// Uhh this mightttt be right??
+	function coordsToFeet(distance: number) {
+		return distance * 3280.84;
+	}
 	const onLoad = useCallback((map: any) => (mapRef.current = map), []);
 	if (!window.google) return <div></div>;
 
@@ -72,14 +94,56 @@ const GoogleMapWindow: React.FC<Props> = ({
 					onClick={async () => {
 						if (!selectedCoordinate) return;
 						try {
+							const defaultMapCoordinate = {
+								lat: 33.951752641469085,
+								lng: -83.37435458710178,
+							} as LatLngLiteral;
+
+							const distance = Math.floor(
+								coordsToFeet(
+									getDistanceFromLatLonInKm(
+										answerLocation.lat,
+										answerLocation.lng,
+										selectedCoordinate.lat,
+										selectedCoordinate.lng,
+									),
+								),
+							);
+
+							const maxScore = 5000;
+
+							const score = distance >= maxScore ? 0 : maxScore - distance;
+
+							const percentage = Math.ceil((score / maxScore) * 100);
+							const newthing = { score, percentage, distance, selectedCoordinate, answerLocation };
+
+							// helper function to find the straight distance between 2 lat and long points
+
 							console.log("made request");
-							const response = await axios.put(`http://localhost:4000/api/games/${_id}`, { nextStage });
+
+							let token = localStorage.getItem("auth-token");
+							const headers = token
+								? {
+										headers: {
+											"x-auth-token": token,
+										},
+								  }
+								: {};
+							const response = await axios.put(
+								`http://localhost:4000/api/games/${_id}`,
+								{
+									nextStage,
+									...newthing,
+								},
+								headers,
+							);
 							console.log("ADWADAWDAWDWAD", response);
 							const data = await response.data;
+							setShowScoreWindow(newthing);
 						} catch (error) {
 							console.error(error);
 						}
-						setShowScoreWindow(true);
+						//setShowScoreWindow(true);
 					}}
 					className={`  w-full  h-[50px] z-50  text-center pt-[4px] mt-1 ${styles.button} `}
 				>

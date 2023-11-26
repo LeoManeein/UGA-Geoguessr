@@ -22,6 +22,19 @@ const PlayGameTypeModal: React.FC<Props> = ({ gameType, setModalData }) => {
 	async function handleGameRequest() {
 		try {
 			setClicked(true);
+			let token = localStorage.getItem("auth-token");
+			const headers = token
+				? {
+						headers: {
+							"Content-Type": "application/json",
+							"x-auth-token": token,
+						},
+				  }
+				: {
+						headers: {
+							"Content-Type": "application/json",
+						},
+				  };
 			const response = await axios.post(
 				`http://localhost:4000/api/games`,
 				{
@@ -29,11 +42,7 @@ const PlayGameTypeModal: React.FC<Props> = ({ gameType, setModalData }) => {
 					numberOfStages: numberOfStages,
 					difficulty: { zoom: zoom, compass: compass, movement: movement },
 				},
-				{
-					headers: {
-						"Content-Type": "application/json",
-					},
-				},
+				headers,
 			);
 
 			console.log(response);

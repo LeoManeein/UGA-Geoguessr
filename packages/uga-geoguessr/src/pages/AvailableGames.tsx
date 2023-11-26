@@ -40,7 +40,6 @@ function AvailableGames() {
 	const [defaultGameTypes, setDefaultGameTypes] = useState<GameType[] | null>(null);
 	const [userGameTypes, setUserGameTypes] = useState<GameType[] | null>(null);
 	const [modalData, setModalData] = useState<GameType | null>(null);
-
 	const fetchData = async () => {
 		try {
 			let token = localStorage.getItem("auth-token");
