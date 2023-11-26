@@ -49,7 +49,7 @@ function Home() {
 				<div className=" text-6xl md:text-8xl text-ugared-300">UGA</div>
 				<div className="text-6xl md:text-8xl text-ugared-300">GEOGUESSR</div>
 				<Link
-					to={token ? "/availablegames" : "/signup"}
+					to={token ? "/availablegames" : "/login"}
 					className="bg-ugatan-100 w--full md:w-[460px] h-[119px] rounded-full text-center justify-center flex mt-12 "
 				>
 					<div className="m-auto flex  text-3xl text-center justify-center content-center text-ugared-400 ">
@@ -60,14 +60,16 @@ function Home() {
 						)}
 						{!token && (
 							<>
-								Sign up to play <ArrowRightOutlined className="pt-[6px] pl-2 m-auto" />
+								Login in to play <ArrowRightOutlined className="pt-[6px] pl-2 m-auto" />
 							</>
 						)}
 					</div>
 				</Link>
 				<div className="text-ugatan-100 w-full md:w-[569px] mt-12 text-2xl">
-					maybe insert some other texts here idk this space looks empty, but it can also look alright without
-					anything
+					Explore the University of Georgia's campus and see how well you really know your way around.
+				</div>
+				<div className="text-ugatan-100 w-full md:w-[569px] mt-4 text-2xl">
+					Create an account to create your own custom gamemodes
 				</div>
 			</div>
 			<div className={`flex justify-center  w-full md:w-[327px] h-[471px] pb-1 rounded-lg`}>

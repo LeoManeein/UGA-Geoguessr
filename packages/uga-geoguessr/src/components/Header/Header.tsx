@@ -94,6 +94,9 @@ function Header() {
 								>{`Logout`}</Link>
 							</div>
 						)}
+						<Link to="profile">
+							<UserOutlined className="border-2 p-1 rounded-md text-white" />
+						</Link>
 					</div>
 				</div>
 				<div className="sm:hidden flex flex-col">
@@ -109,7 +112,9 @@ function Header() {
 						<Link to="/">
 							<div className="text-ugared-300 font-bold text-xl">UGA Geoguessr</div>
 						</Link>
-						<UserOutlined className="border-2 p-1 rounded-md" />
+						<Link to={token ? "/profile" : "/login"}>
+							<UserOutlined className="border-2 p-1 rounded-md" />
+						</Link>
 					</div>
 					{showDropDown && (
 						<div
@@ -117,34 +122,51 @@ function Header() {
 						>
 							{navigation.map((item, index) => {
 								return (
-									<div key={index}>
-										<Link
+									<Link
+										to={item.href}
+										className=""
+										key={index}
+										onClick={() => {
+											setShowDropDown(false);
+										}}
+									>
+										<div
 											className={`${
 												location.pathname.toLocaleLowerCase() === item.href.toLocaleLowerCase()
 													? "   border-ugared-300"
 													: " border-transparent  text-gray-300"
-											} pb-[8px] pt-[6px] px-2 rounded-full border-2 text-white`}
-											to={item.href}
-										>{`${item.name}`}</Link>
-									</div>
+											} pb-[8px] pt-[6px] px-2 rounded-full border-2 text-white `}
+										>{`${item.name}`}</div>
+									</Link>
 								);
 							})}
 
 							{!token && (
-								<div>
-									<Link
+								<Link
+									className="w-full"
+									to={login.href}
+									onClick={() => {
+										setShowDropDown(false);
+									}}
+								>
+									<div
 										className={`${
 											location.pathname.toLocaleLowerCase() === login.href.toLocaleLowerCase()
 												? "   border-ugared-300"
 												: " border-transparent  text-gray-300"
-										} pb-[8px] pt-[6px] px-2 rounded-full border-2 text-white`}
-										to={login.href}
-									>{`${login.name}`}</Link>
-								</div>
+										} pb-[8px] pt-[6px] px-2 rounded-full border-2 text-white w-full`}
+									>{`${login.name}`}</div>
+								</Link>
 							)}
 							{token && (
-								<div>
-									<Link
+								<Link
+									className="w-full"
+									to={"/"}
+									onClick={() => {
+										setShowDropDown(false);
+									}}
+								>
+									<div
 										onClick={() => {
 											localStorage.setItem("auth-token", "");
 											navigate("/");
@@ -154,9 +176,8 @@ function Header() {
 											});
 										}}
 										className={`${" border-transparent  text-gray-300"} pb-[8px] pt-[6px] px-2 rounded-full border-2 text-white`}
-										to={"/"}
-									>{`Logout`}</Link>
-								</div>
+									>{`Logout`}</div>
+								</Link>
 							)}
 						</div>
 					)}
