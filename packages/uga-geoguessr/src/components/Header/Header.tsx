@@ -3,6 +3,8 @@ import classes from "./Header.module.css";
 import { MenuUnfoldOutlined, UserOutlined } from "@ant-design/icons";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../auth/Context/UserContext";
+import exampleImage from "./SchoolIcon.png";
+
 function Header() {
 	const navigation = [
 		{
@@ -44,6 +46,10 @@ function Header() {
 					className={`flex border-b-2 w-full border-slate-900/10 dark:border-slate-300/10 pb-2 pt-3 justify-between pl-2 pr-2 ${classes.background} hidden sm:flex`}
 				>
 					<div className="flex gap-x-4">
+						<Link to="/">
+							<img className="w-[25px] h-[25px]" src={exampleImage}></img>
+						</Link>
+
 						{navigation.map((item, index) => {
 							return (
 								<div key={index}>
@@ -100,7 +106,9 @@ function Header() {
 								setShowDropDown((x) => !x);
 							}}
 						/>
-						<>Logo Here</>
+						<Link to="/">
+							<div className="text-ugared-300 font-bold text-xl">UGA Geoguessr</div>
+						</Link>
 						<UserOutlined className="border-2 p-1 rounded-md" />
 					</div>
 					{showDropDown && (
