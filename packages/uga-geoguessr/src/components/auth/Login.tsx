@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UserContext from "./Context/UserContext";
-type LatLngLiteral = google.maps.LatLngLiteral;
 
 const Login: React.FC = () => {
 	const [email, setEmail] = useState<string>("");
