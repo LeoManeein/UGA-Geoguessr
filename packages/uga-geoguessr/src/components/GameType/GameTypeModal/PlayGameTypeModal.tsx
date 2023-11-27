@@ -58,7 +58,8 @@ const PlayGameTypeModal: React.FC<Props> = ({ gameType, setModalData }) => {
 		} catch (error: any) {
 			// Handle network errors or other exceptions here
 			setClicked(false);
-			setError(error.response.data.msg || error.message || "error");
+			console.error(error?.response?.data?.msg || error?.message || "error");
+			setError(error?.response?.data?.msg || error?.message || "error");
 		}
 	}
 

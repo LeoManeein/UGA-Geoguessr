@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { GameIdProvider } from "../components/GameType/NewGameType/GameIdContext";
 import NewGameType from "../components/GameType/NewGameType/NewGameType"; // Assuming the path to your NewGame component
 import axios from "axios";
 import ErrorPage from "./ErrorPage";
+import UserContext from "../components/auth/Context/UserContext";
 
 const AddGameType: React.FC = () => {
+	const { auth } = useContext(UserContext);
+
 	const [error, setError] = useState<string>("");
 	const handleAddGame = async (game: any) => {
 		try {
@@ -25,17 +28,15 @@ const AddGameType: React.FC = () => {
 				throw new Error("Data not posted");
 			}
 		} catch (error: any) {
-			setError(error.response.data.msg || error.message || "error");
+			console.error(error?.response?.data?.msg || error?.message || "error");
+			setError(error?.response?.data?.msg || error?.message || "error");
 			return false;
 		}
 
 		// You can perform other actions with the added game data
 	};
-	const [token, setToken] = useState<string | null>("");
-	useEffect(() => {
-		setToken(localStorage.getItem("auth-token"));
-	}, []);
-	if (!token) return <ErrorPage error={"Sign in to create a GameType"}></ErrorPage>;
+	if (auth.loading) return <div></div>;
+	if (!auth.valid) return <ErrorPage error={"Sign in to create a GameType"}></ErrorPage>;
 	return (
 		<div className="text-ugatan-100">
 			<h2 className="text-center text-xl my-2">Add new GameType</h2>

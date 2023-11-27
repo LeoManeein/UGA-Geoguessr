@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UserContext from "./Context/UserContext";
 
@@ -9,8 +9,8 @@ const Login: React.FC = () => {
 	const [error, setError] = useState<string>("");
 	const [loading, setLoading] = useState<boolean>(false);
 	const navigate = useNavigate();
-	const { setUserData } = useContext(UserContext);
-
+	const { setUserData, userData } = useContext(UserContext);
+	
 	async function handleSubmit(e: any) {
 		e.preventDefault();
 		setLoading(true);

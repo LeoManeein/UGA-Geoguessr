@@ -95,7 +95,7 @@ function Header() {
 							</div>
 						)}
 						<Link to="profile">
-							<UserOutlined className="border-2 p-1 rounded-md text-white" />
+							<UserOutlined className="border-2 p-1 rounded-full text-white" />
 						</Link>
 					</div>
 				</div>
@@ -113,7 +113,7 @@ function Header() {
 							<div className="text-ugared-300 font-bold text-xl">UGA Geoguessr</div>
 						</Link>
 						<Link to={token ? "/profile" : "/login"}>
-							<UserOutlined className="border-2 p-1 rounded-md" />
+							<UserOutlined className="border-2 p-1 rounded-full" />
 						</Link>
 					</div>
 					{showDropDown && (

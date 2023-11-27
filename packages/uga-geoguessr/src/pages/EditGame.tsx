@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { GameIdProvider } from "../components/GameType/NewGameType/GameIdContext";
 import NewGameType, { PossibleLocation } from "../components/GameType/NewGameType/NewGameType"; // Assuming the path to your NewGame component
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
+import UserContext from "../components/auth/Context/UserContext";
 export type editGameType = {
 	id: string;
 	title: string;
@@ -12,6 +13,7 @@ export type editGameType = {
 	possibleCoordinates: PossibleLocation[];
 };
 const EditGameType: React.FC = () => {
+	const { auth } = useContext(UserContext);
 	const [error, setError] = useState<string>("");
 	const [editGame, setEditGame] = useState<null | editGameType>(null);
 	const navigate = useNavigate();
@@ -36,7 +38,8 @@ const EditGameType: React.FC = () => {
 				throw new Error("Data not posted");
 			}
 		} catch (error: any) {
-			setError(error.response.data.msg || error.message || "error");
+			console.error(error?.response?.data?.msg || error?.message || "error");
+			setError(error?.response?.data?.msg || error?.message || "error");
 			return false;
 		}
 
@@ -64,14 +67,12 @@ const EditGameType: React.FC = () => {
 			setEditGame(null);
 		}
 	};
-	const [token, setToken] = useState<string | null>("");
 
 	useEffect(() => {
-		setToken(localStorage.getItem("auth-token"));
-
 		fetchData();
 	}, []);
-	if (!token) return <ErrorPage error={"please sign in"}></ErrorPage>;
+	if (auth.loading) return <div></div>;
+	if (!auth.valid) return <ErrorPage error={"Sign in to edit a gameType"}></ErrorPage>;
 	return (
 		<div className="text-ugatan-100">
 			<h2 className="text-center text-xl my-2">Edit GameType</h2>

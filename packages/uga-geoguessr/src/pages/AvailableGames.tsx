@@ -67,7 +67,10 @@ function AvailableGames() {
 		setToken(localStorage.getItem("auth-token"));
 		fetchData();
 	}, []);
-
+	const { setUserData, userData } = useContext(UserContext);
+	useEffect(() => {
+		console.log("login", userData);
+	}, [userData]);
 	return (
 		<div className="relative">
 			{modalData && (

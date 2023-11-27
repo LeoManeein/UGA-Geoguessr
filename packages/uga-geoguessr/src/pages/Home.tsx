@@ -36,10 +36,11 @@ function Home() {
 		},
 	];
 	const [token, setToken] = useState<string | null>("");
-	const { setUserData, userData } = useContext(UserContext);
+	const { setUserData, userData, auth } = useContext(UserContext);
 	useEffect(() => {
 		setToken(localStorage.getItem("auth-token"));
 	}, [userData]);
+	if (auth.loading) return <div></div>;
 	return (
 		<div className="mx-2 mt-12 flex md:flex-row flex-col m-auto justify-center">
 			<div
@@ -49,16 +50,16 @@ function Home() {
 				<div className=" text-6xl md:text-8xl text-ugared-300">UGA</div>
 				<div className="text-6xl md:text-8xl text-ugared-300">GEOGUESSR</div>
 				<Link
-					to={token ? "/availablegames" : "/login"}
+					to={auth.valid ? "/availablegames" : "/login"}
 					className="bg-ugatan-100 w--full md:w-[460px] h-[119px] rounded-full text-center justify-center flex mt-12 "
 				>
 					<div className="m-auto flex  text-3xl text-center justify-center content-center text-ugared-400 ">
-						{token && (
+						{auth.valid && (
 							<>
 								Play <ArrowRightOutlined className="pt-[6px] pl-2 m-auto" />
 							</>
 						)}
-						{!token && (
+						{!auth.valid && (
 							<>
 								Login in to play <ArrowRightOutlined className="pt-[6px] pl-2 m-auto" />
 							</>

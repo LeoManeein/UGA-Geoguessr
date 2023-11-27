@@ -60,7 +60,6 @@ router.put("/:id", async (req, res) => {
 					average = Math.ceil(average);
 					user.totalScore = user.totalScore + average;
 					user.pastGameData = user.pastGameData.push(foundGame);
-					console.log(foundGame);
 					const updateUser = await User.findByIdAndUpdate(verified.id, user);
 				}
 			}
@@ -119,7 +118,6 @@ router.post("/", async (req, res) => {
 			});
 		}
 
-		console.log(gameType.title);
 		const newGame = {
 			currentStage: 0,
 			gameTypeId: gameType._id,

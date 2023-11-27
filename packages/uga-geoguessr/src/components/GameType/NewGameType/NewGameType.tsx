@@ -45,7 +45,7 @@ const NewGameType: React.FC<NewGameProps> = ({ onAddGame, editGameType }) => {
 	// Makes sure the google map loads.
 	const { isLoaded, loadError } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
-		libraries: ["geometry"],
+		libraries: ["geometry", "visualization"],
 	});
 
 	const onMapSubmit = (selectedCoordinate: { lat: number; lng: number; radius: number } | null) => {
