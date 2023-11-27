@@ -2,6 +2,7 @@ import { useLoadScript } from "@react-google-maps/api";
 import React, { useEffect, useState } from "react";
 import { useGameId } from "./GameIdContext"; // keeps track of id's
 import GoogleMapWindow from "./GoogleMapWindow"; // Import the Google Maps component
+import { Link } from "react-router-dom";
 type LatLngLiteral = google.maps.LatLngLiteral;
 
 export type PossibleLocation = {
@@ -44,7 +45,7 @@ const NewGameType: React.FC<NewGameProps> = ({ onAddGame, editGameType }) => {
 	// Makes sure the google map loads.
 	const { isLoaded, loadError } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
-		libraries: ["geometry"],
+		libraries: ["geometry", "visualization"],
 	});
 
 	const onMapSubmit = (selectedCoordinate: { lat: number; lng: number; radius: number } | null) => {
@@ -63,7 +64,7 @@ const NewGameType: React.FC<NewGameProps> = ({ onAddGame, editGameType }) => {
 		return true;
 	};
 
-	const submitHandler = (event: React.FormEvent) => {
+	const submitHandler = async (event: React.FormEvent) => {
 		event.preventDefault();
 
 		if (!validateForm()) {
@@ -78,8 +79,8 @@ const NewGameType: React.FC<NewGameProps> = ({ onAddGame, editGameType }) => {
 			possibleCoordinates: locations,
 		};
 
-		onAddGame(newGame);
-
+		const success = await onAddGame(newGame);
+		if (!success) return;
 		setGameName("");
 		setDescription("");
 		setImageURL("");
@@ -126,7 +127,7 @@ const NewGameType: React.FC<NewGameProps> = ({ onAddGame, editGameType }) => {
 					{error && <div style={{ color: "red" }}>{error}</div>}
 
 					<button className="bg-ugared-200 mt-4 hover:bg-ugared-300" type="submit">
-						Add Game
+						{editGameType ? "Edit Game" : "Add Game"}
 					</button>
 					<div>Selected Locations:</div>
 					{locations.map((current) => {
@@ -157,6 +158,12 @@ const NewGameType: React.FC<NewGameProps> = ({ onAddGame, editGameType }) => {
 					<div>Click to place an icon</div>
 					<div>Click on a marker to remove it</div>
 					<div>Drag the R icon to resize the radius</div>
+					<Link
+						to={"/availableGames"}
+						className="absolute top-6 right-6 text-ugared-300 bg-ugatan-100 p-2 font-bold rounded-full w-[130.6px] text-center z-20"
+					>
+						Cancel
+					</Link>
 				</div>
 			)}
 		</div>

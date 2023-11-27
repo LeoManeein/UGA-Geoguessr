@@ -1,28 +1,14 @@
-/* "Finessed" from another geoguessr site */
-
 .compass_container {
-	top: 87px;
-	left: 50%;
 	transform: translateX(-50%);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	overflow-y: hidden;
+	position: absolute;
+	top: 114px;
+	left: 12px;
 }
 
-.compass_piece {
-	width: 250px;
-	height: 50px;
-}
-.compass_piece > div {
-	display: flex;
-	align-items: center;
-	will-change: transform;
-}
-.styles_divider__2906K {
-	height: 16px;
-	margin-right: 8px;
-}
 .divider {
 	width: 1px;
 	height: 10px;
@@ -30,24 +16,7 @@
 	margin-right: 4px;
 	flex-shrink: 0;
 }
-.compass_container {
-	top: 87px;
-	left: 50%;
-	transform: translateX(-50%);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-.compass_container {
-	position: absolute;
-	top: 114px;
-	left: 12px;
-}
-*,
-::after,
-::before {
-	box-sizing: border-box;
-}
+
 .compass_piece {
 	display: flex;
 	align-items: center;
@@ -63,11 +32,6 @@
 	-webkit-clip-path: polygon(0 0, 48% 0, 50% 16%, 52% 0, 100% 0, 100% 100%, 52% 100%, 50% 84%, 48% 100%, 0 100%);
 	clip-path: polygon(0 0, 48% 0, 50% 16%, 52% 0, 100% 0, 100% 100%, 52% 100%, 50% 84%, 48% 100%, 0 100%);
 }
-*,
-::after,
-::before {
-	box-sizing: border-box;
-}
 .compass_piece > div {
 	display: flex;
 	align-items: center;
@@ -79,17 +43,9 @@
 	margin-right: 8px;
 }
 
-h1,
-h2,
-h3,
 p {
 	margin: 0;
 	margin-right: 0px;
-}
-*,
-::after,
-::before {
-	box-sizing: border-box;
 }
 .compass_text {
 	font-family: Gilroy;
@@ -100,8 +56,6 @@ p {
 	margin-right: 4px;
 	text-align: center;
 	flex-shrink: 0;
-}
-.compass_text {
 	font-size: 28px;
 	width: 27px;
 	margin-right: 4px;

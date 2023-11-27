@@ -1,7 +1,10 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import classes from "./Header.module.css";
 import { MenuUnfoldOutlined, UserOutlined } from "@ant-design/icons";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import UserContext from "../auth/Context/UserContext";
+import exampleImage from "./SchoolIcon.png";
+
 function Header() {
 	const navigation = [
 		{
@@ -22,12 +25,18 @@ function Header() {
 		},
 	];
 
-	const register = {
-		name: "Register",
-		href: "/Register",
+	const login = {
+		name: "Login",
+		href: "/Login",
 	};
 
 	const [showDropDown, setShowDropDown] = useState(false);
+	const navigate = useNavigate();
+	const [token, setToken] = useState<string | null>("");
+	const { setUserData, userData } = useContext(UserContext);
+	useEffect(() => {
+		setToken(localStorage.getItem("auth-token"));
+	}, [, userData]);
 
 	const location = useLocation();
 	return (
@@ -37,6 +46,10 @@ function Header() {
 					className={`flex border-b-2 w-full border-slate-900/10 dark:border-slate-300/10 pb-2 pt-3 justify-between pl-2 pr-2 ${classes.background} hidden sm:flex`}
 				>
 					<div className="flex gap-x-4">
+						<Link to="/">
+							<img className="w-[25px] h-[25px]" src={exampleImage}></img>
+						</Link>
+
 						{navigation.map((item, index) => {
 							return (
 								<div key={index}>
@@ -53,16 +66,37 @@ function Header() {
 						})}
 					</div>
 					<div className="flex gap-x-4">
-						<div>
-							<Link
-								className={`${
-									location.pathname.toLocaleLowerCase() === register.href.toLocaleLowerCase()
-										? "   border-ugared-300"
-										: " border-transparent  text-gray-300"
-								} pb-[8px] pt-[6px] px-2 rounded-full border-2 text-white`}
-								to={register.href}
-							>{`${register.name}`}</Link>
-						</div>
+						{!token && (
+							<div>
+								<Link
+									className={`${
+										location.pathname.toLocaleLowerCase() === login.href.toLocaleLowerCase()
+											? "   border-ugared-300"
+											: " border-transparent  text-gray-300"
+									} pb-[8px] pt-[6px] px-2 rounded-full border-2 text-white`}
+									to={login.href}
+								>{`${login.name}`}</Link>
+							</div>
+						)}
+						{token && (
+							<div>
+								<Link
+									onClick={() => {
+										localStorage.setItem("auth-token", "");
+										navigate("/");
+										setUserData({
+											token: undefined,
+											user: undefined,
+										});
+									}}
+									className={`${" border-transparent  text-gray-300"} pb-[8px] pt-[6px] px-2 rounded-full border-2 text-white`}
+									to={"/"}
+								>{`Logout`}</Link>
+							</div>
+						)}
+						<Link to="profile">
+							<UserOutlined className="border-2 p-1 rounded-full text-white" />
+						</Link>
 					</div>
 				</div>
 				<div className="sm:hidden flex flex-col">
@@ -75,8 +109,12 @@ function Header() {
 								setShowDropDown((x) => !x);
 							}}
 						/>
-						<>Logo Here</>
-						<UserOutlined className="border-2 p-1 rounded-md" />
+						<Link to="/">
+							<div className="text-ugared-300 font-bold text-xl">UGA Geoguessr</div>
+						</Link>
+						<Link to={token ? "/profile" : "/login"}>
+							<UserOutlined className="border-2 p-1 rounded-full" />
+						</Link>
 					</div>
 					{showDropDown && (
 						<div
@@ -84,29 +122,63 @@ function Header() {
 						>
 							{navigation.map((item, index) => {
 								return (
-									<div key={index}>
-										<Link
+									<Link
+										to={item.href}
+										className=""
+										key={index}
+										onClick={() => {
+											setShowDropDown(false);
+										}}
+									>
+										<div
 											className={`${
 												location.pathname.toLocaleLowerCase() === item.href.toLocaleLowerCase()
 													? "   border-ugared-300"
 													: " border-transparent  text-gray-300"
-											} pb-[8px] pt-[6px] px-2 rounded-full border-2 text-white`}
-											to={item.href}
-										>{`${item.name}`}</Link>
-									</div>
+											} pb-[8px] pt-[6px] px-2 rounded-full border-2 text-white `}
+										>{`${item.name}`}</div>
+									</Link>
 								);
 							})}
 
-							<div>
+							{!token && (
 								<Link
-									className={`${
-										location.pathname.toLocaleLowerCase() === register.href.toLocaleLowerCase()
-											? "   border-ugared-300"
-											: " border-transparent  text-gray-300"
-									} pb-[8px] pt-[6px] px-2 rounded-full border-2 text-white`}
-									to={register.href}
-								>{`${register.name}`}</Link>
-							</div>
+									className="w-full"
+									to={login.href}
+									onClick={() => {
+										setShowDropDown(false);
+									}}
+								>
+									<div
+										className={`${
+											location.pathname.toLocaleLowerCase() === login.href.toLocaleLowerCase()
+												? "   border-ugared-300"
+												: " border-transparent  text-gray-300"
+										} pb-[8px] pt-[6px] px-2 rounded-full border-2 text-white w-full`}
+									>{`${login.name}`}</div>
+								</Link>
+							)}
+							{token && (
+								<Link
+									className="w-full"
+									to={"/"}
+									onClick={() => {
+										setShowDropDown(false);
+									}}
+								>
+									<div
+										onClick={() => {
+											localStorage.setItem("auth-token", "");
+											navigate("/");
+											setUserData({
+												token: undefined,
+												user: undefined,
+											});
+										}}
+										className={`${" border-transparent  text-gray-300"} pb-[8px] pt-[6px] px-2 rounded-full border-2 text-white`}
+									>{`Logout`}</div>
+								</Link>
+							)}
 						</div>
 					)}
 				</div>

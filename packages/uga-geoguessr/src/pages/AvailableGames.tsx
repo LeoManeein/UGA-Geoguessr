@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import GameTypeWindow from "../components/GameType/GameTypeWindow";
 import axios from "axios";
-import { difficultyType } from "./GamePage";
 import PlayGameTypeModal from "../components/GameType/GameTypeModal/PlayGameTypeModal";
+import UserContext from "../components/auth/Context/UserContext";
 
 export type GameType = {
 	title: String;
@@ -36,24 +36,23 @@ function AvailableGames() {
 		},
 	];
 
-	const [defaultGameTypes, setDefaultGameTypes] = useState<GameType[] | null>(null);
 	const [userGameTypes, setUserGameTypes] = useState<GameType[] | null>(null);
 	const [modalData, setModalData] = useState<GameType | null>(null);
-
 	const fetchData = async () => {
 		try {
-			const response = await axios.get("http://localhost:4000/api/gametypes");
+			let token = localStorage.getItem("auth-token");
+			if (!token) throw new Error("Must be logged in");
+			const response = await axios.get("http://localhost:4000/api/gametypes", {
+				headers: { "x-auth-token": token },
+			});
 			const data = await response.data;
-			console.log(data);
 			if (data) {
-				//setDefaultGameTypes(data.defaultGames);
 				setUserGameTypes(data);
 			} else {
 				throw new Error("No data");
 			}
 		} catch (error: any) {
 			console.error(error.message);
-			//setDefaultGameTypes(null);
 			setUserGameTypes(null);
 		}
 	};
@@ -61,7 +60,7 @@ function AvailableGames() {
 	useEffect(() => {
 		fetchData();
 	}, []);
-
+	const { auth } = useContext(UserContext);
 	return (
 		<div className="relative">
 			{modalData && (
@@ -80,15 +79,17 @@ function AvailableGames() {
 			<GameTypeWindow
 				fetchData={null}
 				title={"Default Game Types"}
-				gameTypes={defaultGameTypes || exampleDefaultGames}
+				gameTypes={exampleDefaultGames}
 				setModalData={setModalData}
 			></GameTypeWindow>
-			<GameTypeWindow
-				fetchData={fetchData}
-				title={"Custom Game Types"}
-				gameTypes={userGameTypes}
-				setModalData={setModalData}
-			></GameTypeWindow>
+			{(auth.valid || auth.loading) && (
+				<GameTypeWindow
+					fetchData={fetchData}
+					title={"Custom Game Types"}
+					gameTypes={userGameTypes}
+					setModalData={setModalData}
+				></GameTypeWindow>
+			)}
 		</div>
 	);
 }

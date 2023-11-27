@@ -18,9 +18,23 @@ const PlayGameTypeModal: React.FC<Props> = ({ gameType, setModalData }) => {
 	const [movement, setMovement] = useState(true);
 	const [numberOfStages, setNumberOfStages] = useState(3);
 	const [clicked, setClicked] = useState(false);
+	const [error, setError] = useState("");
 	async function handleGameRequest() {
 		try {
 			setClicked(true);
+			let token = localStorage.getItem("auth-token");
+			const headers = token
+				? {
+						headers: {
+							"Content-Type": "application/json",
+							"x-auth-token": token,
+						},
+				  }
+				: {
+						headers: {
+							"Content-Type": "application/json",
+						},
+				  };
 			const response = await axios.post(
 				`http://localhost:4000/api/games`,
 				{
@@ -28,11 +42,7 @@ const PlayGameTypeModal: React.FC<Props> = ({ gameType, setModalData }) => {
 					numberOfStages: numberOfStages,
 					difficulty: { zoom: zoom, compass: compass, movement: movement },
 				},
-				{
-					headers: {
-						"Content-Type": "application/json",
-					},
-				},
+				headers,
 			);
 
 			console.log(response);
@@ -41,13 +51,15 @@ const PlayGameTypeModal: React.FC<Props> = ({ gameType, setModalData }) => {
 				setClicked(false);
 				const data = response.data;
 				navigate(`${data}`);
+				setError("");
 			} else {
-				console.error("API request failed");
-				setClicked(false);
+				throw new Error("whoops");
 			}
 		} catch (error: any) {
 			// Handle network errors or other exceptions here
-			console.error("An error occurred", error.message);
+			setClicked(false);
+			console.error(error?.response?.data?.msg || error?.message || "error");
+			setError(error?.response?.data?.msg || error?.message || "error");
 		}
 	}
 
@@ -84,6 +96,7 @@ const PlayGameTypeModal: React.FC<Props> = ({ gameType, setModalData }) => {
 					<Switch text={"Compass"} isChecked={compass} setFunction={setCompass}></Switch>
 				</div>
 			</div>
+			{error && <div className="text-orange-200 text-center">{error}</div>}
 			<div className="w-[200px] mx-auto">
 				{!clicked && (
 					<div

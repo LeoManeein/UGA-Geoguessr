@@ -55,19 +55,19 @@ function GamePage() {
 				if (!data) {
 					throw new Error("Game not found");
 				}
-				console.log("data", data);
-				const currentStageObject = data.stages[data.currentStage];
-				if (!currentStageObject.score) {
-					setData(data);
-					setCurrentStageNumber(data.currentStage);
-				}
+				let currentStageObject = data.stages.findIndex((x: { score: null | number }) => {
+					return x.score === null;
+				});
+				setData(data);
+				setCurrentStageNumber(currentStageObject | 0);
+				if (currentStageObject === null) navigate("/availablegames");
 			} catch (error: any) {
 				console.error("Error fetching data:", error.message);
 				navigate("/Error/GameNotFound");
 			}
 		};
 		fetchData();
-	}, [params.id, navigate]);
+	}, []);
 
 	useEffect(() => {
 		if (currentStageNumber === null || !data) return;
