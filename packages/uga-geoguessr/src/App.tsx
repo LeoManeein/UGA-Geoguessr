@@ -59,39 +59,45 @@ function App() {
 		user: undefined,
 	});
 
-	useEffect(() => {
+	async function fetchUserData() {
 		try {
-			const checkLoggedIn = async () => {
-				let token = localStorage.getItem("auth-token");
-				//console.log(token);
-				if (token === null) {
-					localStorage.setItem("auth-token", "");
-					token = "";
-				}
-				const tokenResponse = await axios.post("http://localhost:4000/api/users/tokenIsValid", null, {
+			let token = localStorage.getItem("auth-token");
+			//console.log(token);
+			if (token === null) {
+				localStorage.setItem("auth-token", "");
+				token = "";
+			}
+			const tokenResponse = await axios.post("http://localhost:4000/api/users/tokenIsValid", null, {
+				headers: { "x-auth-token": token },
+			});
+			console.log("response", tokenResponse.data);
+
+			if (tokenResponse.data) {
+				const userRes = await axios.get("http://localhost:4000/api/users/", {
 					headers: { "x-auth-token": token },
 				});
-				//console.log(tokenResponse.data);
-
-				if (tokenResponse.data) {
-					const userRes = await axios.get("http://localhost:4000/api/users/", {
-						headers: { "x-auth-token": token },
-					});
-					setUserData({ token, user: userRes.data });
-					//console.log(userRes.data);
-					//console.log(tokenResponse.data);
-				}
-			};
-			checkLoggedIn();
+				setUserData({ token, user: userRes.data });
+			} else {
+				setUserData({ token: undefined, user: undefined });
+				localStorage.setItem("auth-token", "");
+			}
+		} catch (error: any) {
+			console.log(error.message);
+			setUserData({ token: undefined, user: undefined });
+			localStorage.setItem("auth-token", "");
+		}
+	}
+	useEffect(() => {
+		try {
+			fetchUserData();
 		} catch (error: any) {
 			console.log(error.message);
 		}
 	}, []);
 
 	useEffect(() => {
-		//	console.log(userData);
+		console.log("apptsx", userData);
 	}, [userData]);
-
 	return (
 		<UserContext.Provider value={{ userData, setUserData }}>
 			<RouterProvider router={router}></RouterProvider>
