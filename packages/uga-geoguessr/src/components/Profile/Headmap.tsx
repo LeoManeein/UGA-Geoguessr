@@ -1,13 +1,13 @@
 import { HeatMapOutlined } from "@ant-design/icons";
 import { GoogleMap, HeatmapLayer, HeatmapLayerF } from "@react-google-maps/api";
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { LatLng } from "use-places-autocomplete";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 type MapOptions = google.maps.MapOptions;
 
 interface Props {
-	pastGameData?:
+	pastGameData:
 		| [
 				{
 					gameTypeTitle: String;
@@ -56,7 +56,6 @@ const Heatmap: React.FC<Props> = ({ pastGameData }) => {
 	// 	const temp: google.maps.visualization.WeightedLocation[] = [];
 	// 	pastGameData?.map((pastGame, index) => {
 	// 		pastGame.stages.map((game, i) => {
-	// 			console.log(game);
 	// 			let weight;
 	// 			const score = game.score;
 	// 			if (score < 100) weight = 0.5;
@@ -86,10 +85,9 @@ const Heatmap: React.FC<Props> = ({ pastGameData }) => {
 	// 		});
 	// 	});
 	// 	return temp;
-	// }, []);
-
-	const temp: google.maps.visualization.WeightedLocation[] = [];
-	pastGameData?.map((pastGame, index) => {
+	// }, [pastGameData]);
+	const tempHeatMapData: google.maps.visualization.WeightedLocation[] = [];
+	pastGameData.map((pastGame, index) => {
 		pastGame.stages.map((game, i) => {
 			let weight;
 			const score = game.score;
@@ -113,14 +111,20 @@ const Heatmap: React.FC<Props> = ({ pastGameData }) => {
 					break;
 			}
 
-			temp.push({
+			tempHeatMapData.push({
 				location: new google.maps.LatLng(game.answerLocation.lat, game.answerLocation.lng),
-				weight: 5000 - game.score,
+				weight: weight,
 			});
 		});
 	});
+	const [heatMapData, setHeatMapData] = useState(tempHeatMapData);
 
-	const onLoad = useCallback((map: any) => (mapRef.current = map), []);
+	const onLoad = useCallback((map: any) => {
+		mapRef.current = map;
+		const reset: google.maps.visualization.WeightedLocation[] = [];
+		setHeatMapData(reset);
+		setHeatMapData(tempHeatMapData);
+	}, []);
 	if (!window.google) return <div></div>;
 
 	return (
@@ -134,7 +138,7 @@ const Heatmap: React.FC<Props> = ({ pastGameData }) => {
 					onLoad={onLoad}
 					onClick={(event) => {}}
 				>
-					<HeatmapLayerF data={temp}></HeatmapLayerF>
+					<HeatmapLayerF data={heatMapData}></HeatmapLayerF>
 				</GoogleMap>
 			</div>
 		</div>
