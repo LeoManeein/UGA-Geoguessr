@@ -19,7 +19,7 @@ const Leaderboard: React.FC = ({}) => {
 	}>(null);
 	const fetchLeaderBoardDAta = async () => {
 		try {
-			const response = await axios.get(`http://localhost:4000/api/leaderboards/`, {});
+			const response = await axios.get(`${process.env.REACT_APP_BACKEND}/api/leaderboards/`, {});
 			const data = await response.data;
 			if (data) {
 				setLeaderboardData(data);

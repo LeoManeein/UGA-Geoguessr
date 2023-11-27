@@ -67,12 +67,13 @@ function App() {
 				localStorage.setItem("auth-token", "");
 				token = "";
 			}
-			const tokenResponse = await axios.post("http://localhost:4000/api/users/tokenIsValid", null, {
+
+			const tokenResponse = await axios.post(`${process.env.REACT_APP_BACKEND}/api/users/tokenIsValid`, null, {
 				headers: { "x-auth-token": token },
 			});
 			if (!tokenResponse) throw new Error("Couldnt not validate login");
 			if (tokenResponse.data) {
-				const userRes = await axios.get("http://localhost:4000/api/users/", {
+				const userRes = await axios.get(`${process.env.REACT_APP_BACKEND}/api/users/`, {
 					headers: { "x-auth-token": token },
 				});
 				setUserData({ token, user: userRes.data });
@@ -84,6 +85,7 @@ function App() {
 		}
 	}
 	useEffect(() => {
+		console.log(`${process.env.REACT_APP_BACKEND}`);
 		fetchUserData();
 	}, []);
 

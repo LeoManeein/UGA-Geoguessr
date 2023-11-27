@@ -69,8 +69,8 @@ const Signup: React.FC = () => {
 		try {
 			const newUser = { firstName, lastName, email, password, confirmPassword, username };
 
-			await axios.post("http://localhost:4000/api/users/signup", newUser);
-			const loginRes = await axios.post("http://localhost:4000/api/users/login", {
+			await axios.post(`${process.env.REACT_APP_BACKEND}/api/users/signup`, newUser);
+			const loginRes = await axios.post(`${process.env.REACT_APP_BACKEND}/api/users/login`, {
 				email,
 				password,
 			});
