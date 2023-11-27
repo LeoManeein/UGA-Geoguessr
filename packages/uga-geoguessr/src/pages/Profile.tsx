@@ -6,7 +6,7 @@ import { useLoadScript } from "@react-google-maps/api";
 import Heatmap from "../components/Profile/Headmap";
 
 const Profile: React.FC = () => {
-	const { auth } = useContext(UserContext);
+	const { auth, userData } = useContext(UserContext);
 	const [pastGameData, setPastGameData] = useState<
 		| [
 				{
@@ -54,11 +54,8 @@ const Profile: React.FC = () => {
 					headers: { "x-auth-token": token },
 				});
 
-				setEmail(userRes.data.email);
-				setGamesPlayed(userRes.data.gamesPlayed);
-				setFirstName(userRes.data.firstName);
-				setLastName(userRes.data.lastName);
-				setUsername(userRes.data.username);
+				console.log(userData);
+
 				if (userRes.data) setPastGameData(userRes.data.pastGameData);
 			}
 		} catch (error: any) {
@@ -69,6 +66,15 @@ const Profile: React.FC = () => {
 	useEffect(() => {
 		checkLoggedIn();
 	}, []);
+	useEffect(() => {
+		if (userData && userData.user) {
+			setEmail(userData.user.email);
+			setGamesPlayed(userData.user.gamesPlayed);
+			setFirstName(userData.user.firstName);
+			setLastName(userData.user.lastName);
+			setUsername(userData.user.username);
+		}
+	}, [userData]);
 
 	const { isLoaded, loadError } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,

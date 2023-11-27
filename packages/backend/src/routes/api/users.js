@@ -124,13 +124,13 @@ userRouter.get("/", auth, async (req, res) => {
 userRouter.get("/pastGameData", auth, async (req, res) => {
 	const user = await User.findById(req.user);
 	res.json({
-		username: user.username,
-		id: user._id,
-		lastName: user.lastName,
-		firstName: user.firstName,
-		email: user.email,
-		gamesPlayed: user.gamesPlayed,
-		totalScore: user.totalScore,
+		// username: user.username,
+		// id: user._id,
+		// lastName: user.lastName,
+		// firstName: user.firstName,
+		// email: user.email,
+		// gamesPlayed: user.gamesPlayed,
+		// totalScore: user.totalScore,
 		pastGameData: user.pastGameData,
 	});
 });
