@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { GameIdProvider } from "../components/GameType/NewGameType/GameIdContext";
 import NewGameType from "../components/GameType/NewGameType/NewGameType"; // Assuming the path to your NewGame component
 import axios from "axios";
@@ -38,7 +38,7 @@ const AddGameType: React.FC = () => {
 	if (auth.loading) return <div></div>;
 	if (!auth.valid) return <ErrorPage error={"Sign in to create a GameType"}></ErrorPage>;
 	return (
-		<div className="text-ugatan-100">
+		<div className="text-ugatan-100 mx-4">
 			<h2 className="text-center text-xl my-2">Add new GameType</h2>
 			{error && (
 				<div className="text-center" style={{ color: "red" }}>

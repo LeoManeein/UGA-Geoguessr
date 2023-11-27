@@ -74,7 +74,7 @@ const EditGameType: React.FC = () => {
 	if (auth.loading) return <div></div>;
 	if (!auth.valid) return <ErrorPage error={"Sign in to edit a gameType"}></ErrorPage>;
 	return (
-		<div className="text-ugatan-100">
+		<div className="text-ugatan-100 mx-4">
 			<h2 className="text-center text-xl my-2">Edit GameType</h2>
 			{error && (
 				<div className="text-center" style={{ color: "red" }}>

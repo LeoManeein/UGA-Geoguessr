@@ -80,7 +80,7 @@ const Profile: React.FC = () => {
 	if (!auth.valid || loadError) return <ErrorPage error={error || "please log in"}></ErrorPage>;
 
 	return (
-		<div className="text-ugatan-100">
+		<div className="text-ugatan-100 mx-4">
 			<div className="text-center">
 				<h2 className="text-center text-xl my-2">Profile</h2>
 				{error && (
@@ -96,8 +96,8 @@ const Profile: React.FC = () => {
 				<div>Number of games played: {gamesPlayed}</div>
 			</div>
 
-			<div className="flex m-auto justify-center text-ugatan-100 ">
-				<div className="input w-1/2 sm:w-[320px] md:w-[384px] lg:w-[512px] xl:w-[640px] 2xl:w-[768px] ">
+			<div className="flex flex-col md:flex-row  m-auto justify-center text-ugatan-100 ">
+				<div className="input w-full sm:w-[320px] md:w-[384px] lg:w-[512px] xl:w-[640px] 2xl:w-[768px] ">
 					<div className="flex flex-col mr-6">
 						<div className="text-center">
 							Completed games: {(Array.isArray(pastGameData) && pastGameData.length) || 0}
@@ -109,35 +109,21 @@ const Profile: React.FC = () => {
 										return (
 											<div
 												key={game.gameTypeTitle + index.toString() + Math.random().toString()}
-												className="m-4 border p-2"
+												className="m-4 border p-2 rounded-md"
 											>
-												<div>game {index + 1}</div>
-												<div>id:{game.gameTypeId}</div>
-												<div>title:{game.gameTypeTitle}</div>
+												<div>Game #{index + 1}</div>
+												<div>GameType: {game.gameTypeTitle}</div>
 												<div className="">
 													{game.stages.map((stage, i) => {
 														return (
 															<div
 																key={Math.random() + "stage"}
-																className="flex bg-ugagrey-100 my-2"
+																className="flex bg-ugagrey-100 my-2 p-2 rounded-md"
 															>
 																<div>
+																	<div>Round {i + 1}</div>
 																	<div>Score: {stage.score}</div>
 																	<div>Distance: {stage.distance}</div>
-																	<div>Percentage: {stage.percentage}</div>
-																</div>
-
-																<div className="bg-green-600 m-2">
-																	<div>Correct lat: {stage.answerLocation.lat}</div>{" "}
-																	<div>Correct lng: {stage.answerLocation.lng}</div>
-																</div>
-																<div className="bg-red-600 m-2">
-																	<div>
-																		Selected lat: {stage.selectedLocation.lat}
-																	</div>{" "}
-																	<div>
-																		Selected lng: {stage.selectedLocation.lng}
-																	</div>
 																</div>
 															</div>
 														);
@@ -154,7 +140,7 @@ const Profile: React.FC = () => {
 				{isLoaded && (
 					<div className="flex flex-col">
 						<div className="text-center">Your accuracy:</div>
-						<div className="  w-1/2 sm:w-[320px] md:w-[384px] lg:w-[512px] xl:w-[640px] 2xl:w-[768px]  h-[650px] z-10 ">
+						<div className="  w-full sm:w-[320px] md:w-[384px] lg:w-[512px] xl:w-[640px] 2xl:w-[768px]  h-[650px] z-10 ">
 							{isLoaded && pastGameData && (
 								<div className="  w-full sm:w-[320px] md:w-[384px] lg:w-[512px] xl:w-[640px] 2xl:w-[768px]  h-[650px] z-10 ">
 									<Heatmap pastGameData={pastGameData} />

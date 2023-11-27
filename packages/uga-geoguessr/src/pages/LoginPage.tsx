@@ -1,6 +1,4 @@
-import { useParams } from "react-router-dom";
 import styles from "../Globals.module.css";
-import Signup from "../components/auth/Signup";
 import Login from "../components/auth/Login";
 function LoginPage() {
 	return (

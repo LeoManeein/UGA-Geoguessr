@@ -1,7 +1,10 @@
-import { useParams } from "react-router-dom";
 import styles from "../Globals.module.css";
 import Signup from "../components/auth/Signup";
+import UserContext from "../components/auth/Context/UserContext";
+import { useContext } from "react";
 function SignUpPage() {
+	const { auth } = useContext(UserContext);
+	if (auth.loading) return <div></div>;
 	return (
 		<div className="mx-2 mt-6 ">
 			<div className={` md:m-auto w-full md:w-[768px] h-full bg-gradient-to-r  ${styles.background} rounded-lg`}>

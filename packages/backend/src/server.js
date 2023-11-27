@@ -6,6 +6,9 @@ const cors = require("cors");
 const game = require("./routes/api/games");
 const gameType = require("./routes/api/gameTypes");
 const Games = require("./models/Game");
+const User = require("./models/User");
+const leaderboard = require("./routes/api/leaderboards");
+const Leaderboards = require("./models/Leaderboard");
 const users = require("./routes/api/users");
 dotenv.config();
 
@@ -23,6 +26,7 @@ mongoose
 	.then(() => {
 		console.log("Mongo Connection Suceeded...");
 		deleteOldGames();
+		findTopUsers();
 	})
 	.catch((err) => {
 		console.log(`Error in DB Connection ${err}`);
@@ -36,6 +40,7 @@ app.listen(port, () => {
 app.use("/api/gameTypes", gameType);
 app.use("/api/games", game);
 app.use("/api/users", users);
+app.use("/api/leaderboards", leaderboard);
 async function deleteOldGames() {
 	try {
 		const TooOldTime = new Date(Date.now() - 60 * 60 * 1000);
@@ -49,5 +54,20 @@ async function deleteOldGames() {
 		}
 	} catch {
 		console.log("could not delete old games");
+	}
+}
+
+async function findTopUsers() {
+	try {
+		const deletedLeaderBoards = await Leaderboards.deleteMany({});
+		const topUsers = await User.find({}, "username totalScore gamesPlayed").sort({ totalScore: -1 });
+		const newArray = [];
+		topUsers.forEach((x) => {
+			newArray.push({ username: x.username, gamesPlayed: x.gamesPlayed, totalScore: x.totalScore });
+		});
+		const newLeaderboard = await Leaderboards.create({ topUsers: newArray });
+		if (newLeaderboard) console.log("Updated leaderboard");
+	} catch (error) {
+		console.log(error.message);
 	}
 }

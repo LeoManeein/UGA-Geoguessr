@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import GameTypeWindow from "../components/GameType/GameTypeWindow";
 import axios from "axios";
-import { difficultyType } from "./GamePage";
 import PlayGameTypeModal from "../components/GameType/GameTypeModal/PlayGameTypeModal";
 import UserContext from "../components/auth/Context/UserContext";
 
@@ -37,7 +36,6 @@ function AvailableGames() {
 		},
 	];
 
-	const [defaultGameTypes, setDefaultGameTypes] = useState<GameType[] | null>(null);
 	const [userGameTypes, setUserGameTypes] = useState<GameType[] | null>(null);
 	const [modalData, setModalData] = useState<GameType | null>(null);
 	const fetchData = async () => {
@@ -48,29 +46,21 @@ function AvailableGames() {
 				headers: { "x-auth-token": token },
 			});
 			const data = await response.data;
-			console.log(data);
 			if (data) {
-				//setDefaultGameTypes(data.defaultGames);
 				setUserGameTypes(data);
 			} else {
 				throw new Error("No data");
 			}
 		} catch (error: any) {
 			console.error(error.message);
-			//setDefaultGameTypes(null);
 			setUserGameTypes(null);
 		}
 	};
-	const [token, setToken] = useState<string | null>("");
 
 	useEffect(() => {
-		setToken(localStorage.getItem("auth-token"));
 		fetchData();
 	}, []);
-	const { setUserData, userData } = useContext(UserContext);
-	useEffect(() => {
-		console.log("login", userData);
-	}, [userData]);
+	const { auth } = useContext(UserContext);
 	return (
 		<div className="relative">
 			{modalData && (
@@ -89,10 +79,10 @@ function AvailableGames() {
 			<GameTypeWindow
 				fetchData={null}
 				title={"Default Game Types"}
-				gameTypes={defaultGameTypes || exampleDefaultGames}
+				gameTypes={exampleDefaultGames}
 				setModalData={setModalData}
 			></GameTypeWindow>
-			{token && (
+			{(auth.valid || auth.loading) && (
 				<GameTypeWindow
 					fetchData={fetchData}
 					title={"Custom Game Types"}

@@ -90,24 +90,23 @@ const Heatmap: React.FC<Props> = ({ pastGameData }) => {
 	pastGameData.map((pastGame, index) => {
 		pastGame.stages.map((game, i) => {
 			let weight;
-			const score = game.score;
-			if (score < 100) weight = 0.5;
+			const distance = game.distance;
 			switch (true) {
-				case score >= 500:
-					weight = 50;
-					break;
-
-				case score >= 250 && score < 500:
+				case distance >= 500:
 					weight = 5;
 					break;
-				case score >= 100 && score < 250:
-					weight = 3;
+
+				case distance >= 250 && distance < 500:
+					weight = 0.5;
 					break;
-				case score >= 50 && score < 100:
-					weight = 1;
+				case distance >= 100 && distance < 250:
+					weight = 0.2;
+					break;
+				case distance >= 50 && distance < 100:
+					weight = 0.15;
 					break;
 				default:
-					weight = 0.5;
+					weight = 0.1;
 					break;
 			}
 
