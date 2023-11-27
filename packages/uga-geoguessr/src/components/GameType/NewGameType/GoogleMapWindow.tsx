@@ -1,4 +1,4 @@
-import { GoogleMap, HeatmapLayer, HeatmapLayerF } from "@react-google-maps/api";
+import { GoogleMap } from "@react-google-maps/api";
 import { useCallback, useMemo, useRef } from "react";
 import { PossibleLocation } from "./NewGameType";
 import GoogleMapLocationCircle from "./GoogleMapLocationCircle";
@@ -40,24 +40,7 @@ const GoogleMapWindow: React.FC<Props> = ({
 		}),
 		[],
 	);
-	const data = useMemo(() => {
-		return [
-			new google.maps.LatLng(33.95479022938062, -83.37365352480926),
-			new google.maps.LatLng(37.782, -122.445),
-			new google.maps.LatLng(37.782, -122.443),
-			new google.maps.LatLng(37.782, -122.441),
-			new google.maps.LatLng(37.782, -122.439),
-			new google.maps.LatLng(37.782, -122.437),
-			new google.maps.LatLng(37.782, -122.435),
-			new google.maps.LatLng(37.785, -122.447),
-			new google.maps.LatLng(37.785, -122.445),
-			new google.maps.LatLng(37.785, -122.443),
-			new google.maps.LatLng(37.785, -122.441),
-			new google.maps.LatLng(37.785, -122.439),
-			new google.maps.LatLng(37.785, -122.437),
-			new google.maps.LatLng(37.785, -122.435),
-		];
-	}, []);
+
 	const onLoad = useCallback((map: any) => (mapRef.current = map), []);
 	if (!window.google) return <div></div>;
 
@@ -79,7 +62,6 @@ const GoogleMapWindow: React.FC<Props> = ({
 						setSelectedCoordinates(newcoordinate);
 					}}
 				>
-					<HeatmapLayerF data={data} />
 					{locations &&
 						locations.map((current) => {
 							return (
