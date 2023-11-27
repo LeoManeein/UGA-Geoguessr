@@ -12,7 +12,7 @@ const AddGameType: React.FC = () => {
 	const handleAddGame = async (game: any) => {
 		try {
 			let token = localStorage.getItem("auth-token");
-			const response = await axios.post("http://localhost:4000/api/gametypes", game, {
+			const response = await axios.post(`${process.env.REACT_APP_BACKEND}/api/gametypes`, game, {
 				headers: {
 					"Content-Type": "application/json",
 					"x-auth-token": token,

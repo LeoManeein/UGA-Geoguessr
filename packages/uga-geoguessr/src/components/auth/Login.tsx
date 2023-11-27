@@ -10,7 +10,7 @@ const Login: React.FC = () => {
 	const [loading, setLoading] = useState<boolean>(false);
 	const navigate = useNavigate();
 	const { setUserData, userData } = useContext(UserContext);
-	
+
 	async function handleSubmit(e: any) {
 		e.preventDefault();
 		setLoading(true);
@@ -24,7 +24,7 @@ const Login: React.FC = () => {
 		try {
 			const loginUser = { email, password };
 
-			const loginRes = await axios.post("http://localhost:4000/api/users/login", loginUser);
+			const loginRes = await axios.post(`${process.env.REACT_APP_BACKEND}/api/users/login`, loginUser);
 
 			setUserData({
 				token: loginRes.data.token,
