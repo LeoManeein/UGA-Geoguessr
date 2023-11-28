@@ -3,13 +3,13 @@ import "nprogress/nprogress.css";
 import { useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
-import AddGameType from "./pages/AddGame";
+import AddGameTypePage from "./pages/AddGameTypePage";
 import AvailableGames from "./pages/AvailableGames";
 import ErrorPage from "./pages/ErrorPage";
 import GamePage from "./pages/GamePage";
 import Home from "./pages/Home";
-import RootLayout from "./pages/Root";
-import EditGameType from "./pages/EditGame";
+import RootLayout from "./pages/RootLayout";
+import EditGameTypePage from "./pages/EditGameTypePage";
 import axios from "axios";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
@@ -23,10 +23,10 @@ function App() {
 			children: [
 				{ path: "/", element: <Home /> },
 				{ path: "/AvailableGames", element: <AvailableGames /> },
-				{ path: "/AddGame", element: <AddGameType /> },
+				{ path: "/AddGame", element: <AddGameTypePage /> },
 				{ path: "error/:id", element: <ErrorPage /> },
 				{ path: "*", element: <ErrorPage /> },
-				{ path: "/EditGame/:id", element: <EditGameType /> },
+				{ path: "/EditGame/:id", element: <EditGameTypePage /> },
 				{ path: "/signup", element: <SignUpPage></SignUpPage> },
 				{ path: "/login", element: <LoginPage></LoginPage> },
 				{ path: "/profile", element: <Profile></Profile> },

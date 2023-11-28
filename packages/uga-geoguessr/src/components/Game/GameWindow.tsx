@@ -19,7 +19,7 @@ interface Props {
 }
 
 /**
- *
+ * @param _id: id to the current game
  * @param answerLocation: The correct answer location. Will be used to display the street view and calculate the score/distance to the selected location
  * @param setCurrentStageNumber: Helper function that will be used to change the stage of the game
  * @param nextStage: The index of the next stage or null
@@ -59,8 +59,6 @@ const GameWindow: React.FC<Props> = ({ _id, answerLocation, setCurrentStageNumbe
 			{showScoreWindow && selectedCoordinate && (
 				<ScoreWindow
 					showScoreWindow={showScoreWindow}
-					answerLocation={answerLocation}
-					selectedCoordinate={selectedCoordinate}
 					setCurrentStageNumber={setCurrentStageNumber}
 					nextStage={nextStage}
 				></ScoreWindow>

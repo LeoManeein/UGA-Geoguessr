@@ -8,8 +8,6 @@ import { CloseOutlined } from "@ant-design/icons";
 type LatLngLiteral = google.maps.LatLngLiteral;
 
 interface Props {
-	answerLocation: LatLngLiteral;
-	selectedCoordinate: LatLngLiteral;
 	setCurrentStageNumber: Function;
 	nextStage: number | null;
 	showScoreWindow: {
@@ -21,13 +19,7 @@ interface Props {
 	};
 }
 
-const ScoreWindow: React.FC<Props> = ({
-	answerLocation,
-	selectedCoordinate,
-	setCurrentStageNumber,
-	nextStage,
-	showScoreWindow,
-}) => {
+const ScoreWindow: React.FC<Props> = ({ setCurrentStageNumber, nextStage, showScoreWindow }) => {
 	// Loads the google maps
 	const { isLoaded, loadError } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
@@ -50,8 +42,8 @@ const ScoreWindow: React.FC<Props> = ({
 				<ScoreMeter score={score} percentage={percentage} distance={distance}></ScoreMeter>
 				<ScoreGoogleMapWindow
 					defaultMapCoordinate={defaultMapCoordinate}
-					selectedCoordinate={selectedCoordinate}
-					locationCoordinate={answerLocation}
+					selectedCoordinate={showScoreWindow.selectedCoordinate}
+					locationCoordinate={showScoreWindow.answerLocation}
 				></ScoreGoogleMapWindow>
 				<div
 					onClick={() => {

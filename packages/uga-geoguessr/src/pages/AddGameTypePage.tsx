@@ -5,7 +5,7 @@ import axios from "axios";
 import ErrorPage from "./ErrorPage";
 import UserContext from "../components/auth/Context/UserContext";
 
-const AddGameType: React.FC = () => {
+const AddGameTypePage: React.FC = () => {
 	const { auth } = useContext(UserContext);
 
 	const [error, setError] = useState<string>("");
@@ -53,4 +53,4 @@ const AddGameType: React.FC = () => {
 	);
 };
 
-export default AddGameType;
+export default AddGameTypePage;

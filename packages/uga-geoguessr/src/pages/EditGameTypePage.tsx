@@ -12,7 +12,7 @@ export type editGameType = {
 	description: string;
 	possibleCoordinates: PossibleLocation[];
 };
-const EditGameType: React.FC = () => {
+const EditGameTypePage: React.FC = () => {
 	const { auth } = useContext(UserContext);
 	const [error, setError] = useState<string>("");
 	const [editGame, setEditGame] = useState<null | editGameType>(null);
@@ -91,4 +91,4 @@ const EditGameType: React.FC = () => {
 	);
 };
 
-export default EditGameType;
+export default EditGameTypePage;
