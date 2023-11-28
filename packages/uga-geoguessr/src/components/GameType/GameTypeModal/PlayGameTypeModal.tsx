@@ -36,7 +36,7 @@ const PlayGameTypeModal: React.FC<Props> = ({ gameType, setModalData }) => {
 						},
 				  };
 			const response = await axios.post(
-				`http://localhost:4000/api/games`,
+				`${process.env.REACT_APP_BACKEND}/api/games`,
 				{
 					gameType: gameType,
 					numberOfStages: numberOfStages,
