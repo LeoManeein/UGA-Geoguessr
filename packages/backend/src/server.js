@@ -65,7 +65,7 @@ async function deleteOldGames() {
 async function findTopUsers() {
 	try {
 		const deletedLeaderBoards = await Leaderboards.deleteMany({});
-		const topUsers = await User.find({}, "username totalScore gamesPlayed").sort({ totalScore: -1 });
+		const topUsers = await User.find({}, "username totalScore gamesPlayed").sort({ totalScore: -1 }).limit(10);
 		const newArray = [];
 		topUsers.forEach((x) => {
 			newArray.push({ username: x.username, gamesPlayed: x.gamesPlayed, totalScore: x.totalScore });
