@@ -1,5 +1,6 @@
 .background {
-	background-image: url(https://grainy-gradients.vercel.app/noise.svg),
+	background-color: #1d1d1d;
+	background-image: url("https://grainy-gradients.vercel.app/noise.svg"),
 		radial-gradient(circle at 47.26% 50.2%, #1d1d1d, transparent 87%),
 		radial-gradient(circle at 0.95% 1.09%, #1d1d1d, transparent 80%),
 		radial-gradient(circle at 28.55% 23.61%, #1d1d1d, transparent 53%),
@@ -60,16 +61,7 @@
 	background-color: hsla(0, 0%, 100%, 0.1);
 	border-radius: 8px;
 	overflow: hidden;
-	background-image: url(https://grainy-gradients.vercel.app/noise.svg),
-		radial-gradient(circle at 47.26% 50.2%, #1d1d1d, transparent 87%),
-		radial-gradient(circle at 0.95% 1.09%, #1d1d1d, transparent 80%),
-		radial-gradient(circle at 28.55% 23.61%, #1d1d1d, transparent 53%),
-		radial-gradient(circle at 4.2% 96.09%, #1d1d1d, transparent 70%),
-		radial-gradient(circle at 97.62% 97.5%, #1d1d1d, transparent 100%),
-		radial-gradient(circle at 94.45% 5.32%, #1d1d1d, transparent 100%),
-		radial-gradient(circle at 50% 50%, #1d1d1d, #1d1d1d 100%);
-	background-size: auto, cover, cover, cover, cover, cover, cover, cover;
-	background-blend-mode: overlay, normal, normal, normal, normal, normal, normal, normal;
+	background-color: #1d1d1d;
 }
 .button2 {
 	user-select: none;
@@ -82,27 +74,11 @@
 	background-color: hsla(0, 0%, 100%, 0.1);
 	border-radius: 8px;
 	overflow: hidden;
-	background-image: url(https://grainy-gradients.vercel.app/noise.svg),
-		radial-gradient(circle at 47.26% 50.2%, #1d1d1d, transparent 87%),
-		radial-gradient(circle at 0.95% 1.09%, #1d1d1d, transparent 80%),
-		radial-gradient(circle at 28.55% 23.61%, #1d1d1d, transparent 53%),
-		radial-gradient(circle at 4.2% 96.09%, #1d1d1d, transparent 70%),
-		radial-gradient(circle at 97.62% 97.5%, #1d1d1d, transparent 100%),
-		radial-gradient(circle at 94.45% 5.32%, #1d1d1d, transparent 100%),
-		radial-gradient(circle at 50% 50%, #1d1d1d, #1d1d1d 100%);
-	background-size: auto, cover, cover, cover, cover, cover, cover, cover;
-	background-blend-mode: overlay, normal, normal, normal, normal, normal, normal, normal;
+	background-color: #1d1d1d;
 }
 
 .button:hover {
-	background-image: url(https://grainy-gradients.vercel.app/noise.svg),
-		radial-gradient(circle at 47.26% 50.2%, #302f2f, transparent 87%),
-		radial-gradient(circle at 0.95% 1.09%, #302f2f, transparent 80%),
-		radial-gradient(circle at 28.55% 23.61%, #302f2f, transparent 53%),
-		radial-gradient(circle at 4.2% 96.09%, #302f2f, transparent 70%),
-		radial-gradient(circle at 97.62% 97.5%, #302f2f, transparent 100%),
-		radial-gradient(circle at 94.45% 5.32%, #302f2f, transparent 100%),
-		radial-gradient(circle at 50% 50%, #302f2f, #302f2f 100%);
+	background-color: #302f2f;
 }
 
 .button_light {
