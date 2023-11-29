@@ -52,7 +52,6 @@ const Heatmap: React.FC<Props> = ({ pastGameData }) => {
 	);
 
 	function setData() {
-		console.log("setting data");
 		const tempHeatMapData: google.maps.visualization.WeightedLocation[] = [];
 		pastGameData.forEach((pastGame, index) => {
 			pastGame.stages.forEach((game, i) => {

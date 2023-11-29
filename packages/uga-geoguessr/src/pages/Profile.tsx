@@ -81,8 +81,6 @@ const Profile: React.FC = () => {
 		}
 	}, [userData]);
 
-	console.log(Array.isArray(pastGameData) && pastGameData.length);
-
 	if (auth.loading) return <div></div>;
 	if (!auth.valid || loadError) return <ErrorPage error={error || "Please login"}></ErrorPage>;
 

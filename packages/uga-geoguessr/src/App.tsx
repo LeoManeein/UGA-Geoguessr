@@ -46,7 +46,6 @@ function App() {
 	async function fetchUserData() {
 		try {
 			let token = localStorage.getItem("auth-token");
-			//console.log(token);
 			if (token === null) {
 				localStorage.setItem("auth-token", "");
 				token = "";
@@ -76,7 +75,7 @@ function App() {
 		valid: false,
 	});
 	useEffect(() => {
-		console.log("User Data (app.tsx): ", userData);
+		//console.log("User Data (app.tsx): ", userData);
 
 		let token = localStorage.getItem("auth-token");
 		if (!token) {

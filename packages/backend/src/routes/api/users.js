@@ -82,6 +82,7 @@ userRouter.post("/login", async (req, res) => {
 				email: user.email,
 				gamesPlayed: user.gamesPlayed,
 				totalScore: user.totalScore,
+				firstName: user.firstName,
 				//pastGameData: user.pastGameData,
 			},
 		});
