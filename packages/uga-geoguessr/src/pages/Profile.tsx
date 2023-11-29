@@ -59,9 +59,10 @@ const Profile: React.FC = () => {
 					headers: { "x-auth-token": token },
 				});
 
-				console.log(userData);
-
-				if (userRes.data) setPastGameData(userRes.data.pastGameData);
+				if (userRes.data) {
+					setPastGameData(userRes.data.pastGameData);
+					setGamesPlayed(userRes.data.gamesPlayed);
+				}
 			}
 		} catch (error: any) {
 			console.error(error?.response?.data?.msg || error?.message || "error");
@@ -74,7 +75,6 @@ const Profile: React.FC = () => {
 	useEffect(() => {
 		if (userData && userData.user) {
 			setEmail(userData.user.email);
-			setGamesPlayed(userData.user.gamesPlayed);
 			setFirstName(userData.user.firstName);
 			setLastName(userData.user.lastName);
 			setUsername(userData.user.username);
