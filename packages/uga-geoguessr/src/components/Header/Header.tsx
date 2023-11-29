@@ -11,17 +11,10 @@ function Header() {
 			name: "Home",
 			href: "/",
 		},
-		// {
-		// 	name: "ExampleGame",
-		// 	href: "/ExampleGame",
-		// },
+
 		{
 			name: "Available Games",
 			href: "/AvailableGames",
-		},
-		{
-			name: "Add Game",
-			href: "/addgame",
 		},
 	];
 
@@ -36,7 +29,7 @@ function Header() {
 	const { setUserData, userData } = useContext(UserContext);
 	useEffect(() => {
 		setToken(localStorage.getItem("auth-token"));
-	}, [, userData]);
+	}, [userData]);
 
 	const location = useLocation();
 	return (
@@ -47,7 +40,7 @@ function Header() {
 				>
 					<div className="flex gap-x-4">
 						<Link to="/">
-							<img className="w-[25px] h-[25px]" src={exampleImage}></img>
+							<img alt="img" className="w-[25px] h-[25px]" src={exampleImage}></img>
 						</Link>
 
 						{navigation.map((item, index) => {

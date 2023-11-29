@@ -1,7 +1,5 @@
-import { HeatMapOutlined } from "@ant-design/icons";
-import { GoogleMap, HeatmapLayer, HeatmapLayerF } from "@react-google-maps/api";
-import { useCallback, useMemo, useRef, useState } from "react";
-import { LatLng } from "use-places-autocomplete";
+import { GoogleMap, HeatmapLayerF } from "@react-google-maps/api";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 type MapOptions = google.maps.MapOptions;
@@ -52,80 +50,52 @@ const Heatmap: React.FC<Props> = ({ pastGameData }) => {
 		}),
 		[],
 	);
-	// const data = useMemo(() => {
-	// 	const temp: google.maps.visualization.WeightedLocation[] = [];
-	// 	pastGameData?.map((pastGame, index) => {
-	// 		pastGame.stages.map((game, i) => {
-	// 			let weight;
-	// 			const score = game.score;
-	// 			if (score < 100) weight = 0.5;
-	// 			switch (true) {
-	// 				case score >= 500:
-	// 					weight = 50;
-	// 					break;
 
-	// 				case score >= 250 && score < 500:
-	// 					weight = 5;
-	// 					break;
-	// 				case score >= 100 && score < 250:
-	// 					weight = 3;
-	// 					break;
-	// 				case score >= 50 && score < 100:
-	// 					weight = 1;
-	// 					break;
-	// 				default:
-	// 					weight = 0.5;
-	// 					break;
-	// 			}
+	function setData() {
+		console.log("setting data");
+		const tempHeatMapData: google.maps.visualization.WeightedLocation[] = [];
+		pastGameData.forEach((pastGame, index) => {
+			pastGame.stages.forEach((game, i) => {
+				let weight;
+				const distance = game.distance;
+				switch (true) {
+					case distance >= 500:
+						weight = 5;
+						break;
 
-	// 			temp.push({
-	// 				location: new google.maps.LatLng(game.answerLocation.lat, game.answerLocation.lng),
-	// 				weight: 5000 - game.score,
-	// 			});
-	// 		});
-	// 	});
-	// 	return temp;
-	// }, [pastGameData]);
-	const tempHeatMapData: google.maps.visualization.WeightedLocation[] = [];
-	pastGameData.map((pastGame, index) => {
-		pastGame.stages.map((game, i) => {
-			let weight;
-			const distance = game.distance;
-			switch (true) {
-				case distance >= 500:
-					weight = 5;
-					break;
+					case distance >= 250 && distance < 500:
+						weight = 0.5;
+						break;
+					case distance >= 100 && distance < 250:
+						weight = 0.2;
+						break;
+					case distance >= 50 && distance < 100:
+						weight = 0.15;
+						break;
+					default:
+						weight = 0.1;
+						break;
+				}
 
-				case distance >= 250 && distance < 500:
-					weight = 0.5;
-					break;
-				case distance >= 100 && distance < 250:
-					weight = 0.2;
-					break;
-				case distance >= 50 && distance < 100:
-					weight = 0.15;
-					break;
-				default:
-					weight = 0.1;
-					break;
-			}
-
-			tempHeatMapData.push({
-				location: new google.maps.LatLng(game.answerLocation.lat, game.answerLocation.lng),
-				weight: weight,
+				tempHeatMapData.push({
+					location: new google.maps.LatLng(game.answerLocation.lat, game.answerLocation.lng),
+					weight: weight,
+				});
 			});
 		});
-	});
-	const [heatMapData, setHeatMapData] = useState(tempHeatMapData);
+		setHeatMapData(null);
+		setHeatMapData(tempHeatMapData);
+	}
 
+	useEffect(() => {
+		setData();
+	}, []);
+	const [heatMapData, setHeatMapData] = useState<google.maps.visualization.WeightedLocation[] | null>(null);
 	const onLoad = useCallback((map: any) => {
 		mapRef.current = map;
-		const reset: google.maps.visualization.WeightedLocation[] = [];
-		setHeatMapData(reset);
-		setHeatMapData(tempHeatMapData);
+		setData();
 	}, []);
 	if (!window.google) return <div></div>;
-
 	return (
 		<div className="w-full h-full">
 			<div className="w-full flex flex-col h-full bg-grey-500">
@@ -135,9 +105,11 @@ const Heatmap: React.FC<Props> = ({ pastGameData }) => {
 					mapContainerClassName=" w-full h-full"
 					options={options}
 					onLoad={onLoad}
-					onClick={(event) => {}}
+					onClick={(event) => {
+						setData();
+					}}
 				>
-					<HeatmapLayerF data={heatMapData}></HeatmapLayerF>
+					{heatMapData && <HeatmapLayerF data={heatMapData}></HeatmapLayerF>}
 				</GoogleMap>
 			</div>
 		</div>

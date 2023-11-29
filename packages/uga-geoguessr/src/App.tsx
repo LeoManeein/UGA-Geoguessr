@@ -1,4 +1,3 @@
-import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -38,21 +37,6 @@ function App() {
 			element: <GamePage />,
 		},
 	]);
-
-	// This is for the little loading progress bar you see at the top of your screen when switching pages.
-	// Its similar to youtube and other fancy sites
-	useEffect(() => {
-		NProgress.configure({ showSpinner: false });
-
-		router.subscribe((location) => {
-			NProgress.start();
-		});
-
-		router.subscribe((location) => {
-			NProgress.done();
-		});
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
 
 	const [userData, setUserData] = useState<{ token: any; user: any }>({
 		token: undefined,

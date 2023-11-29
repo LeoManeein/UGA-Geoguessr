@@ -4,6 +4,7 @@ import NewGameType from "../components/GameType/NewGameType/NewGameType"; // Ass
 import axios from "axios";
 import ErrorPage from "./ErrorPage";
 import UserContext from "../components/auth/Context/UserContext";
+import Banner from "../components/Header/Banner";
 
 const AddGameTypePage: React.FC = () => {
 	const { auth } = useContext(UserContext);
@@ -36,10 +37,10 @@ const AddGameTypePage: React.FC = () => {
 		// You can perform other actions with the added game data
 	};
 	if (auth.loading) return <div></div>;
-	if (!auth.valid) return <ErrorPage error={"Sign in to create a GameType"}></ErrorPage>;
+	if (!auth.valid) return <ErrorPage error={"Login to create a GameType"}></ErrorPage>;
 	return (
 		<div className="text-ugatan-100 mx-4">
-			<h2 className="text-center text-xl my-2">Add new GameType</h2>
+			<Banner text="Add GameType"></Banner>
 			{error && (
 				<div className="text-center" style={{ color: "red" }}>
 					{error}

@@ -75,7 +75,7 @@ const PlayGameTypeModal: React.FC<Props> = ({ gameType, setModalData }) => {
 				Difficulty
 			</div>
 			<div className="my-auto flex justify-center">
-				<div className="text-white font-bold mr-2">Number Of Stages:</div>
+				<div className="text-white font-bold mr-2">Number of rounds:</div>
 				<select
 					className="w-[40px] text-center"
 					value={numberOfStages} // Set the selected value based on state

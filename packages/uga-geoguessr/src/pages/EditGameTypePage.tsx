@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { GameIdProvider } from "../components/GameType/NewGameType/GameIdContext";
 import NewGameType, { PossibleLocation } from "../components/GameType/NewGameType/NewGameType"; // Assuming the path to your NewGame component
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import UserContext from "../components/auth/Context/UserContext";
+import Banner from "../components/Header/Banner";
 export type editGameType = {
 	id: string;
 	title: string;
@@ -72,21 +72,17 @@ const EditGameTypePage: React.FC = () => {
 		fetchData();
 	}, []);
 	if (auth.loading) return <div></div>;
-	if (!auth.valid) return <ErrorPage error={"Sign in to edit a gameType"}></ErrorPage>;
+	if (!auth.valid) return <ErrorPage error={"Login to edit a gameType"}></ErrorPage>;
 	return (
 		<div className="text-ugatan-100 mx-4">
-			<h2 className="text-center text-xl my-2">Edit GameType</h2>
+			<Banner text="Edit GameType"></Banner>
 			{error && (
 				<div className="text-center" style={{ color: "red" }}>
 					{error}
 				</div>
 			)}
 			{/* You can add other components or content here */}
-			{editGame && (
-				<GameIdProvider>
-					<NewGameType editGameType={editGame} onAddGame={handleAddGame} />
-				</GameIdProvider>
-			)}
+			{editGame && <NewGameType editGameType={editGame} onAddGame={handleAddGame} />}
 		</div>
 	);
 };

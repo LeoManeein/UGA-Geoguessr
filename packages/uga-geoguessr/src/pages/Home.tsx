@@ -37,7 +37,7 @@ function Home() {
 							)}
 							{!auth.valid && (
 								<>
-									Login to play custom game modes!
+									Login
 									<ArrowRightOutlined className="pt-[6px] pl-2 m-auto" />
 								</>
 							)}
