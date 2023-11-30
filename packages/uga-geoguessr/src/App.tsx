@@ -1,4 +1,3 @@
-import "nprogress/nprogress.css";
 import { useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
@@ -59,6 +58,8 @@ function App() {
 					headers: { "x-auth-token": token },
 				});
 				setUserData({ token, user: userRes.data });
+			} else {
+				throw new Error("no data");
 			}
 		} catch (error: any) {
 			console.log(error.message);

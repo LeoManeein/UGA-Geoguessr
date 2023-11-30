@@ -60,7 +60,7 @@ const Profile: React.FC = () => {
 				});
 
 				if (userRes.data) {
-					setPastGameData(userRes.data.pastGameData);
+					setPastGameData(userRes.data.pastGameData.reverse());
 					setGamesPlayed(userRes.data.gamesPlayed);
 				}
 			}
@@ -116,7 +116,7 @@ const Profile: React.FC = () => {
 												key={game.gameTypeTitle + index.toString() + Math.random().toString()}
 												className="m-4 border p-2 rounded-md"
 											>
-												<div>Game #{index + 1}</div>
+												<div>Game #{pastGameData.length - index}</div>
 												<div>GameType: {game.gameTypeTitle}</div>
 												<div className="">
 													{game.stages.map((stage, i) => {

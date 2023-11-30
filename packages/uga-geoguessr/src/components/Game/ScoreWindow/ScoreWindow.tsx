@@ -17,9 +17,10 @@ interface Props {
 		selectedCoordinate: LatLngLiteral;
 		answerLocation: LatLngLiteral;
 	};
+	setShowScoreWindow: Function;
 }
 
-const ScoreWindow: React.FC<Props> = ({ setCurrentStageNumber, nextStage, showScoreWindow }) => {
+const ScoreWindow: React.FC<Props> = ({ setCurrentStageNumber, nextStage, showScoreWindow, setShowScoreWindow }) => {
 	// Loads the google maps
 	const { isLoaded, loadError } = useLoadScript({
 		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
@@ -39,7 +40,7 @@ const ScoreWindow: React.FC<Props> = ({ setCurrentStageNumber, nextStage, showSc
 			</Link>
 
 			<div className="flex w-full px-2 md:px-0 md:w-[768px] h-[400px] m-auto relative flex-col gap-y-2">
-				<ScoreMeter score={score} percentage={percentage} distance={distance}></ScoreMeter>
+				<ScoreMeter text={"SCORE"} score={score} percentage={percentage} distance={distance}></ScoreMeter>
 				<ScoreGoogleMapWindow
 					defaultMapCoordinate={defaultMapCoordinate}
 					selectedCoordinate={showScoreWindow.selectedCoordinate}
@@ -48,11 +49,11 @@ const ScoreWindow: React.FC<Props> = ({ setCurrentStageNumber, nextStage, showSc
 				<div
 					onClick={() => {
 						if (nextStage) setCurrentStageNumber(nextStage);
-						if (!nextStage) navigate("/AvailableGames");
+						if (!nextStage) setShowScoreWindow(false);
 					}}
 					className={` z-30 m-auto w-[192px] text-center flex ${styles.button_light}`}
 				>
-					<div className="flex m-auto text-center ">{nextStage ? "Next" : "Home"}</div>
+					<div className="flex m-auto text-center ">{nextStage ? "Next" : "Results"}</div>
 				</div>
 			</div>
 		</div>

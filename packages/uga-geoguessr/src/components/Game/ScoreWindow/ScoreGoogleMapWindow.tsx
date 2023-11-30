@@ -15,9 +15,7 @@ const ScoreGoogleMapWindow: React.FC<Props> = ({ defaultMapCoordinate, selectedC
 		locationCoordinate.lat,
 		locationCoordinate.lng,
 	);
-	const onLoadF = (marker: any) => {
-		console.log("marker: ", marker);
-	};
+	const onLoadF = (marker: any) => {};
 
 	function calculateMidpoint(lat1: number, lng1: number, lat2: number, lng2: number) {
 		// Convert latitude and longitude from degrees to radians
@@ -59,7 +57,17 @@ const ScoreGoogleMapWindow: React.FC<Props> = ({ defaultMapCoordinate, selectedC
 					onLoad={onLoad}
 				>
 					{selectedCoordinate && <MarkerF onLoad={onLoadF} position={selectedCoordinate} />}
-					{locationCoordinate && <MarkerF onLoad={onLoadF} position={locationCoordinate} />}
+					{locationCoordinate && (
+						<MarkerF
+							icon={{
+								url: "https://cdn.discordapp.com/attachments/1054239396024549486/1179668165718966302/cadadafc025b1fbe2e82fc8e3a8df884.png?ex=657a9e97&is=65682997&hm=9993ff31357619fd6f979be6b9a4e96597f01572f109a988687d65bce27cee44&",
+								anchor: new google.maps.Point(15, 40),
+								scaledSize: new google.maps.Size(30, 40),
+							}}
+							onLoad={onLoadF}
+							position={locationCoordinate}
+						/>
+					)}
 					{pathCoordinates && (
 						<PolylineF
 							path={pathCoordinates}

@@ -64,7 +64,7 @@ const PlayGameTypeModal: React.FC<Props> = ({ gameType, setModalData }) => {
 	}
 
 	return (
-		<div className="h-[300px] w-[600px] m-auto z-50 bg-ugared-100 flex flex-col p-4 rounded-3xl relative">
+		<div className="h-[300px] w-[600px] m-auto z-50 bg-ugared-100 flex flex-col p-4 rounded-3xl relative scale-75 sm:scale-100">
 			<CloseOutlined
 				onClick={() => setModalData(null)}
 				className="absolute top-0 right-2 text-2xl hover:text-white"

@@ -38,6 +38,7 @@ const NewGameType: React.FC<NewGameProps> = ({ onAddGame, editGameType }) => {
 		setDescription(editGameType.description);
 		setLocations(editGameType.possibleCoordinates);
 	}, [editGameType]);
+
 	// The default position that the google maps starts at
 	const defaultMapCoordinate = { lat: 33.951752641469085, lng: -83.37435458710178 } as LatLngLiteral;
 
@@ -140,12 +141,12 @@ const NewGameType: React.FC<NewGameProps> = ({ onAddGame, editGameType }) => {
 									<h2
 										className={` ${
 											oddoreven ? "" : classes.light_background
-										} font-bold text-xl  break-words w-full `}
+										} font-bold text-xl  break-words w-full text-left pl-4`}
 									>
 										{current.lat}
 									</h2>
 									<h2
-										className={`font-bold text-xl   break-words ${
+										className={`font-bold text-xl text-left pl-4   break-words ${
 											oddoreven ? "" : classes.light_background
 										}`}
 									>

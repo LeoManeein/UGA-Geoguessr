@@ -39,6 +39,21 @@
 	top: 20px; /* Adjust the position as needed */
 }
 
+.invalidButton {
+	user-select: none;
+	cursor: pointer;
+	position: relative;
+	width: 100%;
+	font-weight: 700;
+	font-size: 20px;
+	text-align: center;
+	color: #fff;
+	background-color: hsla(0, 0%, 100%, 0.1);
+	border-radius: 8px;
+	overflow: hidden;
+	opacity: 0.5;
+	background-color: #1d1d1d;
+}
 .button {
 	user-select: none;
 	cursor: pointer;
@@ -89,4 +104,66 @@
 .button_light:hover {
 	background-color: hsla(0, 0%, 100%, 0.2);
 	scale: 105%;
+}
+
+.mapct {
+	position: absolute;
+	bottom: 1.5rem;
+	z-index: 10;
+	right: 0.5rem;
+	width: 300px;
+	height: 250px;
+	opacity: 0.5;
+	transition: width 0.1s, height 0.1s, opacity 0.1s;
+	transition-property: width height opacity;
+	transition-duration: 0.1s, 0.1s 0.1s;
+	transition-timing-function: ease, ease, ease;
+	transition-delay: 0s, 0s, 0s;
+}
+
+.mapct:hover {
+	opacity: 1;
+	width: 500px;
+	height: 350px;
+}
+
+.mapct:not(:hover) {
+	/* Your normal styles */
+	opacity: 0.5;
+	width: 300px;
+	height: 250px;
+	transition-delay: 1.5s, 1.5s; /* Delay the transition back to normal state */
+}
+
+@media screen and (max-width: 640px) {
+	.mapct:hover {
+		width: 95%; /* Change width to full width for small screens */
+	}
+}
+
+@media only screen and (min-width: 640px) and (max-width: 900px) {
+	.mapct:hover {
+		width: 95%; /* Change width to full width for small screens */
+	}
+}
+
+@media only screen and (min-width: 900px) and (max-width: 1280px) {
+	.mapct:hover {
+		width: 600px;
+		height: 550px;
+	}
+}
+
+@media only screen and (min-width: 1281px) and (max-width: 1920px) {
+	.mapct:hover {
+		width: 600px;
+		height: 550px;
+	}
+}
+
+@media only screen and (min-width: 1921px) {
+	.mapct:hover {
+		width: 1000px; /* Change width to full width for small screens */
+		height: 900px;
+	}
 }

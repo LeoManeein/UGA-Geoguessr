@@ -29,12 +29,16 @@ export type Game = {
 		answerLocation: LatLngLiteral;
 	}[];
 	difficulty: difficultyType;
+	gameTypeId: string;
+	gameTypeTitle: string;
 };
 
 /**
  * @returns A fullscreen window that displays a geoguessr game of the location fetched from the /game/:id
  */
 function GamePage() {
+	const { id } = useParams();
+
 	const navigate = useNavigate();
 	const params = useParams();
 	const [currentStageNumber, setCurrentStageNumber] = useState<null | number>(null);
@@ -46,28 +50,27 @@ function GamePage() {
 		compass: true,
 		movement: true,
 	};
-
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const response = await axios.get(`http://localhost:4000/api/games/${params.id}`);
-				const data = response.data;
-				if (!data) {
-					throw new Error("Game not found");
-				}
-				let currentStageObject = data.stages.findIndex((x: { score: null | number }) => {
-					return x.score === null;
-				});
-				setData(data);
-				setCurrentStageNumber(currentStageObject | 0);
-				if (currentStageObject === null) navigate("/availablegames");
-			} catch (error: any) {
-				console.error("Error fetching data:", error.message);
-				navigate("/Error/GameNotFound");
+	const fetchData = async () => {
+		try {
+			const response = await axios.get(`http://localhost:4000/api/games/${params.id}`);
+			const data = response.data;
+			if (!data) {
+				throw new Error("Game not found");
 			}
-		};
+			let currentStageObject = data.stages.findIndex((x: { score: null | number }) => {
+				return x.score === null;
+			});
+			setData(data);
+			setCurrentStageNumber(currentStageObject | 0);
+			if (currentStageObject === null) navigate("/availablegames");
+		} catch (error: any) {
+			console.error("Error fetching data:", error.message);
+			navigate("/availablegames");
+		}
+	};
+	useEffect(() => {
 		fetchData();
-	}, []);
+	}, [id]);
 
 	useEffect(() => {
 		if (currentStageNumber === null || !data) return;
@@ -91,6 +94,7 @@ function GamePage() {
 
 					return (
 						<GameWindow
+							data={data}
 							_id={data._id}
 							key={Math.random() + "abc" + index + current.answerLocation.lat}
 							answerLocation={current.answerLocation}

@@ -12,6 +12,7 @@ interface Props {
 	nextStage: number | null;
 	_id: String;
 	answerLocation: LatLngLiteral;
+	setShowResultsWindow: Function;
 }
 
 /**
@@ -29,14 +30,13 @@ const GoogleMapWindow: React.FC<Props> = ({
 	setShowScoreWindow,
 	nextStage,
 	answerLocation,
+	setShowResultsWindow,
 	_id,
 }) => {
 	const mapRef = useRef<GoogleMap>();
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const center = useMemo<LatLngLiteral>(() => ({ lat: defaultMapCoordinate.lat, lng: defaultMapCoordinate.lng }), []);
-	const onLoadF = (marker: any) => {
-		console.log("marker: ", marker);
-	};
+	const onLoadF = (marker: any) => {};
 
 	const options = useMemo<MapOptions>(
 		() => ({
@@ -71,12 +71,12 @@ const GoogleMapWindow: React.FC<Props> = ({
 	if (!window.google) return <div></div>;
 
 	return (
-		<div className="w-full h-full">
-			<div className="w-full flex flex-col h-full bg-grey-500">
+		<div className="w-full h-full ">
+			<div className="w-full flex flex-col h-full bg-grey-500 ">
 				<GoogleMap
 					zoom={14}
 					center={center}
-					mapContainerClassName=" w-full h-full"
+					mapContainerClassName=" w-full h-full rounded-md"
 					options={options}
 					onLoad={onLoad}
 					onClick={(event) => {
@@ -94,11 +94,6 @@ const GoogleMapWindow: React.FC<Props> = ({
 					onClick={async () => {
 						if (!selectedCoordinate) return;
 						try {
-							const defaultMapCoordinate = {
-								lat: 33.951752641469085,
-								lng: -83.37435458710178,
-							} as LatLngLiteral;
-
 							const distance = Math.floor(
 								coordsToFeet(
 									getDistanceFromLatLonInKm(
@@ -137,15 +132,17 @@ const GoogleMapWindow: React.FC<Props> = ({
 								},
 								headers,
 							);
-							console.log("ADWADAWDAWDWAD", response);
-							const data = await response.data;
+							await response.data;
+							if (!nextStage) setShowResultsWindow(response.data.stages);
 							setShowScoreWindow(newthing);
-						} catch (error) {
-							console.error(error);
+						} catch (error: any) {
+							console.error(error?.message || "error");
 						}
 						//setShowScoreWindow(true);
 					}}
-					className={`  w-full  h-[50px] z-50  text-center pt-[4px] mt-1 ${styles.button} `}
+					className={`  w-full  h-[50px] z-50  text-center pt-[4px] mt-1 ${
+						selectedCoordinate ? styles.button : styles.invalidButton
+					} `}
 				>
 					SUBMIT
 				</div>

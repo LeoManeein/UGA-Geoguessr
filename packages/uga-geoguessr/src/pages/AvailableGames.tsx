@@ -31,7 +31,7 @@ function AvailableGames() {
 		},
 		{
 			title: "South Campus",
-			description: "Explore South Campus with your friends",
+			description: "Explore South Campus",
 			url: "https://cdn.discordapp.com/attachments/1054239396024549486/1171667786343395348/woocommerce-15.jpg?ex=655d83a8&is=654b0ea8&hm=25031174744dd94b29abc8f2faff18c5d6b827899ad12db9cb6dc08bc91ed0ca&",
 			_id: "default03",
 		},
