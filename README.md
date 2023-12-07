@@ -45,7 +45,7 @@ This is a student made UGA based Geoguessr Game MERN application.
 └── README.md
 ```
 
-## How to run the project on docker containers
+## How to run the project with docker
 
 First, download Docker Desktop.
 
