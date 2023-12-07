@@ -1,23 +1,48 @@
 ## Project structure
+```
+.
+├── backend
+│   ├── src
+│   │   ├── middleware
+│   │   │   ...
+│   │   ├── models
+│   │   │   ...
+│   │   ├── routes
+│   │   │   └── api
+│   │   │       ...
+│   │   └── server.js
+│   ├── Dockerfile
+│   └── package.json
+├── frontend
+│   ├── public
+│   ├── src
+│   │   ├── components
+│   │   │   ...
+│   │   ├── pages
+│   │   │   ...
+│   │   └── app.txs
+│   ├── Dockerfile
+│   ├── package.json
+│   ├── tailwind.config.js
+│   └── tsconfig.json
+├── package.json
+├── docker-compose.yaml
+└── README.md
+```
 
-- UGA-Geoguessr
-  - Packages
-    - uga-geoguessr (Frontend)
-      - public (for stuff like client side only images)
-      - src
-        - pages
-        - components
-    - backend
-      - src
-        - models
-          - Games.js
-          - GameTypes.js
-        - routes/api
-          - games.js
-          - gameTypes.js
-      - server.js
+## How to run the project on docker containers
 
-## How to run frontend and backend at the same time
+First, download Docker Desktop.
+
+Then, in the root directory of the project:
+
+* To build the docker images: `$ docker-compose build`
+
+* To use the images and run docker containers: `$ docker-compose up`
+
+Finally, in your browser type in: `localhost:3000` and the project should be running.
+
+## How to run the project on the local machine
 
 Back end is running on port 4000, front end is running on port 3000
 
