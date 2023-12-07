@@ -1,4 +1,19 @@
-## Project structure
+## Overview
+
+This is a student made UGA based Geoguessr Game MERN application.
+
+* To play the game, first make an account to be on the leaderboard and save your previos games.
+
+* Then choose your desired gametype (Locations across entire campus or across a section of campus), number of rounds, and difficulty. You get extra points the harder your difficulty is.
+
+* When you start the game, you will be placed in a random google street view on campus and your goal is to choose the closest location to the street view on the provided map and you will get a score based on distance.
+
+* For the leaderbaord, Top 10 scores across all users for the 5 round category will be shown.
+
+* Finally, go to your profile to see your previous games and a hotmap of your accuracy on locations (green for accurate, red for inaccurate)
+
+
+## Project Structure
 ```
 .
 ├── backend
@@ -33,6 +48,8 @@
 ## How to run the project on docker containers
 
 First, download Docker Desktop.
+
+Next, make sure you have all the secrets in a .env file in the root directory
 
 Then, in the root directory of the project:
 
