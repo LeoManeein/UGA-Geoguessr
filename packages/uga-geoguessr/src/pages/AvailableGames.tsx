@@ -43,7 +43,7 @@ function AvailableGames() {
 		try {
 			let token = localStorage.getItem("auth-token");
 			if (!token) throw new Error("Must be logged in");
-			const response = await axios.get("http://localhost:4000/api/gametypes", {
+			const response = await axios.get(`${process.env.REACT_APP_BACKEND}/api/gametypes`, {
 				headers: { "x-auth-token": token },
 			});
 			const data = await response.data;

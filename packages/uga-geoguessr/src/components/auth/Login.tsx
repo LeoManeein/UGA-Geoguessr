@@ -24,7 +24,7 @@ const Login: React.FC = () => {
 		try {
 			const loginUser = { email, password };
 
-			const loginRes = await axios.post("http://localhost:4000/api/users/login", loginUser);
+			const loginRes = await axios.post(`${process.env.REACT_APP_BACKEND}/api/users/login`, loginUser);
 
 			setUserData({
 				token: loginRes.data.token,

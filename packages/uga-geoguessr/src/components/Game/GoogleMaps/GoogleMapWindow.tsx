@@ -125,7 +125,7 @@ const GoogleMapWindow: React.FC<Props> = ({
 								  }
 								: {};
 							const response = await axios.put(
-								`http://localhost:4000/api/games/${_id}`,
+								`${process.env.REACT_APP_BACKEND}/api/games/${_id}`,
 								{
 									nextStage,
 									...newthing,
