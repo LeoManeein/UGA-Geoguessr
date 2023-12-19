@@ -27,7 +27,7 @@ mongoose
 	.then(() => {
 		console.log("Mongo Connection Suceeded...");
 
-		cron.schedule("*/5 * * * *", function () {
+		cron.schedule("*/15 * * * *", function () {
 			deleteOldGames();
 			findTopUsers();
 		});
@@ -70,7 +70,6 @@ async function findTopUsers() {
 			newArray.push({ username: x.username, gamesPlayed: x.gamesPlayed, totalScore: x.totalScore });
 		});
 		const newLeaderboard = await Leaderboards.create({ topUsers: newArray });
-		if (newLeaderboard) console.log("Updated leaderboard");
 	} catch (error) {
 		console.log(error.message);
 	}
