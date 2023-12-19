@@ -9,11 +9,12 @@ dotenv.config();
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY; // Replace with a secure secret key
 userRouter.post("/signup", async (req, res) => {
 	try {
-		const { email, password, confirmPassword, username } = req.body;
+		let { email, password, confirmPassword, username } = req.body;
 		if (!email || !password || !username || !confirmPassword) {
 			return res.status(400).json({ msg: "Please fill in all fields." });
 		}
-
+		email = email.toLowerCase();
+		username = username.toLowerCase();
 		// Password validation
 		const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 		const hasUppercase = /[A-Z]/.test(password);
@@ -55,11 +56,11 @@ userRouter.post("/signup", async (req, res) => {
 
 userRouter.post("/login", async (req, res) => {
 	try {
-		const { email, password } = req.body;
+		let { email, password } = req.body;
 		if (!email || !password) {
 			return res.status(400).json({ msg: "Please fill in all fields" });
 		}
-
+		email = email.toLowerCase();
 		const user = await User.findOne({ email });
 		if (!user) {
 			return res.status(400).json({ msg: "User with this email does not exist" });
