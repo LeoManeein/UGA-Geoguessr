@@ -39,8 +39,6 @@ const Profile: React.FC = () => {
 	const [error, setError] = useState<string>("");
 	const [email, setEmail] = useState("");
 	const [gamesPlayed, setGamesPlayed] = useState(0);
-	const [firstName, setFirstName] = useState("");
-	const [LastName, setLastName] = useState("");
 	const [username, setUsername] = useState("");
 
 	const checkLoggedIn = async () => {
@@ -75,8 +73,6 @@ const Profile: React.FC = () => {
 	useEffect(() => {
 		if (userData && userData.user) {
 			setEmail(userData.user.email);
-			setFirstName(userData.user.firstName);
-			setLastName(userData.user.lastName);
 			setUsername(userData.user.username);
 		}
 	}, [userData]);
@@ -95,9 +91,6 @@ const Profile: React.FC = () => {
 				)}
 				<div>{username}</div>
 				<div>{email}</div>
-				<div>
-					{firstName} {LastName}
-				</div>
 				<div>Number of games played: {gamesPlayed}</div>
 			</div>
 

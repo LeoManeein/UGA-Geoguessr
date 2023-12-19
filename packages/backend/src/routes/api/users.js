@@ -9,8 +9,8 @@ dotenv.config();
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY; // Replace with a secure secret key
 userRouter.post("/signup", async (req, res) => {
 	try {
-		const { firstName, lastName, email, password, confirmPassword, username } = req.body;
-		if (!firstName || !lastName || !email || !password || !username || !confirmPassword) {
+		const { email, password, confirmPassword, username } = req.body;
+		if (!email || !password || !username || !confirmPassword) {
 			return res.status(400).json({ msg: "Please fill in all fields." });
 		}
 
@@ -39,8 +39,6 @@ userRouter.post("/signup", async (req, res) => {
 
 		const hashedPassword = await bcryptjs.hash(password, 8);
 		const newUser = new User({
-			firstName,
-			lastName,
 			username,
 			email,
 			password: hashedPassword,
@@ -78,11 +76,9 @@ userRouter.post("/login", async (req, res) => {
 			user: {
 				username: user.username,
 				id: user._id,
-				lastName: user.lastName,
 				email: user.email,
 				gamesPlayed: user.gamesPlayed,
 				totalScore: user.totalScore,
-				firstName: user.firstName,
 				//pastGameData: user.pastGameData,
 			},
 		});
@@ -112,8 +108,6 @@ userRouter.get("/", auth, async (req, res) => {
 	res.json({
 		username: user.username,
 		id: user._id,
-		lastName: user.lastName,
-		firstName: user.firstName,
 		email: user.email,
 		gamesPlayed: user.gamesPlayed,
 		totalScore: user.totalScore,
@@ -127,8 +121,6 @@ userRouter.get("/pastGameData", auth, async (req, res) => {
 	res.json({
 		// username: user.username,
 		// id: user._id,
-		// lastName: user.lastName,
-		// firstName: user.firstName,
 		// email: user.email,
 		gamesPlayed: user.gamesPlayed,
 		totalScore: user.totalScore,
