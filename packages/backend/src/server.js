@@ -10,6 +10,7 @@ const User = require("./models/User");
 const leaderboard = require("./routes/api/leaderboards");
 const Leaderboards = require("./models/Leaderboard");
 const users = require("./routes/api/users");
+const cron = require("node-cron");
 dotenv.config();
 
 const app = express();
@@ -25,8 +26,11 @@ mongoose
 	.connect(URI)
 	.then(() => {
 		console.log("Mongo Connection Suceeded...");
-		deleteOldGames();
-		findTopUsers();
+
+		cron.schedule("*/5 * * * *", function () {
+			deleteOldGames();
+			findTopUsers();
+		});
 	})
 	.catch((err) => {
 		console.log(`Error in DB Connection ${err}`);
