@@ -64,7 +64,7 @@ const PlayGameTypeModal: React.FC<Props> = ({ gameType, setModalData }) => {
 	}
 
 	return (
-		<div className="h-[300px] w-[600px] m-auto z-50 bg-ugared-100 flex flex-col p-4 rounded-3xl relative">
+		<div className="h-[300px] w-[600px] m-auto z-50 bg-ugared-100 flex flex-col p-4 rounded-3xl relative scale-75 sm:scale-100">
 			<CloseOutlined
 				onClick={() => setModalData(null)}
 				className="absolute top-0 right-2 text-2xl hover:text-white"
@@ -75,7 +75,7 @@ const PlayGameTypeModal: React.FC<Props> = ({ gameType, setModalData }) => {
 				Difficulty
 			</div>
 			<div className="my-auto flex justify-center">
-				<div className="text-white font-bold mr-2">Number Of Stages:</div>
+				<div className="text-white font-bold mr-2">Number of rounds:</div>
 				<select
 					className="w-[40px] text-center"
 					value={numberOfStages} // Set the selected value based on state

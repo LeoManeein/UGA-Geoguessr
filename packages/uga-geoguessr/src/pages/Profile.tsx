@@ -4,8 +4,13 @@ import ErrorPage from "./ErrorPage";
 import UserContext from "../components/auth/Context/UserContext";
 import { useLoadScript } from "@react-google-maps/api";
 import Heatmap from "../components/Profile/Headmap";
+import Banner from "../components/Header/Banner";
 
 const Profile: React.FC = () => {
+	const { isLoaded, loadError } = useLoadScript({
+		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
+		libraries: ["visualization"],
+	});
 	const { auth, userData } = useContext(UserContext);
 	const [pastGameData, setPastGameData] = useState<
 		| [
@@ -54,9 +59,10 @@ const Profile: React.FC = () => {
 					headers: { "x-auth-token": token },
 				});
 
-				console.log(userData);
-
-				if (userRes.data) setPastGameData(userRes.data.pastGameData);
+				if (userRes.data) {
+					setPastGameData(userRes.data.pastGameData.reverse());
+					setGamesPlayed(userRes.data.gamesPlayed);
+				}
 			}
 		} catch (error: any) {
 			console.error(error?.response?.data?.msg || error?.message || "error");
@@ -69,26 +75,19 @@ const Profile: React.FC = () => {
 	useEffect(() => {
 		if (userData && userData.user) {
 			setEmail(userData.user.email);
-			setGamesPlayed(userData.user.gamesPlayed);
 			setFirstName(userData.user.firstName);
 			setLastName(userData.user.lastName);
 			setUsername(userData.user.username);
 		}
 	}, [userData]);
 
-	const { isLoaded, loadError } = useLoadScript({
-		googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
-		libraries: ["geometry", "visualization"],
-	});
-	console.log(Array.isArray(pastGameData) && pastGameData.length);
-
 	if (auth.loading) return <div></div>;
-	if (!auth.valid || loadError) return <ErrorPage error={error || "please log in"}></ErrorPage>;
+	if (!auth.valid || loadError) return <ErrorPage error={error || "Please login"}></ErrorPage>;
 
 	return (
 		<div className="text-ugatan-100 mx-4">
 			<div className="text-center">
-				<h2 className="text-center text-xl my-2">Profile</h2>
+				<Banner text="Profile"></Banner>
 				{error && (
 					<div className="text-center" style={{ color: "red" }}>
 						{error}
@@ -117,7 +116,7 @@ const Profile: React.FC = () => {
 												key={game.gameTypeTitle + index.toString() + Math.random().toString()}
 												className="m-4 border p-2 rounded-md"
 											>
-												<div>Game #{index + 1}</div>
+												<div>Game #{pastGameData.length - index}</div>
 												<div>GameType: {game.gameTypeTitle}</div>
 												<div className="">
 													{game.stages.map((stage, i) => {

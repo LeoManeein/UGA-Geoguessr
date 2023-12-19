@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UserContext from "./Context/UserContext";
 
@@ -9,8 +9,8 @@ const Login: React.FC = () => {
 	const [error, setError] = useState<string>("");
 	const [loading, setLoading] = useState<boolean>(false);
 	const navigate = useNavigate();
-	const { setUserData, userData } = useContext(UserContext);
-	
+	const { setUserData } = useContext(UserContext);
+
 	async function handleSubmit(e: any) {
 		e.preventDefault();
 		setLoading(true);
@@ -50,8 +50,7 @@ const Login: React.FC = () => {
 	}
 	return (
 		<div className="flex m-auto justify-center  ">
-			<div className="input w-1/2 sm:w-[320px] md:w-[384px] lg:w-[512px] xl:w-[640px] 2xl:w-[768px] ">
-				<>TEMP LOGIN</>
+			<div className="input w-full  text-lg ">
 				<form
 					onSubmit={(e: any) => {
 						handleSubmit(e);
@@ -59,7 +58,7 @@ const Login: React.FC = () => {
 					autoComplete="off"
 					className="flex flex-col mx-4"
 				>
-					<label htmlFor="email">email</label>
+					<label htmlFor="email">Email</label>
 					<input
 						className="text-black"
 						id="gameName"
@@ -81,7 +80,7 @@ const Login: React.FC = () => {
 					<button className="bg-ugared-200 mt-4 hover:bg-ugared-300" type="submit" disabled={loading}>
 						{loading ? "Submitting..." : "Submit"}
 					</button>
-					<Link to={"/signup"} className="bg-ugared-500 text-3xl mt-4 hover:bg-ugared-400" type="submit">
+					<Link to={"/signup"} className="bg-ugared-500  mt-4 hover:bg-ugared-400" type="submit">
 						Signup
 					</Link>
 				</form>

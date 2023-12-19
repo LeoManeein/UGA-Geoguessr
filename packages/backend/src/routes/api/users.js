@@ -82,6 +82,7 @@ userRouter.post("/login", async (req, res) => {
 				email: user.email,
 				gamesPlayed: user.gamesPlayed,
 				totalScore: user.totalScore,
+				firstName: user.firstName,
 				//pastGameData: user.pastGameData,
 			},
 		});
@@ -129,8 +130,8 @@ userRouter.get("/pastGameData", auth, async (req, res) => {
 		// lastName: user.lastName,
 		// firstName: user.firstName,
 		// email: user.email,
-		// gamesPlayed: user.gamesPlayed,
-		// totalScore: user.totalScore,
+		gamesPlayed: user.gamesPlayed,
+		totalScore: user.totalScore,
 		pastGameData: user.pastGameData,
 	});
 });

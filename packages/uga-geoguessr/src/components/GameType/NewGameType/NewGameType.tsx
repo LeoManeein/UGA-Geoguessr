@@ -1,8 +1,8 @@
 import { useLoadScript } from "@react-google-maps/api";
 import React, { useEffect, useState } from "react";
-import { useGameId } from "./GameIdContext"; // keeps track of id's
 import GoogleMapWindow from "./GoogleMapWindow"; // Import the Google Maps component
 import { Link } from "react-router-dom";
+import classes from "../../../Globals.module.css";
 type LatLngLiteral = google.maps.LatLngLiteral;
 
 export type PossibleLocation = {
@@ -31,7 +31,6 @@ const NewGameType: React.FC<NewGameProps> = ({ onAddGame, editGameType }) => {
 	const [description, setDescription] = useState<string>("");
 	const [locations, setLocations] = useState<PossibleLocation[]>([]);
 	const [error, setError] = useState<string | null>(null);
-	const { getNextId } = useGameId();
 	useEffect(() => {
 		if (!editGameType) return;
 		setGameName(editGameType.title);
@@ -39,6 +38,7 @@ const NewGameType: React.FC<NewGameProps> = ({ onAddGame, editGameType }) => {
 		setDescription(editGameType.description);
 		setLocations(editGameType.possibleCoordinates);
 	}, [editGameType]);
+
 	// The default position that the google maps starts at
 	const defaultMapCoordinate = { lat: 33.951752641469085, lng: -83.37435458710178 } as LatLngLiteral;
 
@@ -72,7 +72,7 @@ const NewGameType: React.FC<NewGameProps> = ({ onAddGame, editGameType }) => {
 		}
 
 		const newGame = {
-			id: getNextId().toString(),
+			id: Math.random(),
 			title: gameName,
 			description: description,
 			url: imageURL,
@@ -99,7 +99,7 @@ const NewGameType: React.FC<NewGameProps> = ({ onAddGame, editGameType }) => {
 		<div className="flex m-auto justify-center  ">
 			<div className="input w-1/2 sm:w-[320px] md:w-[384px] lg:w-[512px] xl:w-[640px] 2xl:w-[768px] ">
 				<form onSubmit={submitHandler} autoComplete="off" className="flex flex-col mr-6">
-					<label>Game Name</label>
+					<label className="font-bold">Game Name</label>
 					<input
 						className="text-black"
 						id="gameName"
@@ -107,7 +107,7 @@ const NewGameType: React.FC<NewGameProps> = ({ onAddGame, editGameType }) => {
 						value={gameName}
 						onChange={(e) => setGameName(e.target.value)}
 					/>
-					<label>Image URL</label>
+					<label className="font-bold">Image URL</label>
 					<input
 						className="text-black"
 						id="imageURL"
@@ -115,7 +115,7 @@ const NewGameType: React.FC<NewGameProps> = ({ onAddGame, editGameType }) => {
 						value={imageURL}
 						onChange={(e) => setImageURL(e.target.value)}
 					/>
-					<label>Description</label>
+					<label className="font-bold">Description</label>
 					<textarea
 						className="text-black"
 						id="description"
@@ -126,19 +126,43 @@ const NewGameType: React.FC<NewGameProps> = ({ onAddGame, editGameType }) => {
 
 					{error && <div style={{ color: "red" }}>{error}</div>}
 
-					<button className="bg-ugared-200 mt-4 hover:bg-ugared-300" type="submit">
-						{editGameType ? "Edit Game" : "Add Game"}
+					<button className="bg-ugared-200 mt-4 hover:bg-ugared-300 font-bold" type="submit">
+						{editGameType ? "Submit" : "Submit"}
 					</button>
-					<div>Selected Locations:</div>
-					{locations.map((current) => {
-						return (
-							<div className="flex gap-x-2" key={Math.random()}>
-								<div>lat: {current.lat},</div>
-								<div>lng: {current.lng},</div>
-								<div>radius (meters): {Math.floor(current.radius)}</div>
-							</div>
-						);
-					})}
+					<div className="font-bold">Selected Locations:</div>
+					<div className="grid grid-cols-3 text-center">
+						<h2 className="font-bold text-xl   break-words ">Lat</h2>
+						<h2 className="font-bold text-xl   break-words ">Lng</h2>
+						<h2 className="font-bold text-xl   break-words">Radius (meters)</h2>
+						{locations.map((current, index) => {
+							const oddoreven = index % 2 !== 0;
+							return (
+								<>
+									<h2
+										className={` ${
+											oddoreven ? "" : classes.light_background
+										} font-bold text-xl  break-words w-full text-left pl-4`}
+									>
+										{current.lat}
+									</h2>
+									<h2
+										className={`font-bold text-xl text-left pl-4   break-words ${
+											oddoreven ? "" : classes.light_background
+										}`}
+									>
+										{current.lng}
+									</h2>
+									<h2
+										className={`font-bold text-xl   break-words ${
+											oddoreven ? "" : classes.light_background
+										}`}
+									>
+										{Math.floor(current.radius)}
+									</h2>
+								</>
+							);
+						})}
+					</div>
 				</form>
 			</div>
 			{/* I wrapped the google map window in a container that has its height and width specified. It doesnt have to be an exact value but it needs to be something otherwise itll be 0x0 */}
@@ -155,15 +179,27 @@ const NewGameType: React.FC<NewGameProps> = ({ onAddGame, editGameType }) => {
 							setLocations={setLocations}
 						/>
 					</div>
-					<div>Click to place an icon</div>
-					<div>Click on a marker to remove it</div>
-					<div>Drag the R icon to resize the radius</div>
-					<Link
+					<div className="flex justify-between">
+						<div>
+							<div>Click on the map to place a possible location</div>
+							<div>Click on a marker to remove it</div>
+							<div>Drag a marker to move its location</div>
+							<div>{`Drag the <> icon to resize the radius`}</div>
+						</div>
+						<Link
+							to="/availablegames"
+							className={`text-white bg-ugared-200 hover:bg-ugared-300 my-auto px-4 py-2 rounded-full  font-bold `}
+						>
+							Return
+						</Link>
+					</div>
+
+					{/* <Link
 						to={"/availableGames"}
 						className="absolute top-6 right-6 text-ugared-300 bg-ugatan-100 p-2 font-bold rounded-full w-[130.6px] text-center z-20"
 					>
 						Cancel
-					</Link>
+					</Link> */}
 				</div>
 			)}
 		</div>

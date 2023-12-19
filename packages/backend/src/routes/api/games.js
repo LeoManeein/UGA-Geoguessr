@@ -68,7 +68,8 @@ router.put("/:id", async (req, res) => {
 		}
 
 		if (result) {
-			res.json(result);
+			//console.log(foundGame);
+			res.json(foundGame);
 		}
 	} catch (error) {
 		console.log(error.message);
@@ -207,13 +208,19 @@ const defaultgameTypes = [
 		id: "default02",
 		default: true,
 		title: "North Campus",
-		description: "Explore the north campus!",
+		description: "Explore the north campus",
 		url: "https://cdn.discordapp.com/attachments/1054239396024549486/1171665469791539270/historic-4775425_1920-1800x1000.jpg?ex=655d8180&is=654b0c80&hm=45f8129baf5f522a5ac0fe64f27cf8540ad6e849039c03c6b5814ac1cfd6c662&",
 		possibleCoordinates: [
-			{ lat: 33.95287980662595, lng: -83.35745524110612, radius: 555 }, //
-			{ lat: 33.953239747677785, lng: -83.37399022354325, radius: 555 }, //
-			{ lat: 33.951779986909465, lng: -83.37433764081277, radius: 555 }, //
-			{ lat: 33.95175350217092, lng: -83.37296708928022, radius: 555 }, //
+			{ lat: 33.95294664578806, lng: -83.37509421348058, radius: 159 }, //
+			{ lat: 33.95294664578806, lng: -83.37213990677068, radius: 147 }, //
+			{ lat: 33.95475903997862, lng: -83.3725091951071, radius: 186 }, //
+			{ lat: 33.9548611455454, lng: -83.37490956933442, radius: 187 }, //
+			{ lat: 33.95616298077494, lng: -83.37386325235079, radius: 250 }, //
+			{ lat: 33.950570575053284, lng: -83.3708781716133, radius: 250 }, //
+			{ lat: 33.95067268564514, lng: -83.37549427584749, radius: 250 }, //
+			{ lat: 33.958206644977615, lng: -83.37428224176257, radius: 250 },
+			{ lat: 33.95434337792697, lng: -83.37371614403968, radius: 27 },
+			{ lat: 33.95093365293073, lng: -83.37327436322403, radius: 250 },
 		],
 	},
 
@@ -221,16 +228,26 @@ const defaultgameTypes = [
 		id: "default03",
 		default: true,
 		title: "South Campus",
-		description: "Explore South Campus with your friends",
+		description: "Explore South Campus",
 		url: "https://cdn.discordapp.com/attachments/1054239396024549486/1171667786343395348/woocommerce-15.jpg?ex=655d83a8&is=654b0ea8&hm=25031174744dd94b29abc8f2faff18c5d6b827899ad12db9cb6dc08bc91ed0ca&",
 		possibleCoordinates: [
-			{ lat: 33.937391046353824, lng: -83.3692271305832, radius: 555 }, //
-			{ lat: 33.94089331098974, lng: -83.37070770419253, radius: 555 }, //
-			{ lat: 33.94290486630825, lng: -83.3719093337336, radius: 555 }, //
-			{ lat: 33.94356350683504, lng: -83.3756215107087, radius: 555 }, //
-			{ lat: 33.94342109850432, lng: -83.37856121155025, radius: 555 }, //
-			{ lat: 33.94482504467468, lng: -83.37438022993118, radius: 555 }, //
-			{ lat: 33.94088394389009, lng: -83.37890297244151, radius: 555 }, //
+			{ lat: 33.933570506258704, lng: -83.37215807301178, radius: 250 },
+			{ lat: 33.93571175198436, lng: -83.37052306099982, radius: 250 },
+			{ lat: 33.93763201825496, lng: -83.37021445627855, radius: 250 },
+			{ lat: 33.939833870274924, lng: -83.37055392147194, radius: 250 },
+			{ lat: 33.93594218622432, lng: -83.36280794293903, radius: 124.62309682427721 },
+			{ lat: 33.930353884678226, lng: -83.36475779521183, radius: 144.98376870747293 },
+			{ lat: 33.9291760258372, lng: -83.36667114451066, radius: 99.29564394809037 },
+			{ lat: 33.92450893040174, lng: -83.36922952496607, radius: 133.12589497415803 },
+			{ lat: 33.94175677254261, lng: -83.37375878741241, radius: 250 },
+			{ lat: 33.94406197206537, lng: -83.37231259786114, radius: 250 },
+			{ lat: 33.94521402402256, lng: -83.37539864507389, radius: 250 },
+			{ lat: 33.94646846286539, lng: -83.37438024949368, radius: 250 },
+			{ lat: 33.94152740287489, lng: -83.37647876169348, radius: 250 },
+			{ lat: 33.94331221557941, lng: -83.37827187545953, radius: 250 },
+			{ lat: 33.94586202561466, lng: -83.37724867031216, radius: 250 },
+			{ lat: 33.94043872955192, lng: -83.37376085023548, radius: 250 },
+			{ lat: 33.942241808473824, lng: -83.37007146324335, radius: 167.35036594040082 },
 		],
 	},
 ];

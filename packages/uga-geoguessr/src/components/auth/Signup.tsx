@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UserContext from "./Context/UserContext";
@@ -15,7 +15,7 @@ const Signup: React.FC = () => {
 	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
 
-	const { setUserData, userData } = useContext(UserContext);
+	const { setUserData } = useContext(UserContext);
 	async function handleSubmit(e: any) {
 		e.preventDefault();
 		setLoading(true);
@@ -99,9 +99,8 @@ const Signup: React.FC = () => {
 	}
 
 	return (
-		<div className="flex m-auto justify-center  ">
-			<div className="input w-1/2 sm:w-[320px] md:w-[384px] lg:w-[512px] xl:w-[640px] 2xl:w-[768px] ">
-				<>TEMP SIGNUP</>
+		<div className="flex m-auto justify-center   ">
+			<div className="input w-full  text-lg">
 				<form
 					onSubmit={(e) => {
 						handleSubmit(e);
@@ -154,7 +153,7 @@ const Signup: React.FC = () => {
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 					/>
-					<label htmlFor="password">Confirm Passowrd</label>
+					<label htmlFor="password">Confirm Password</label>
 					<input
 						className="text-black"
 						id="imageURL"
@@ -167,9 +166,9 @@ const Signup: React.FC = () => {
 					{error && <div style={{ color: "red" }}>{error}</div>}
 
 					<button className="bg-ugared-200 mt-4 hover:bg-ugared-300" type="submit">
-						Submit
+						{loading ? "Submitting..." : "Submit"}
 					</button>
-					<Link to={"/login"} className="bg-ugared-500 text-3xl mt-4 hover:bg-ugared-400" type="submit">
+					<Link to={"/login"} className="bg-ugared-500 mt-4 hover:bg-ugared-400" type="submit">
 						Already have an account? Login
 					</Link>
 				</form>

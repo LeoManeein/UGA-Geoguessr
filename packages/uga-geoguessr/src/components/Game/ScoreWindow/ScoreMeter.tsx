@@ -5,9 +5,10 @@ interface Props {
 	score: number;
 	percentage: number;
 	distance: number;
+	text: string;
 }
 
-const ScoreMeter: React.FC<Props> = ({ score, percentage, distance }) => {
+const ScoreMeter: React.FC<Props> = ({ score, percentage, distance, text }) => {
 	const widthStyle = {
 		width: `${percentage}%`,
 	};
@@ -33,7 +34,7 @@ const ScoreMeter: React.FC<Props> = ({ score, percentage, distance }) => {
 			<div
 				className={`flex w-full text-center justify-center ${styles.light_background} text-white justify-center text-center text-3xl  font-bold rounded-md`}
 			>
-				SCORE
+				{text}
 			</div>
 			<div className="flex w-full justify-between text-white font-bold text-xl">
 				<div>Distance: {distance} ft</div>

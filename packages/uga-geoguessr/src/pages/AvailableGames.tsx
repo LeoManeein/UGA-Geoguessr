@@ -3,6 +3,7 @@ import GameTypeWindow from "../components/GameType/GameTypeWindow";
 import axios from "axios";
 import PlayGameTypeModal from "../components/GameType/GameTypeModal/PlayGameTypeModal";
 import UserContext from "../components/auth/Context/UserContext";
+import { Link } from "react-router-dom";
 
 export type GameType = {
 	title: String;
@@ -30,7 +31,7 @@ function AvailableGames() {
 		},
 		{
 			title: "South Campus",
-			description: "Explore South Campus with your friends",
+			description: "Explore South Campus",
 			url: "https://cdn.discordapp.com/attachments/1054239396024549486/1171667786343395348/woocommerce-15.jpg?ex=655d83a8&is=654b0ea8&hm=25031174744dd94b29abc8f2faff18c5d6b827899ad12db9cb6dc08bc91ed0ca&",
 			_id: "default03",
 		},
@@ -83,12 +84,22 @@ function AvailableGames() {
 				setModalData={setModalData}
 			></GameTypeWindow>
 			{(auth.valid || auth.loading) && (
-				<GameTypeWindow
-					fetchData={fetchData}
-					title={"Custom Game Types"}
-					gameTypes={userGameTypes}
-					setModalData={setModalData}
-				></GameTypeWindow>
+				<>
+					<GameTypeWindow
+						fetchData={fetchData}
+						title={"Custom Game Types"}
+						gameTypes={userGameTypes}
+						setModalData={setModalData}
+					></GameTypeWindow>
+					<div className="flex justify-center my-4">
+						<Link
+							to="/addgame"
+							className={`text-white  bg-ugared-200 hover:bg-ugared-300 my-auto p-2 rounded-full  font-bold  `}
+						>
+							Add GameType
+						</Link>
+					</div>
+				</>
 			)}
 		</div>
 	);

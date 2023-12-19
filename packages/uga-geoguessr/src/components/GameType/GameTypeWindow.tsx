@@ -15,7 +15,7 @@ interface Props {
  */
 const GameTypeWindow: React.FC<Props> = ({ gameTypes, title, setModalData, fetchData }) => {
 	return (
-		<div className="mx-2 mt-6 ">
+		<div className="mx-2 mt-6 relative">
 			<div
 				className={` md:m-auto w-full md:w-[768px] h-full pb-1 bg-gradient-to-r  ${styles.background} rounded-lg`}
 			>
