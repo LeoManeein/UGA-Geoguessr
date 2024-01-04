@@ -37,7 +37,7 @@ function Home() {
 					</Link>
 					<div className="text-ugatan-100 w-full md:w-[569px] mt-12 text-2xl">
 						UGA Geoguessr was created for a group project in a web dev class within a relatively short
-						timeframe.
+						timeframe, using React, Node.js, and MongoDB.
 					</div>
 					<div className="text-ugatan-100 w-full md:w-[569px] mt-6 text-2xl">
 						Explore the University of Georgia's campus and see how well you really know your way around.
