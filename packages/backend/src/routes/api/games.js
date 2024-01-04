@@ -85,7 +85,12 @@ router.post("/", async (req, res) => {
 			throw new Error("Invalid number of stages");
 		}
 		let gameTypeInfo;
-		if (gameType._id === "default01" || gameType._id === "default02" || gameType._id === "default03") {
+		if (
+			gameType._id === "default01" ||
+			gameType._id === "default02" ||
+			gameType._id === "default03" ||
+			gameType._id === "default04"
+		) {
 			gameTypeInfo = defaultgameTypes.find((obj) => obj.id.toString() === gameType._id.toString());
 		} else {
 			gameTypeInfo = await GameTypes.findById(gameType._id);
@@ -129,7 +134,6 @@ router.post("/", async (req, res) => {
 			difficulty,
 			update_date: new Date(),
 		};
-
 		const createdGame = await Games.create(newGame);
 		const token = req.header("x-auth-token");
 		if (token) {
@@ -144,7 +148,6 @@ router.post("/", async (req, res) => {
 		console.log(`--- NEW GAME ${createdGame._id} CREATED --- ${"total " + numberofgamesplayed}`);
 		res.json(`/game/${createdGame._id}`);
 	} catch (error) {
-		//console.error(error);
 		res.status(500).json({ msg: `Error: ${error.message} ` });
 	}
 });
@@ -249,6 +252,50 @@ const defaultgameTypes = [
 			{ lat: 33.94586202561466, lng: -83.37724867031216, radius: 250 },
 			{ lat: 33.94043872955192, lng: -83.37376085023548, radius: 250 },
 			{ lat: 33.942241808473824, lng: -83.37007146324335, radius: 167.35036594040082 },
+		],
+	},
+	{
+		id: "default04",
+		default: true,
+		title: "The UGA Parking Experience",
+		description: "See the parking spots youll never have",
+		url: "https://cdn.discordapp.com/attachments/1054239396024549486/1192546702775824565/5b7ea6f8483a0.image.jpg?ex=65a978aa&is=659703aa&hm=a0925fce7e34c1250d7f96704516fe291e232f0848776a4e3be95c3d23c27736&",
+		possibleCoordinates: [
+			{ lat: 33.938087490114796, lng: -83.36935958581721, radius: 114 },
+			{ lat: 33.9361885759344, lng: -83.36194471735513, radius: 118 },
+			{ lat: 33.933434872247474, lng: -83.3719976943281, radius: 142 },
+			{ lat: 33.94126639695296, lng: -83.37910355442307, radius: 79 },
+			{ lat: 33.941445429072694, lng: -83.37764525015562, radius: 82 },
+			{ lat: 33.94172211433498, lng: -83.37653134028794, radius: 40 },
+			{ lat: 33.94189444781422, lng: -83.37176678355839, radius: 42 },
+			{ lat: 33.94212748987915, lng: -83.37257712767213, radius: 55 },
+			{ lat: 33.94327327031592, lng: -83.37357271882571, radius: 50 },
+			{ lat: 33.94541469740451, lng: -83.37070366911718, radius: 56 },
+			{ lat: 33.9460602648484, lng: -83.37079522185844, radius: 55 },
+			{ lat: 33.94455580259811, lng: -83.3714066535213, radius: 46 },
+			{ lat: 33.94703894608532, lng: -83.37366000169206, radius: 34 },
+			{ lat: 33.9466971796248, lng: -83.37443819992485, radius: 19 },
+			{ lat: 33.943666740637674, lng: -83.37924800882142, radius: 40 },
+			{ lat: 33.948639218054616, lng: -83.38154156817734, radius: 106 },
+			{ lat: 33.948435399670764, lng: -83.38252437069929, radius: 114 },
+			{ lat: 33.94873012253796, lng: -83.37959680355652, radius: 45 },
+			{ lat: 33.950171441029006, lng: -83.3766526804705, radius: 19 },
+			{ lat: 33.95019733775513, lng: -83.37703946987946, radius: 17 },
+			{ lat: 33.950127251343176, lng: -83.37772722276367, radius: 62 },
+			{ lat: 33.95269727862853, lng: -83.37890073065181, radius: 72 },
+			{ lat: 33.956106605016714, lng: -83.37254279648862, radius: 73 },
+			{ lat: 33.95524917392448, lng: -83.37184436448504, radius: 40 },
+			{ lat: 33.956738765413085, lng: -83.3730298550244, radius: 52 },
+			{ lat: 33.93811658941526, lng: -83.36929318213429, radius: 110 },
+			{ lat: 33.93585914261665, lng: -83.36190221691228, radius: 67 },
+			{ lat: 33.93037767751633, lng: -83.36586001093772, radius: 93 },
+			{ lat: 33.93322895963708, lng: -83.37214403512186, radius: 107 },
+			{ lat: 33.940792362571656, lng: -83.36752916195157, radius: 67 },
+			{ lat: 33.93985185469944, lng: -83.36721228447567, radius: 69 },
+			{ lat: 33.93913055255685, lng: -83.3679155183562, radius: 65 },
+			{ lat: 33.939142421510226, lng: -83.36670042283215, radius: 52 },
+			{ lat: 33.93935258798488, lng: -83.36616043949799, radius: 51 },
+			{ lat: 33.9338197668977, lng: -83.37088295125416, radius: 80 },
 		],
 	},
 ];
