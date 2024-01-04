@@ -30,17 +30,9 @@ function Home() {
 						className="bg-ugatan-100 w--full md:w-[460px] h-[119px] rounded-full text-center justify-center flex mt-12 "
 					>
 						<div className="m-auto flex  text-3xl text-center justify-center content-center text-ugared-400 ">
-							{auth.valid && (
-								<>
-									Play <ArrowRightOutlined className="pt-[6px] pl-2 m-auto" />
-								</>
-							)}
-							{!auth.valid && (
-								<>
-									Login
-									<ArrowRightOutlined className="pt-[6px] pl-2 m-auto" />
-								</>
-							)}
+							<>
+								Play <ArrowRightOutlined className="pt-[6px] pl-2 m-auto" />
+							</>
 						</div>
 					</Link>
 					<div className="text-ugatan-100 w-full md:w-[569px] mt-12 text-2xl">
