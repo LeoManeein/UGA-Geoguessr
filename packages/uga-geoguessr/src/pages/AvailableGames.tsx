@@ -74,12 +74,13 @@ function AvailableGames() {
 							setModalData(null);
 						}}
 						className="w-full h-full  absolute"
+						style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
 					></div>
 				</div>
 			)}
 			<GameTypeWindow
 				fetchData={null}
-				title={"Default Game Types"}
+				title={"Select A Game Type"}
 				gameTypes={exampleDefaultGames}
 				setModalData={setModalData}
 			></GameTypeWindow>
@@ -96,7 +97,7 @@ function AvailableGames() {
 							to="/addgame"
 							className={`text-white  bg-ugared-200 hover:bg-ugared-300 my-auto p-2 rounded-full  font-bold  `}
 						>
-							Add GameType
+							Create Custom Game Type
 						</Link>
 					</div>
 				</>
