@@ -81,7 +81,7 @@ const Login: React.FC = () => {
 						{loading ? "Submitting..." : "Submit"}
 					</button>
 					<Link to={"/signup"} className="bg-ugared-500  mt-4 hover:bg-ugared-400" type="submit">
-						Signup
+						Don't already have an account? Signup
 					</Link>
 				</form>
 			</div>
