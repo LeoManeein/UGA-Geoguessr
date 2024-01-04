@@ -27,7 +27,7 @@ router.get("/:id", async (req, res) => {
 		res.status(500).json({ msg: "Error fetching data" });
 	}
 });
-
+let numgamesfinished = 0;
 router.put("/:id", async (req, res) => {
 	try {
 		let { score, percentage, distance, selectedCoordinate, answerLocation, nextStage } = req.body;
@@ -44,7 +44,8 @@ router.put("/:id", async (req, res) => {
 
 		if (nextStage === foundGame.numberOfStages) {
 			result = await Games.findByIdAndDelete(req.params.id);
-			console.log(`GAME ${foundGame._id} FINISHED AND DELETED`);
+			numgamesfinished += 1;
+			console.log(`GAME ${foundGame._id} FINISHED AND DELETED -- ${"total " + numgamesfinished}`);
 
 			const token = req.header("x-auth-token");
 			if (token) {
@@ -139,15 +140,15 @@ router.post("/", async (req, res) => {
 				const updateUser = await User.findByIdAndUpdate(verified.id, user);
 			}
 		}
-
-		console.log(`--- NEW GAME ${createdGame._id} CREATED ---`);
+		numberofgamesplayed += 1;
+		console.log(`--- NEW GAME ${createdGame._id} CREATED --- ${"total " + numberofgamesplayed}`);
 		res.json(`/game/${createdGame._id}`);
 	} catch (error) {
 		//console.error(error);
 		res.status(500).json({ msg: `Error: ${error.message} ` });
 	}
 });
-
+let numberofgamesplayed = 0;
 router.delete("/:id", async (req, res) => {
 	try {
 		const deletedGame = await Games.findByIdAndDelete(req.params.id);
