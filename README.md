@@ -1,21 +1,35 @@
 ## Project structure
 
-- UGA-Geoguessr
-  - Packages
-    - uga-geoguessr (Frontend)
-      - public (for stuff like client side only images)
-      - src
-        - pages
-        - components
-    - backend
-      - src
-        - models
-          - Games.js
-          - GameTypes.js
-        - routes/api
-          - games.js
-          - gameTypes.js
-      - server.js
+```
+.
+├── backend
+│   ├── src
+│   │   ├── middleware
+│   │   │   ...
+│   │   ├── models
+│   │   │   ...
+│   │   ├── routes
+│   │   │   └── api
+│   │   │       ...
+│   │   └── server.js
+│   ├── Dockerfile
+│   └── package.json
+├── frontend
+│   ├── public
+│   ├── src
+│   │   ├── componenets
+│   │   │   ...
+│   │   ├── pages
+│   │   │   ...
+│   │   └── app.txs
+│   ├── Dockerfile
+│   ├── package.json
+│   ├── tailwind.config.js
+│   └── tsconfig.json
+├── package.json
+├── docker-compose.yaml
+└── README.md
+```
 
 ## How to run frontend and backend at the same time
 

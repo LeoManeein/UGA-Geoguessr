@@ -19,7 +19,7 @@ const Card: React.FC<Props> = ({ gameType, setModalData, fetchData }) => {
 	async function handleDeleteRequest() {
 		try {
 			let token = localStorage.getItem("auth-token");
-			const response = await axios.delete(`http://localhost:4000/api/gametypes/${gameType._id}/`, {
+			const response = await axios.delete(`${process.env.REACT_APP_BACKEND}/api/gametypes/${gameType._id}/`, {
 				headers: {
 					"Content-Type": "application/json",
 					"x-auth-token": token,

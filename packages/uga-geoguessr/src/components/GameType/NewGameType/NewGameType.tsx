@@ -131,7 +131,22 @@ const NewGameType: React.FC<NewGameProps> = ({ onAddGame, editGameType }) => {
 					</button>
 					<div className="font-bold">Selected Locations:</div>
 					<div className="grid grid-cols-3 text-center">
-						<h2 className="font-bold text-xl   break-words ">Lat</h2>
+						<h2
+							// onClick={(e) => {
+							// 	let stringl = "";
+							// 	locations.forEach((loc) => {
+							// 		let thing = `{ lat: ${loc.lat}, lng: ${loc.lng}, radius: ${Math.trunc(
+							// 			loc.radius,
+							// 		)}},`;
+							// 		stringl += thing;
+							// 	});
+							// 	navigator.clipboard.writeText(stringl);
+							// 	console.log(stringl);
+							// }}
+							className="font-bold text-xl   break-words "
+						>
+							Lat
+						</h2>
 						<h2 className="font-bold text-xl   break-words ">Lng</h2>
 						<h2 className="font-bold text-xl   break-words">Radius (meters)</h2>
 						{locations.map((current, index) => {
@@ -139,6 +154,12 @@ const NewGameType: React.FC<NewGameProps> = ({ onAddGame, editGameType }) => {
 							return (
 								<>
 									<h2
+										// onClick={(e) => {
+										// 	let thing = `{ lat: ${current.lat}, lng: ${
+										// 		current.lng
+										// 	}, radius: ${Math.trunc(current.radius)}},`;
+										// 	navigator.clipboard.writeText(thing);
+										// }}
 										className={` ${
 											oddoreven ? "" : classes.light_background
 										} font-bold text-xl  break-words w-full text-left pl-4`}

@@ -56,7 +56,7 @@ const ResultsWindow: React.FC<Props> = ({ setCurrentStageNumber, nextStage, show
 						},
 				  };
 			const response = await axios.post(
-				`http://localhost:4000/api/games`,
+				`${process.env.REACT_APP_BACKEND}/api/games`,
 				{
 					gameType: { _id: data.gameTypeId, title: data.gameTypeTitle },
 					numberOfStages: data.numberOfStages,

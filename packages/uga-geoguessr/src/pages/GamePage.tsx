@@ -52,7 +52,7 @@ function GamePage() {
 	};
 	const fetchData = async () => {
 		try {
-			const response = await axios.get(`http://localhost:4000/api/games/${params.id}`);
+			const response = await axios.get(`${process.env.REACT_APP_BACKEND}/api/games/${params.id}`);
 			const data = response.data;
 			if (!data) {
 				throw new Error("Game not found");

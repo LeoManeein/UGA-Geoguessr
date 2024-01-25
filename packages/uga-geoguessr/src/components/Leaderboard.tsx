@@ -19,7 +19,7 @@ const Leaderboard: React.FC = ({}) => {
 	}>(null);
 	const fetchLeaderBoardDAta = async () => {
 		try {
-			const response = await axios.get(`http://localhost:4000/api/leaderboards/`, {});
+			const response = await axios.get(`${process.env.REACT_APP_BACKEND}/api/leaderboards/`, {});
 			const data = await response.data;
 			if (data) {
 				setLeaderboardData(data);
@@ -35,11 +35,12 @@ const Leaderboard: React.FC = ({}) => {
 	if (!leaderboardData) return <div></div>;
 	return (
 		<div className="flex flex-col text-white">
-			<h1 className="font-bold text-3xl w-full md:w-[600px] text-center">Leaderboard</h1>
-			<div className="w-full md:w-[600px] flex">
-				<h2 className="font-bold text-xl w-1/3 md:w-[200px] break-words ">User</h2>
-				<h2 className="font-bold text-xl w-1/3 md:w-[200px] break-words ">Games Played</h2>
-				<h2 className="font-bold text-xl w-1/3 md:w-[200px] break-words">Total Score</h2>
+			<h1 className="font-bold text-3xl w-full md:w-[800px] text-center">Leaderboard</h1>
+			<div className="w-full md:w-[800px] flex">
+				<h2 className="font-bold text-xl w-1/4 md:w-[200px] break-words ">User</h2>
+				<h2 className="font-bold text-xl w-1/4 md:w-[200px] break-words ">Games Played</h2>
+				<h2 className="font-bold text-xl w-1/4 md:w-[200px] break-words">Total Score</h2>
+				<h2 className="font-bold text-xl w-1/4 md:w-[200px] break-words">Average</h2>
 			</div>
 
 			{leaderboardData.topUsers.map((user, index) => {
@@ -47,13 +48,16 @@ const Leaderboard: React.FC = ({}) => {
 				return (
 					<div
 						key={index}
-						className={`flex w-full md:w-[600px] justify-between ${
+						className={`flex w-full md:w-[800px] justify-between ${
 							oddoreven ? "" : classes.light_background
 						}`}
 					>
-						<div className="w-1/3 md:w-[200px]  break-words">{user.username}</div>
-						<div className="w-1/3 md:w-[200px]  break-words">{user.gamesPlayed}</div>
-						<div className="w-1/3 md:w-[200px]  break-words">{user.totalScore}</div>
+						<div className="w-1/4 md:w-[200px]  break-words">{user.username}</div>
+						<div className="w-1/4 md:w-[200px]  break-words">{user.gamesPlayed}</div>
+						<div className="w-1/4 md:w-[200px]  break-words">{user.totalScore}</div>
+						<div className="w-1/4 md:w-[200px]  break-words">
+							{user.gamesPlayed ? Math.trunc(user.totalScore / user.gamesPlayed) : "0"}
+						</div>
 					</div>
 				);
 			})}

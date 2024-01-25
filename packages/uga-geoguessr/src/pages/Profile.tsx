@@ -39,8 +39,6 @@ const Profile: React.FC = () => {
 	const [error, setError] = useState<string>("");
 	const [email, setEmail] = useState("");
 	const [gamesPlayed, setGamesPlayed] = useState(0);
-	const [firstName, setFirstName] = useState("");
-	const [LastName, setLastName] = useState("");
 	const [username, setUsername] = useState("");
 
 	const checkLoggedIn = async () => {
@@ -50,12 +48,12 @@ const Profile: React.FC = () => {
 				localStorage.setItem("auth-token", "");
 				token = "";
 			}
-			const tokenResponse = await axios.post("http://localhost:4000/api/users/tokenIsValid", null, {
+			const tokenResponse = await axios.post(`${process.env.REACT_APP_BACKEND}/api/users/tokenIsValid`, null, {
 				headers: { "x-auth-token": token },
 			});
 
 			if (tokenResponse.data) {
-				const userRes = await axios.get("http://localhost:4000/api/users/pastGameData", {
+				const userRes = await axios.get(`${process.env.REACT_APP_BACKEND}/api/users/pastGameData`, {
 					headers: { "x-auth-token": token },
 				});
 
@@ -75,8 +73,6 @@ const Profile: React.FC = () => {
 	useEffect(() => {
 		if (userData && userData.user) {
 			setEmail(userData.user.email);
-			setFirstName(userData.user.firstName);
-			setLastName(userData.user.lastName);
 			setUsername(userData.user.username);
 		}
 	}, [userData]);
@@ -95,9 +91,6 @@ const Profile: React.FC = () => {
 				)}
 				<div>{username}</div>
 				<div>{email}</div>
-				<div>
-					{firstName} {LastName}
-				</div>
 				<div>Number of games played: {gamesPlayed}</div>
 			</div>
 

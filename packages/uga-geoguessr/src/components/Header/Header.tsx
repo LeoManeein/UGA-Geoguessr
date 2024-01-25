@@ -13,7 +13,7 @@ function Header() {
 		},
 
 		{
-			name: "Available Games",
+			name: "Play Game",
 			href: "/AvailableGames",
 		},
 	];

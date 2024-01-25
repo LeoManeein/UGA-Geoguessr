@@ -4,8 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import UserContext from "./Context/UserContext";
 
 const Signup: React.FC = () => {
-	const [firstName, setFirstName] = useState("");
-	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
@@ -20,7 +18,7 @@ const Signup: React.FC = () => {
 		e.preventDefault();
 		setLoading(true);
 
-		if (!firstName || !lastName || !email || !username || !password || !confirmPassword) {
+		if (!email || !username || !password || !confirmPassword) {
 			setError("Please fill in all fields.");
 			setLoading(false);
 			return;
@@ -67,10 +65,10 @@ const Signup: React.FC = () => {
 		}
 
 		try {
-			const newUser = { firstName, lastName, email, password, confirmPassword, username };
+			const newUser = { email, password, confirmPassword, username };
 
-			await axios.post("http://localhost:4000/api/users/signup", newUser);
-			const loginRes = await axios.post("http://localhost:4000/api/users/login", {
+			await axios.post(`${process.env.REACT_APP_BACKEND}/api/users/signup`, newUser);
+			const loginRes = await axios.post(`${process.env.REACT_APP_BACKEND}/api/users/login`, {
 				email,
 				password,
 			});
@@ -108,24 +106,6 @@ const Signup: React.FC = () => {
 					autoComplete="off"
 					className="flex flex-col mx-4"
 				>
-					<label htmlFor="firstName">First Name</label>
-					<input
-						className="text-black"
-						id="firstName"
-						type="text"
-						required
-						value={firstName}
-						onChange={(e) => setFirstName(e.target.value)}
-					/>
-					<label htmlFor="lastName">Last Name</label>
-					<input
-						className="text-black"
-						id="lastName"
-						type="text"
-						required
-						value={lastName}
-						onChange={(e) => setLastName(e.target.value)}
-					/>
 					<label htmlFor="email">Email</label>
 					<input
 						className="text-black"

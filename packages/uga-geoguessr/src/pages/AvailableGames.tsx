@@ -35,6 +35,12 @@ function AvailableGames() {
 			url: "https://cdn.discordapp.com/attachments/1054239396024549486/1171667786343395348/woocommerce-15.jpg?ex=655d83a8&is=654b0ea8&hm=25031174744dd94b29abc8f2faff18c5d6b827899ad12db9cb6dc08bc91ed0ca&",
 			_id: "default03",
 		},
+		{
+			title: "The UGA Parking Experience",
+			description: "See the parking spots youll never have",
+			url: "https://cdn.discordapp.com/attachments/1054239396024549486/1192546702775824565/5b7ea6f8483a0.image.jpg?ex=65a978aa&is=659703aa&hm=a0925fce7e34c1250d7f96704516fe291e232f0848776a4e3be95c3d23c27736&",
+			_id: "default04",
+		},
 	];
 
 	const [userGameTypes, setUserGameTypes] = useState<GameType[] | null>(null);
@@ -43,7 +49,7 @@ function AvailableGames() {
 		try {
 			let token = localStorage.getItem("auth-token");
 			if (!token) throw new Error("Must be logged in");
-			const response = await axios.get("http://localhost:4000/api/gametypes", {
+			const response = await axios.get(`${process.env.REACT_APP_BACKEND}/api/gametypes`, {
 				headers: { "x-auth-token": token },
 			});
 			const data = await response.data;
@@ -74,12 +80,13 @@ function AvailableGames() {
 							setModalData(null);
 						}}
 						className="w-full h-full  absolute"
+						style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
 					></div>
 				</div>
 			)}
 			<GameTypeWindow
 				fetchData={null}
-				title={"Default Game Types"}
+				title={"Select A Game Type"}
 				gameTypes={exampleDefaultGames}
 				setModalData={setModalData}
 			></GameTypeWindow>
@@ -96,7 +103,7 @@ function AvailableGames() {
 							to="/addgame"
 							className={`text-white  bg-ugared-200 hover:bg-ugared-300 my-auto p-2 rounded-full  font-bold  `}
 						>
-							Add GameType
+							Create Custom Game Type
 						</Link>
 					</div>
 				</>

@@ -21,7 +21,7 @@ const EditGameTypePage: React.FC = () => {
 	const handleAddGame = async (game: any) => {
 		try {
 			let token = localStorage.getItem("auth-token");
-			const response = await axios.put(`http://localhost:4000/api/gametypes/${id}`, game, {
+			const response = await axios.put(`${process.env.REACT_APP_BACKEND}/api/gametypes/${id}`, game, {
 				headers: {
 					"Content-Type": "application/json",
 					"x-auth-token": token,
@@ -49,7 +49,7 @@ const EditGameTypePage: React.FC = () => {
 	const fetchData = async () => {
 		try {
 			let token = localStorage.getItem("auth-token");
-			const response = await axios.get(`http://localhost:4000/api/gametypes/${id}`, {
+			const response = await axios.get(`${process.env.REACT_APP_BACKEND}/api/gametypes/${id}`, {
 				headers: {
 					"x-auth-token": token,
 				},

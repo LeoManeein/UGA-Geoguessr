@@ -24,7 +24,7 @@ const Login: React.FC = () => {
 		try {
 			const loginUser = { email, password };
 
-			const loginRes = await axios.post("http://localhost:4000/api/users/login", loginUser);
+			const loginRes = await axios.post(`${process.env.REACT_APP_BACKEND}/api/users/login`, loginUser);
 
 			setUserData({
 				token: loginRes.data.token,
@@ -81,7 +81,7 @@ const Login: React.FC = () => {
 						{loading ? "Submitting..." : "Submit"}
 					</button>
 					<Link to={"/signup"} className="bg-ugared-500  mt-4 hover:bg-ugared-400" type="submit">
-						Signup
+						Don't already have an account? Signup
 					</Link>
 				</form>
 			</div>

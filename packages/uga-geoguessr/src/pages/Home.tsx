@@ -26,24 +26,20 @@ function Home() {
 					<div className=" text-6xl md:text-8xl text-ugared-300">UGA</div>
 					<div className="text-6xl md:text-8xl text-ugared-300">GEOGUESSR</div>
 					<Link
-						to={auth.valid ? "/availablegames" : "/login"}
+						to={"/availablegames"}
 						className="bg-ugatan-100 w--full md:w-[460px] h-[119px] rounded-full text-center justify-center flex mt-12 "
 					>
 						<div className="m-auto flex  text-3xl text-center justify-center content-center text-ugared-400 ">
-							{auth.valid && (
-								<>
-									Play <ArrowRightOutlined className="pt-[6px] pl-2 m-auto" />
-								</>
-							)}
-							{!auth.valid && (
-								<>
-									Login
-									<ArrowRightOutlined className="pt-[6px] pl-2 m-auto" />
-								</>
-							)}
+							<>
+								Play <ArrowRightOutlined className="pt-[6px] pl-2 m-auto" />
+							</>
 						</div>
 					</Link>
 					<div className="text-ugatan-100 w-full md:w-[569px] mt-12 text-2xl">
+						UGA Geoguessr was created for a group project in a web dev class within a relatively short
+						timeframe, using React, Node.js, and MongoDB.
+					</div>
+					<div className="text-ugatan-100 w-full md:w-[569px] mt-6 text-2xl">
 						Explore the University of Georgia's campus and see how well you really know your way around.
 					</div>
 					<div className="text-ugatan-100 w-full md:w-[569px] mt-4 text-2xl">
