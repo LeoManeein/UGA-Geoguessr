@@ -1,10 +1,22 @@
 ## UGA Geoguessr
 
-This is a UGA based geoguessr project made to help familiarize students with UGA campus (700+ acres).
+This is a student made UGA based GeoGuessr MERN application made to help familiarize students with UGA's large campus (700+ acres).
 
 To try it out, there is a live version [here](uga-geoguessr.onrender.com)
 
-## Project structure
+## Overview
+
+-   To play the game, first make an account to be on the leaderboard and save your previos games.
+
+-   Then choose your desired gametype (Locations across entire campus or across a section of campus), number of rounds, and difficulty. You get extra points the harder your difficulty is.
+
+-   When you start the game, you will be placed in a random google street view on campus and your goal is to choose the closest location to the street view on the provided map and you will get a score based on distance.
+
+-   For the leaderbaord, Top 10 scores across all users for the 5 round category will be shown.
+
+-   Finally, go to your profile to see your previous games and a hotmap of your accuracy on locations (green for accurate, red for inaccurate)
+
+## Project Structure
 
 ```
 .
@@ -23,7 +35,7 @@ To try it out, there is a live version [here](uga-geoguessr.onrender.com)
 ├── frontend
 │   ├── public
 │   ├── src
-│   │   ├── componenets
+│   │   ├── components
 │   │   │   ...
 │   │   ├── pages
 │   │   │   ...
@@ -37,7 +49,21 @@ To try it out, there is a live version [here](uga-geoguessr.onrender.com)
 └── README.md
 ```
 
-## How to run frontend and backend at the same time
+## How to run the project with docker
+
+First, download Docker Desktop.
+
+Next, make sure you have all the secrets in a .env file in the root directory
+
+Then, in the root directory of the project:
+
+-   To build the docker images: `$ docker-compose build`
+
+-   To use the images and run docker containers: `$ docker-compose up`
+
+Finally, in your browser type in: `localhost:3000` and the project should be running.
+
+## How to run the project on the local machine
 
 Back end is running on port 4000, front end is running on port 3000
 

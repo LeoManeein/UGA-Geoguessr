@@ -1,35 +1,35 @@
 {
-  "name": "uga-geoguessr",
-  "version": "1.0.0",
-  "description": "- UGA-Geoguessr\r   - Packages\r     - uga-geoguessr (Frontend)\r     - backend",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"nodemon packages/backend/src/server.js\"  \"npm --prefix packages/uga-geoguessr start\"",
-    "update-backend": "npm --prefix packages/backend install",
-    "update-frontend": "npm --prefix packages/uga-geoguessr install",
-    "dev-frontend": "npm --prefix packages/uga-geoguessr start",
-    "dev-backend": "nodemon packages/backend/src/server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/LeoManeein/UGA-Geoguessr.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/LeoManeein/UGA-Geoguessr/issues"
-  },
-  "homepage": "https://github.com/LeoManeein/UGA-Geoguessr#readme",
-  "dependencies": {
-    "axios": "^1.6.2",
-    "concurrently": "^8.2.2",
-    "dotenv": "^16.3.1",
-    "mongodb": "^6.2.0",
-    "mongoose": "^8.0.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
-  },
-  "main": "index.js",
-  "keywords": []
+	"name": "uga-geoguessr",
+	"version": "1.0.0",
+	"description": "- UGA-Geoguessr\r     - frontend\r     - backend",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "concurrently \"nodemon backend/src/server.js\"  \"npm --prefix frontend start\"",
+		"update-backend": "npm --prefix backend install",
+		"update-frontend": "npm --prefix frontend install",
+		"dev-frontend": "npm --prefix frontend start",
+		"dev-backend": "nodemon backend/src/server.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/LeoManeein/UGA-Geoguessr.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/LeoManeein/UGA-Geoguessr/issues"
+	},
+	"homepage": "https://github.com/LeoManeein/UGA-Geoguessr#readme",
+	"dependencies": {
+		"axios": "^1.6.2",
+		"concurrently": "^8.2.2",
+		"dotenv": "^16.3.1",
+		"mongodb": "^6.2.0",
+		"mongoose": "^8.0.0"
+	},
+	"devDependencies": {
+		"nodemon": "^3.0.1"
+	},
+	"main": "index.js",
+	"keywords": []
 }
