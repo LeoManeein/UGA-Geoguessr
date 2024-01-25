@@ -1,3 +1,9 @@
+## UGA Geoguessr
+
+This is a UGA based geoguessr project made to help familiarize students with UGA campus (700+ acres).
+
+To try it out, there is a live version [here](uga-geoguessr.onrender.com)
+
 ## Project structure
 
 ```
