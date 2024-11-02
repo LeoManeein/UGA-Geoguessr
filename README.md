@@ -2,7 +2,7 @@
 
 This is a student made UGA based GeoGuessr MERN application made to help familiarize students with UGA's large campus (700+ acres).
 
-To try it out, there is a live version [here](uga-geoguessr.onrender.com)
+To try it out, there is a live version at uga-geoguessr.onrender.com
 
 ## Overview
 
